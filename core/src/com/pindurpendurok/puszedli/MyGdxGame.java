@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.pindurpendurok.puszedli.Screens.GameLoadingStage;
 import com.pindurpendurok.puszedli.Screens.Menu.MenuScreen;
+import com.pindurpendurok.puszedli.Screens.Test.TestScreen;
 
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 
@@ -22,7 +23,7 @@ public class MyGdxGame extends MyGame {
 	public void create() {
 		super.create();
 		setLoadingStage(new GameLoadingStage(this));
-		setScreen(new MenuScreen(this));
+		setScreen(new TestScreen(this));
 
 
 	}

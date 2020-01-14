@@ -12,6 +12,7 @@ public class GameLoadingStage extends LoadingStage {
 
     public GameLoadingStage(MyGame game) {
         super(new ResponseViewport(720), game);
+
     }
 
 
