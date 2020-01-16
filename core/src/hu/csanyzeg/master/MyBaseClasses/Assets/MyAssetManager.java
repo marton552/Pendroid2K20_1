@@ -53,7 +53,7 @@ public class MyAssetManager implements Disposable {
         DebugChangeListener = new DebugChangeListener() {
             @Override
             public void change(String info) {
-                Gdx.app.log("Asset", "MyAssetManager: " + info);
+                //Gdx.app.log("Asset", "MyAssetManager: " + info);
             }
         };
     }

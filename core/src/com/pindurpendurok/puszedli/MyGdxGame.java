@@ -1,13 +1,9 @@
 package com.pindurpendurok.puszedli;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Preferences;
+import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 import com.pindurpendurok.puszedli.Screens.GameLoadingStage;
-import com.pindurpendurok.puszedli.Screens.Menu.MenuScreen;
-import com.pindurpendurok.puszedli.Screens.Test.TestScreen;
 
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 
@@ -19,12 +15,23 @@ public class MyGdxGame extends MyGame {
 
 	}
 
+	public Preferences save;
+
 	@Override
 	public void create() {
 		super.create();
 		setLoadingStage(new GameLoadingStage(this));
-		setScreen(new TestScreen(this));
+		setScreen(new GameScreen(this));
 
+		save = Gdx.app.getPreferences("gameSave");
 
+		if(save.contains("inditas")){
+			save.putFloat("inditas",(save.getFloat("inditas")+1));
+		}else{
+			save.putInteger("ev",2001);
+			save.putInteger("honap",7);
+			save.putInteger("nap",23);
+		}
+		save.flush();
 	}
 }
