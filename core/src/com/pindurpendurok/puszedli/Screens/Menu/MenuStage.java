@@ -43,7 +43,7 @@ public class MenuStage extends SimpleWorldStage {
     public MenuStage(final MyGame game) {
         super(new ResponseViewport(720f), game);
 
-        MyLabel l = new MyLabel("Ez egy teszt", getLabelStyle()) {
+        MyLabel l = new MyLabel(game, "Ez egy teszt", getLabelStyle()) {
             @Override
             public void init() {
 

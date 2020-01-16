@@ -75,8 +75,7 @@ public class FlappyStage extends MyStage {
 
     public FlappyStage(final MyGame game) {
         super(new FitViewport(320,490), game);
-        addBackButtonScreenBackByStackPopListener();
-        //addBackButtonScreenBackByStackPopListenerWithPreloadedAssets(new DemoPreLoadingStage(game));
+        addBackButtonScreenBackByStackPopListenerWithPreloadedAssets(new DemoPreLoadingStage(game));
         assignment();
         setSizesAndPositions();
         addListeners();
@@ -113,7 +112,7 @@ public class FlappyStage extends MyStage {
         score = 0;
         addedBack = false;
 
-        scoreLabel = new MyLabel("0", getLabelStyle()) {
+        scoreLabel = new MyLabel(game, "0", getLabelStyle()) {
             @Override
             public void init() {
 
