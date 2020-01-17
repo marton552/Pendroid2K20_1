@@ -3,16 +3,9 @@ package com.pindurpendurok.puszedli.Screens.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.pindurpendurok.puszedli.MyGdxGame;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
-import com.pindurpendurok.puszedli.Screens.Classes.Get;
 
-import java.awt.Font;
-
-import hu.csanyzeg.master.Demos.Menu.BootStage;
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
@@ -36,6 +29,7 @@ public class GameStage extends SimpleWorldStage {
     public int perc = 0;
     public String ora2 ="";
     public String perc2 ="";
+    MyLabel naptar;
     Date datum = new Date(this);
     public Preferences save;
 
@@ -48,10 +42,12 @@ public class GameStage extends SimpleWorldStage {
 
 
     public GameStage(final MyGame game) {
-        super(new ResponseViewport(720f), game);
+        super(new ResponseViewport(1080f), game);
         setCameraResetToLeftBottomOfScreen();
+        Label.LabelStyle ls = new Label.LabelStyle();
+        ls.font = game.getMyAssetManager().getFont(FONT);
+        ls.fontColor = Color.WHITE;
         save = Gdx.app.getPreferences("gameSave");
-
         save.clear();
 
         if(save.contains("inditas")){
@@ -66,19 +62,18 @@ public class GameStage extends SimpleWorldStage {
 
 
         OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, BACKGROUND);
-        BackGround.setSize(Get.Width(this),Get.Height(this));
+        BackGround.setSize(getWidth(),getHeight());
         addActor(BackGround);
 
-        Label.LabelStyle ls = new Label.LabelStyle();
-        ls.font = game.getMyAssetManager().getFont(FONT);
-        ls.fontColor = Color.WHITE;
-
-        addActor(new MyLabel(game, "ASD", ls) {
+        naptar = new MyLabel(game, "Ez itt a datum", ls) {
             @Override
             public void init() {
 
             }
-        });
+        };
+        naptar.setPosition(0,getHeight()-naptar.getHeight());
+        naptar.setFontScale(1.5f);
+        addActor(naptar);
 
 
         addTimer(new TickTimer(0, true, new TickTimerListener() {
@@ -95,7 +90,7 @@ public class GameStage extends SimpleWorldStage {
                     if(ora == 0)ora2="00";
                     else if(ora < 10)ora2="0"+ora;
                     else ora2=ora+"";
-                    System.out.println(datum.ev+"."+datum.honap+"."+datum.nap+"    "+ora2+":"+perc2);
+                    naptar.setText(datum.ev+"."+datum.getMonth(datum.honap)+"."+datum.nap+"  "+ora2+":"+perc2);
                 if(ticks%150==0){count++;
                     datum.leptetes();
                 }

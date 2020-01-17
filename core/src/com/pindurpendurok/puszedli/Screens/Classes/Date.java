@@ -59,4 +59,21 @@ public class Date {
         gs.save.putInteger("nap",nap);
         gs.save.flush();
     }
+
+    public String getMonth(int m){
+        String s = "hónapok";
+        if(m == 1)s = "Januar";
+        else if(m == 2)s = "Februar";
+        else if(m == 3)s = "Marcius";
+        else if(m == 4)s = "Aprilis";
+        else if(m == 5)s = "Majus";
+        else if(m == 6)s = "Junius";
+        else if(m == 7)s = "Julius";
+        else if(m == 8)s = "Augusztus";
+        else if(m == 9)s = "Szeptember";
+        else if(m == 10)s = "Oktober";
+        else if(m == 11)s = "November";
+        else s = "December";
+        return s;
+    }
 }
