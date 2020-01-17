@@ -15,23 +15,11 @@ public class MyGdxGame extends MyGame {
 
 	}
 
-	public Preferences save;
 
 	@Override
 	public void create() {
 		super.create();
 		setLoadingStage(new GameLoadingStage(this));
 		setScreen(new GameScreen(this));
-
-		save = Gdx.app.getPreferences("gameSave");
-
-		if(save.contains("inditas")){
-			save.putFloat("inditas",(save.getFloat("inditas")+1));
-		}else{
-			save.putInteger("ev",2001);
-			save.putInteger("honap",7);
-			save.putInteger("nap",23);
-		}
-		save.flush();
 	}
 }

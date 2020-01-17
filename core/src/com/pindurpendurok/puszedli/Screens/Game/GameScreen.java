@@ -23,7 +23,8 @@ public class GameScreen extends MyScreen {
 
     @Override
     public AssetList getAssetList() {
-
+        AssetList assetList = new AssetList();
+        AssetList.collectAssetDescriptor(GameStage.class, assetList);
         return assetList;
     }
 
