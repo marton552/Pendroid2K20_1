@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pindurpendurok.puszedli.MyGdxGame;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
 import com.pindurpendurok.puszedli.Screens.Classes.Get;
 
 import java.awt.Font;
-import java.awt.Label;
 
 import hu.csanyzeg.master.Demos.Menu.BootStage;
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
@@ -21,6 +21,7 @@ import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleWorldStage;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
 import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
+import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 
 public class GameStage extends SimpleWorldStage {
@@ -67,6 +68,17 @@ public class GameStage extends SimpleWorldStage {
         OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, BACKGROUND);
         BackGround.setSize(Get.Width(this),Get.Height(this));
         addActor(BackGround);
+
+        Label.LabelStyle ls = new Label.LabelStyle();
+        ls.font = game.getMyAssetManager().getFont(FONT);
+        ls.fontColor = Color.WHITE;
+
+        addActor(new MyLabel(game, "ASD", ls) {
+            @Override
+            public void init() {
+
+            }
+        });
 
 
         addTimer(new TickTimer(0, true, new TickTimerListener() {
