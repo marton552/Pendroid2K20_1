@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
@@ -74,6 +75,8 @@ public class GameStage extends SimpleWorldStage {
         naptar.setPosition(0,getHeight()-naptar.getHeight());
         naptar.setFontScale(1.5f);
         addActor(naptar);
+
+        CircleAtBackgroundActor asd = new CircleAtBackgroundActor(game,world);
 
 
         addTimer(new TickTimer(0, true, new TickTimerListener() {

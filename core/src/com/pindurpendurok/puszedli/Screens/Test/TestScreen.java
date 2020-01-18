@@ -5,8 +5,6 @@ import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.MyScreen;
 
 public class TestScreen extends MyScreen {
-
-
     static AssetList assetList = new AssetList();
     static {
         AssetList.collectAssetDescriptor(TestStage.class, assetList);
