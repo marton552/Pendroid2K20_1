@@ -13,7 +13,7 @@ import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleWorldHelper;
 
 public class CircleAtBackgroundActor extends OneSpriteStaticActor {
 
-    public static final String CIRCLE = "badlogic.jpg";
+    public static final String CIRCLE = "circleatback.png";
     public static AssetList list = new AssetList();
 
     Random rand = new Random();
@@ -25,14 +25,34 @@ public class CircleAtBackgroundActor extends OneSpriteStaticActor {
     public CircleAtBackgroundActor(MyGame game, SimpleWorld world){
         super(game, CIRCLE);
 
-        int scale = rand.nextInt(100);
-        int x = rand.nextInt((int)getWidth());
-        int y = rand.nextInt((int)getHeight());
+        int scale = rand.nextInt(500);
+        int x = rand.nextInt(1080);
+        int y = rand.nextInt(1920);
 
-        setScale(scale, scale);
+        setWidth(scale);
+        setHeight(scale);
         SimpleWorldHelper sw = new SimpleWorldHelper(world, this, ShapeType.Circle, SimpleBodyType.Sensor);
-        setPosition(x,y);
+        sw.body.setPosition(x,y);
         setActorWorldHelper(sw);
+
+        int rnd = rand.nextInt(4);
+        if(rnd == 0){
+            x=0-scale-10;
+            y= rand.nextInt(1920);
+        }
+        else if(rnd == 1){
+            x=1080+scale+10;
+            y= rand.nextInt(1920);
+        }
+        else if(rnd == 2){
+            y=1920+scale+10;
+            x= rand.nextInt(1080);
+        }
+        else if(rnd == 3){
+            y=0-scale-10;
+            x= rand.nextInt(1080);
+        }
+        sw.body.moveTo(30,x,y);
 
         //sw.body.sizeToFixTime(500, 500, 10, PositionRule.Center);
 

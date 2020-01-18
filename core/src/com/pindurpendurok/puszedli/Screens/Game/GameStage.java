@@ -78,6 +78,7 @@ public class GameStage extends SimpleWorldStage {
         addActor(naptar);
 
         CircleAtBackgroundActor asd = new CircleAtBackgroundActor(game,world);
+        addActor(asd);
 
 
         addTimer(new TickTimer(0, true, new TickTimerListener() {
