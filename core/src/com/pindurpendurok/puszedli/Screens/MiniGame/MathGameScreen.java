@@ -22,7 +22,7 @@ public class MathGameScreen extends MyScreen {
 
     @Override
     public AssetList getAssetList() {
-        return null;
+        return assetList;
     }
 
     @Override
