@@ -1,8 +1,12 @@
 package com.pindurpendurok.puszedli.Screens.MiniGame;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.pindurpendurok.puszedli.Elements.ElementAssets;
+import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Actors.QuestionCircleActor;
 import com.pindurpendurok.puszedli.Screens.Actors.SzurkecuccBarhovaActor;
@@ -35,6 +39,8 @@ public class MathGameStage extends SimpleWorldStage {
         AssetList.collectAssetDescriptor(SzurkecuccBarhovaActor.class, assetList);
         assetList.addFont(GameStage.FONT, 60, Color.WHITE).protect = true;
         assetList.addTexture(BACKGROUND);
+
+        AssetList.collectAssetDescriptor(ElementAssets.class, assetList);
     }
 
     MyLabel kerdes1;
@@ -146,5 +152,18 @@ public class MathGameStage extends SimpleWorldStage {
             }
         });
         addTimer(t);
+
+
+        SimpleButton btn = new SimpleButton(game, "ÁT A MENU STAGERE");
+        btn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+
+                ((MathGameScreen)getScreen()).changeStage(1);
+            }
+        });
+
+        addActor(btn);
     }
 }
