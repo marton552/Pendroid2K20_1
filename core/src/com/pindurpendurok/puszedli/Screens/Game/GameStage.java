@@ -37,6 +37,7 @@ public class GameStage extends SimpleWorldStage {
 
     public static AssetList assetList = new AssetList();
     static {
+        AssetList.collectAssetDescriptor(CircleAtBackgroundActor.class, assetList);
         assetList.addFont(FONT, 60, Color.WHITE).protect = true;
         assetList.addTexture(BACKGROUND);
     }

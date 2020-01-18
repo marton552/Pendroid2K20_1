@@ -15,8 +15,6 @@ public class GameLoadingStage extends LoadingStage {
 
     }
 
-
-
     @Override
     public AssetList getAssetList() {
         return assetList;
