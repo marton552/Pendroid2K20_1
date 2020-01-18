@@ -1,5 +1,7 @@
 package com.pindurpendurok.puszedli.Screens.Actors;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
+
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
@@ -24,8 +26,21 @@ public class QuestionCircleActor extends OneSpriteStaticActor {
 
         //kor1 = new SimpleWorldHelper(world, this, ShapeType.Circle, SimpleBodyType.Sensor);
         //setActorWorldHelper(kor1);
-        float x = getStage().getViewport().getWorldWidth() / 2;
-        System.out.println(x);
+
+/////////!!!!!!!!!!!!!! Csak akkor leht a stage értékét lekérdezni, ha már hozzá lett adva, ezért ennek a  protected void setStage(Stage stage)-ben van a helye.
+
+        //float x = getStage().getViewport().getWorldWidth() / 2;
+        //System.out.println(x);
+
         //setPosition(100, 100);
+    }
+
+    @Override
+    protected void setStage(Stage stage) {
+        super.setStage(stage);
+        if (stage!=null){
+            float x = getStage().getViewport().getWorldWidth() / 2;
+            System.out.println(x);
+        }
     }
 }
