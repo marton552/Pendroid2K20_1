@@ -126,4 +126,9 @@ public class OneSpriteAnimatedActor extends OneSpriteActor {
         super.sizeChanged();
         setFrame(((int) (elapsedTime * fps)));
     }
+
+    @Override
+    public void addListener() {
+
+    }
 }

@@ -44,6 +44,11 @@ public class MathGameStage extends SimpleWorldStage {
         AssetList.collectAssetDescriptor(ElementAssets.class, assetList);
     }
 
+
+    float width = getViewport().getWorldWidth()/1.5f;
+    float height = getViewport().getWorldHeight()/7;
+    float x = getViewport().getWorldWidth()/2-width/2;
+    float y = getViewport().getWorldHeight();
     MyLabel kerdes1;
     MyLabel val1;
     MyLabel val2;
@@ -53,6 +58,11 @@ public class MathGameStage extends SimpleWorldStage {
     TickTimer t;
     MathGeneral szamolas = new MathGeneral();
     int gamemode;
+    SzurkecuccBarhovaActor valaszbal;
+    SzurkecuccBarhovaActor valaszjobb;
+    SimpleButton vissza;
+    SimpleButton ujra;
+    SzurkecuccBarhovaActor szurkefal;
 
 
     public MathGameStage(final MyGame game, final int jatekmod) {
@@ -78,7 +88,7 @@ public class MathGameStage extends SimpleWorldStage {
 
             }
         };
-        jovalasz.setPosition(getWidth()/2-getWidth()/10,getHeight()/2+getHeight()/30);
+        jovalasz.setPosition(getWidth()/2-getWidth()/8,getHeight()/2+getHeight()/30);
         jovalasz.setColor(Color.BLACK);
         jovalasz.setFontScale(4f);
         addActor(jovalasz);
@@ -123,30 +133,6 @@ public class MathGameStage extends SimpleWorldStage {
         val2.setFontScale(4f);
         addActor(val2);
 
-        timer = new MyLabel(game, "6", ls) {
-            @Override
-            public void init() {
-
-            }
-        };
-        timer.setPosition(getWidth()/2-getWidth()/10,getHeight()/2-getHeight()/10);
-        timer.setColor(Color.BLACK);
-        timer.setFontScale(4f);
-        addActor(timer);
-
-        tim = 0;
-        t = new TickTimer(1, true, new TickTimerListener() {
-
-
-            @Override
-            public void onTick(Timer sender, float correction) {
-                super.onTick(sender, correction);
-                tim++;
-                timer.setText(6-tim);
-                if(tim==6){t.stop();timer.setVisible(false);}
-            }
-        });
-        addTimer(t);
 
         System.out.println(jatekmod);
 
@@ -163,17 +149,115 @@ public class MathGameStage extends SimpleWorldStage {
                 }
             }
         });
-        kerdeskorok();
+
         addActor(btn);
+
+        valaszbal = new SzurkecuccBarhovaActor(game,world,getWidth()/2-getWidth()/2.3f,getHeight()/2-getHeight()/2.15f,getWidth()/2.4f,getHeight()/7);
+        valaszbal.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Onclicked(true);
+            }
+        });
+        valaszbal.setColor(0,0,0,0);
+        addActor(valaszbal);
+
+        valaszjobb = new SzurkecuccBarhovaActor(game,world,getWidth()/2+getWidth()/2.3f-getWidth()/2.4f,getHeight()/2-getHeight()/2.15f,getWidth()/2.4f,getHeight()/7);
+        valaszjobb.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Onclicked(false);
+            }
+        });
+        valaszjobb.setColor(0,0,0,0);
+        addActor(valaszjobb);
+
+
+
+
+        timer = new MyLabel(game, "3", ls) {
+            @Override
+            public void init() {
+
+            }
+        };
+        timer.setPosition(getWidth()/2-getWidth()/20,getHeight()/2-getHeight()/10);
+        timer.setColor(Color.BLACK);
+        timer.setFontScale(4f);
+        addActor(timer,9999);
+
+
+
+        szurkefal = new SzurkecuccBarhovaActor(game,world,0,0,getViewport().getWorldWidth(),getViewport().getWorldHeight());
+        addActor(szurkefal,10000);
+        szurkefal.setVisible(false);
+
+        ujra = new SimpleButton(game, "Újra");
+        ujra.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                ujra.setVisible(false);
+                vissza.setVisible(false);
+                szurkefal.setVisible(false);
+                kerdeskorok();
+            }
+        });
+        ujra.setPosition(x, y - (height*3.5f));
+        ujra.setWidth(width);
+        ujra.setHeight(height);
+        addActor(ujra,10001);
+
+        vissza = new SimpleButton(game, "Vissza");
+        vissza.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                ((MathGameScreen)getScreen()).changeStage(1,0);
+
+                for (int i = 0; i < 20;i++){
+                    korok.get(i).remove();
+                }
+            }
+        });
+        vissza.setPosition(x, y - (height*4.8f));
+        vissza.setHeight(height);
+        vissza.setWidth(width);
+        addActor(vissza,10002);
+        ujra.setVisible(false);
+        vissza.setVisible(false);
+
+        kerdeskorok();
+
     }
 
+    int clicked = 0;
+
+    void Onclicked(boolean balvagyjobb){
+        if(clicked == 0){
+        if(balvagyjobb){valaszbal.setColor(0,0,0.5f,0.5f);valaszjobb.setColor(0.5f,0.5f,0.5f,0.5f);clicked = 1;
+            System.out.println(clicked);}
+        else {valaszbal.setColor(0.5f,0.5f,0.5f,0.5f);valaszjobb.setColor(0,0,0.5f,0.5f);clicked = 2;}
+    }}
 
     void kerdeskorok(){
+        timeradd();
+        timer.setVisible(true);
+        tim = 0;
+        qk.clear();
+        valaszbal.setColor(0,0,0,0);
+        valaszjobb.setColor(0,0,0,0);
         szamolas.ujfeladvany(gamemode);
         kerdes1.setText(szamolas.feladvany);
+        if(kerdes1.getText().length() != 0)kerdes1.setFontScale(6-(kerdes1.getText().length()*0.305f));
         val1.setText(szamolas.left);
+        if(val1.getText().length() != 0)val1.setFontScale(4-(val1.getText().length()*0.3f));
         val2.setText(szamolas.right);
+        if(val2.getText().length() != 0)val2.setFontScale(4-(val2.getText().length()*0.3f));
         jovalasz.setText(szamolas.goodanswer);
+        if(jovalasz.getText().length() != 0)jovalasz.setFontScale(4-(jovalasz.getText().length()*0.3f));
         boolean x;
         for(int i = 0; i< 5;i++){
             if(i%2==0)x = true;
@@ -182,5 +266,86 @@ public class MathGameStage extends SimpleWorldStage {
             qk.add(n);
             addActor(n);
         }
+
+        TickTimer t = new TickTimer(2.9f, false, new TickTimerListener() {
+
+            @Override
+            public void onStop(Timer sender) {
+                super.onStop(sender);
+                if(clicked == 1){
+
+                    if(szamolas.bale){
+                        valaszbal.setColor(0,1,0,0.8f);
+                        ujra();
+                    }
+                    else {
+                        valaszbal.setColor(1,0,0,0.8f);
+                        rossz();
+                    }
+                }
+                else if(clicked == 2){
+                    if(!szamolas.bale){
+                        valaszjobb.setColor(0,1,0,0.8f);
+                        ujra();
+                    }
+                    else {
+                        valaszjobb.setColor(1,0,0,0.8f);
+                        rossz();
+                    }
+                }
+                else if(clicked == 0){
+                    valaszbal.setColor(1,0,0,0.8f);
+                    valaszjobb.setColor(1,0,0,0.8f);
+                    rossz();
+                }
+                clicked = 0;
+            }
+        });
+        addTimer(t);
+    }
+
+    void ujra(){
+        TickTimer g = new TickTimer(1, false, new TickTimerListener() {
+
+            @Override
+            public void onStop(Timer sender) {
+                super.onStop(sender);
+                clicked = 0;
+                kerdeskorok();
+            }
+        });
+        addTimer(g);
+    }
+
+    void rossz(){
+
+        TickTimer g = new TickTimer(0.7f, false, new TickTimerListener() {
+
+            @Override
+            public void onStop(Timer sender) {
+                super.onStop(sender);
+                ujra.setVisible(true);
+                vissza.setVisible(true);
+                szurkefal.setVisible(true);
+                szurkefal.setColor(0.5f,0.5f,0.5f,0.8f);
+            }
+        });
+        addTimer(g);
+    }
+
+    void timeradd(){
+        tim = 0;
+        t = new TickTimer(1, true, new TickTimerListener() {
+
+
+            @Override
+            public void onTick(Timer sender, float correction) {
+                super.onTick(sender, correction);
+                tim++;
+                timer.setText(3-tim);
+                if(tim==3){t.stop();timer.setVisible(false);}
+            }
+        });
+        addTimer(t);
     }
 }

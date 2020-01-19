@@ -35,7 +35,7 @@ public class MathMenuStage extends SimpleWorldStage {
     }
 
     List<SimpleButton> gombok = new ArrayList<>();
-    String[] sz = new String[]{"Gyokvonas","Melyik a nagyobb?","Osszeadas","Kivonas","Szorzas","Osztas","Negyzetre emeles"};
+    String[] sz = new String[]{"","Melyik a nagyobb?","Osszeadas","Kivonas","Szorzas","Osztas","Negyzetre emeles"};
 
     public MathMenuStage(final MyGame game, final int status) {     //0 = paused 1 = elvesztett 2 = menu //3+a játékmódók (x-3)
         super(new ResponseViewport(720), game);
@@ -101,7 +101,7 @@ public class MathMenuStage extends SimpleWorldStage {
                 vissza.setVisible(false);
                 menu.setVisible(false);
                 masik.setVisible(false);
-                for (int i = 0; i < 7;i++){
+                for (int i = 0; i < sz.length;i++){
                     gombok.get(i).setVisible(true);
                 }
             }
@@ -111,35 +111,18 @@ public class MathMenuStage extends SimpleWorldStage {
         addActor(masik);
 
 
-        String txt="";
-        if(status == 0)txt = "PAUSED";
-        else if(status == 0)txt = "ELVESZTETTED!";
-
-        MyLabel val1 = new MyLabel(game, txt, ls) {
-            @Override
-            public void init() {
-
-            }
-        };
-        val1.setColor(Color.BLACK);
-        val1.setFontScale(1f);
-        val1.setPosition(getViewport().getWorldWidth()/2-val1.getWidth()/2,y-(height*2));
-
-        addActor(val1);
-
         if(status == 0){
             vissza.setVisible(false);
             menu.setVisible(false);
             masik.setVisible(false);
         }
         else if(status == 1){
-            for (int i = 0; i < 7;i++){
+            for (int i = 0; i < sz.length;i++){
                 gombok.get(i).setVisible(false);
             }
-            vissza.setVisible(false);
         }
         else{
-            for (int i = 0; i < 7;i++){
+            for (int i = 0; i < sz.length;i++){
                 gombok.get(i).setVisible(false);
             }
         }

@@ -41,12 +41,12 @@ public class QuestionCircleActor extends OneSpriteStaticActor {
         else setRotation(-90);
         hanyvan=hanyadik;
 
-        t = new TickTimer(1f, false, new TickTimerListener() {
+        t = new TickTimer(0.5f, false, new TickTimerListener() {
 
             @Override
             public void onStop(Timer sender) {
                 super.onStop(sender);
-                kor1.body.rotateToFixTime(kor1.body.getRotation()+180,1f, Direction.Longer);
+                kor1.body.rotateToFixTime(kor1.body.getRotation()+180,0.5f, Direction.Longer);
                 if(hanyvan>0)st();
                 hanyvan--;
             }

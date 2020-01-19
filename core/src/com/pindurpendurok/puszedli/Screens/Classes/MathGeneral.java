@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class MathGeneral {
 
-    public String feladvany;
+    public String feladvany="";
     float egyik;
     float egyik2;
     float masik;
@@ -18,20 +18,24 @@ public class MathGeneral {
     public String right = "";
     public String goodanswer = "";
 
-    public MathGeneral(){
+    public boolean bale = true;
+
+    public MathGeneral() {
 
     }
+
     int megismelyik;
-    int x = 2;
+    int x = 0;
     public void ujfeladvany(int verzio){
         //x = GameStage.save.getInteger("ev")-2000;
-        x = 2;
+        x = 50;
 
         if(verzio == 4){
             feladvany = "Melyik a nagyobb?";
-            //megismelyik = rnd.nextInt(6); //0 sima || 1 osszeadas || 2 kivonas || 3 szorzas || 4 osztas || 5 negyzet || 6 gyok
-            megismelyik = 2;
+            megismelyik = rnd.nextInt(6); //0 sima || 1 osszeadas || 2 kivonas || 3 szorzas || 4 osztas || 5 negyzet || 6 gyok
+            //megismelyik = 0;
             if(megismelyik == 0){
+                //melyik nagyobb?
                 egyik = rnd.nextInt(15*x)+1;
                 megismelyik = rnd.nextInt(1);
                 if(megismelyik == 0){masik = egyik + (rnd.nextInt(2*x)+1); jomegoldas = masik;}
@@ -56,9 +60,81 @@ public class MathGeneral {
                 nagyobb_negyzet();
             }
         }
-        left = left.replace(".0","");
-        right = right.replace(".0","");
-        goodanswer = goodanswer.replace(".0","");
+        else if(verzio == 5){
+            osszeadas_seged();
+            feladvany = egyik+"+"+masik+"=?";
+            egyik2 = egyik+masik;
+            szamoloscuccok();
+        }
+
+        else if(verzio == 6){
+            osszeadas_seged();
+            feladvany = egyik+"-"+masik+"=?";
+            egyik2 = egyik-masik;
+            szamoloscuccok();
+        }
+        else if(verzio == 7){
+            szorzas_seged_seged();
+            feladvany = egyik+"x"+masik+"=?";
+            egyik2 = egyik*masik;
+            szamoloscuccok();
+        }
+        else if(verzio == 8){
+            szorzas_seged_seged();
+            feladvany = egyik+"/"+masik+"=?";
+            egyik2 = egyik/masik;
+            szamoloscuccok();
+        }
+        else if(verzio == 9){
+            szorzas_seged_seged();
+            feladvany = egyik+"pow"+masik+"=?";
+            egyik2 = (float)Math.pow(egyik,masik);
+            szamoloscuccok();
+        }
+
+        String seged = "";
+        megismelyik = rnd.nextInt(1);
+        if(megismelyik == 0){seged = left; left = right; right = seged; bale = false;}
+        else bale = true;
+
+        if(left.length()>1)left = left.substring(0, left.length() - 2);
+        if(right.length()>1)right = right.substring(0, right.length() - 2);
+        if(goodanswer.length()>1)goodanswer = goodanswer.substring(0, goodanswer.length() - 2);
+        feladvany = feladvany.replace(".0","");
+    }
+
+    void szamoloscuccok(){
+        goodanswer = egyik2+"";
+        osszeadas_kisebbnagyobb(egyik2);
+        megismelyik = rnd.nextInt(1);
+        if(megismelyik == 0){egyik = egyik2; masik = masik2;}
+        else {masik = egyik2; egyik = masik2;}
+        left = egyik+"";
+        right = masik+"";
+    }
+
+    void osszeadas_kisebbnagyobb(float a){
+        megismelyik = rnd.nextInt(1);
+        if(megismelyik == 0){masik2 = egyik2 + (rnd.nextInt(x)+1);}
+        else {masik2 = egyik2 - (rnd.nextInt(x)+1);}
+    }
+
+    void szorzas_seged_seged(){
+        egyik = rnd.nextInt(3*x)+1;
+        megismelyik = rnd.nextInt(4);
+        if(megismelyik == 0){masik = egyik + (rnd.nextInt(2*x)+1);}
+        if(megismelyik == 1){masik = egyik - (rnd.nextInt(2*x)+1);}
+        if(megismelyik == 2){masik = egyik + (rnd.nextInt(2*x)+1);}
+        else {masik = egyik - (rnd.nextInt(2*x)+1);}
+    }
+
+    void osszeadas_seged(){
+        egyik = rnd.nextInt(5*x*x)+1;
+        megismelyik = rnd.nextInt(4);
+        if(megismelyik == 0){masik = egyik + (rnd.nextInt(5*x)+1);}
+        if(megismelyik == 1){masik = egyik - (rnd.nextInt(5*x)+1);}
+        if(megismelyik == 2){masik = egyik + (rnd.nextInt(5*x)+1);}
+        else {masik = egyik - (rnd.nextInt(5*x)+1);}
     }
 
     void nagyobb_seged(){
