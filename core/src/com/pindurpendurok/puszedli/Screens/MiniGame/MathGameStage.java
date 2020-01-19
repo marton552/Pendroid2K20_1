@@ -51,7 +51,7 @@ public class MathGameStage extends SimpleWorldStage {
     int tim;
     TickTimer t;
 
-    public MathGameStage(final MyGame game) {
+    public MathGameStage(final MyGame game, final int jatekmod) {
         super(new ResponseViewport(1080f), game);
         setCameraResetToLeftBottomOfScreen();
         Label.LabelStyle ls = new Label.LabelStyle();
@@ -153,14 +153,15 @@ public class MathGameStage extends SimpleWorldStage {
         });
         addTimer(t);
 
+        System.out.println(jatekmod);
 
-        SimpleButton btn = new SimpleButton(game, "ÁT A MENU STAGERE");
+        SimpleButton btn = new SimpleButton(game, "PAUSE");
         btn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
 
-                ((MathGameScreen)getScreen()).changeStage(1,0);
+                ((MathGameScreen)getScreen()).changeStage(1,jatekmod);
             }
         });
 

@@ -18,11 +18,11 @@ public class MathGameScreen extends MyScreen {
 
     MathGameStage stage;
     MathMenuStage menuStage;
-    int holvan = 2;
+    int holvan = 0;
 
     @Override
     protected void afterAssetsLoaded() {
-        stage = new MathGameStage(game);
+        stage = new MathGameStage(game,0);
         menuStage = new MathMenuStage(game,holvan); //0 = paused 1 = elvesztett 2 = menu
         
         addStage(menuStage, 1, true);
@@ -45,8 +45,8 @@ public class MathGameScreen extends MyScreen {
         }
 
         holvan = i;
-        if(s == 0) {
-            stage = new MathGameStage(game);
+        if(s != 1) {
+            stage = new MathGameStage(game,holvan);
             addStage(stage, 1, true);
         }
         else{
