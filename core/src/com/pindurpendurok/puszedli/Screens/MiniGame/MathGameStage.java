@@ -160,7 +160,7 @@ public class MathGameStage extends SimpleWorldStage {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
 
-                ((MathGameScreen)getScreen()).changeStage(1);
+                ((MathGameScreen)getScreen()).changeStage(1,0);
             }
         });
 

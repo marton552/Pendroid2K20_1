@@ -18,24 +18,25 @@ public class MathGameScreen extends MyScreen {
 
     MathGameStage stage;
     MathMenuStage menuStage;
+    int holvan = 2;
 
     @Override
     protected void afterAssetsLoaded() {
         stage = new MathGameStage(game);
-        menuStage = new MathMenuStage(game);
+        menuStage = new MathMenuStage(game,holvan); //0 = paused 1 = elvesztett 2 = menu
         
-        addStage(stage, 1, true);
+        addStage(menuStage, 1, true);
     }
 
-    int showing = 0;
+    int showing = 1;
 
-    public void changeStage(int s) {
+    public void changeStage(int s,int i) {
         if(showing == s) return;
 
         if(showing == 0) removeStage(stage);
         if(showing == 1) removeStage(menuStage);
 
-
+        holvan = i;
         if(s == 0)
             addStage(stage, 1, true);
         else{
