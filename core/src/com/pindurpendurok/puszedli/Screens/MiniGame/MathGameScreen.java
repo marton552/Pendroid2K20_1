@@ -33,13 +33,24 @@ public class MathGameScreen extends MyScreen {
     public void changeStage(int s,int i) {
         if(showing == s) return;
 
-        if(showing == 0) removeStage(stage);
-        if(showing == 1) removeStage(menuStage);
+        if(showing == 0) {
+            removeStage(stage);
+            stage.dispose();
+            stage = null;
+        }
+        if(showing == 1) {
+            removeStage(menuStage);
+            menuStage.dispose();
+            menuStage = null;
+        }
 
         holvan = i;
-        if(s == 0)
+        if(s == 0) {
+            stage = new MathGameStage(game);
             addStage(stage, 1, true);
+        }
         else{
+            menuStage = new MathMenuStage(game, holvan);
             addStage(menuStage, 1, true);
         }
 
