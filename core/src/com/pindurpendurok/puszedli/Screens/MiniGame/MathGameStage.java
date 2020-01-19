@@ -10,6 +10,7 @@ import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Actors.QuestionCircleActor;
 import com.pindurpendurok.puszedli.Screens.Actors.SzurkecuccBarhovaActor;
+import com.pindurpendurok.puszedli.Screens.Classes.MathGeneral;
 import com.pindurpendurok.puszedli.Screens.Game.GameStage;
 
 import java.util.ArrayList;
@@ -50,6 +51,9 @@ public class MathGameStage extends SimpleWorldStage {
     MyLabel timer;
     int tim;
     TickTimer t;
+    MathGeneral szamolas = new MathGeneral();
+    int gamemode;
+
 
     public MathGameStage(final MyGame game, final int jatekmod) {
         super(new ResponseViewport(1080f), game);
@@ -57,7 +61,7 @@ public class MathGameStage extends SimpleWorldStage {
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = game.getMyAssetManager().getFont(GameStage.FONT);
         ls.fontColor = Color.WHITE;
-
+        gamemode = jatekmod;
         OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, BACKGROUND);
         BackGround.setSize(getWidth(),getHeight());
         addActor(BackGround);
@@ -78,15 +82,6 @@ public class MathGameStage extends SimpleWorldStage {
         jovalasz.setColor(Color.BLACK);
         jovalasz.setFontScale(4f);
         addActor(jovalasz);
-
-        boolean x;
-        for(int i = 0; i< 5;i++){
-            if(i%2==0)x = true;
-            else x = false;
-            QuestionCircleActor n = new QuestionCircleActor(game, world,this,1+(0.2f*i),x,i);
-            qk.add(n);
-            addActor(n);
-        }
 
         SzurkecuccBarhovaActor kerdes = new SzurkecuccBarhovaActor(game,world,0,getHeight()/1.3f,getWidth(),getHeight()/3f);
         addActor(kerdes);
@@ -162,9 +157,30 @@ public class MathGameStage extends SimpleWorldStage {
                 super.clicked(event, x, y);
 
                 ((MathGameScreen)getScreen()).changeStage(1,jatekmod);
+
+                for (int i = 0; i < 20;i++){
+                    korok.get(i).remove();
+                }
             }
         });
-
+        kerdeskorok();
         addActor(btn);
+    }
+
+
+    void kerdeskorok(){
+        szamolas.ujfeladvany(gamemode);
+        kerdes1.setText(szamolas.feladvany);
+        val1.setText(szamolas.left);
+        val2.setText(szamolas.right);
+        jovalasz.setText(szamolas.goodanswer);
+        boolean x;
+        for(int i = 0; i< 5;i++){
+            if(i%2==0)x = true;
+            else x = false;
+            QuestionCircleActor n = new QuestionCircleActor(game, world,this,1+(0.2f*i),x,i);
+            qk.add(n);
+            addActor(n);
+        }
     }
 }

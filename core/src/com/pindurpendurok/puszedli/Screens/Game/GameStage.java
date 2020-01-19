@@ -32,7 +32,7 @@ public class GameStage extends SimpleWorldStage {
     public String perc2 ="";
     MyLabel naptar;
     Date datum = new Date(this);
-    public Preferences save;
+    public static Preferences save;
 
 
     public static AssetList assetList = new AssetList();
