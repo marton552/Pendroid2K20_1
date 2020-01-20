@@ -119,7 +119,7 @@ public class MathGameStage extends SimpleWorldStage {
 
             }
         };
-        val1.setPosition(getWidth()/2-getWidth()/2.7f,getHeight()/2-getHeight()/2.45f);
+        val1.setPosition(getWidth()/2-getWidth()/2.5f,getHeight()/2-getHeight()/2.45f);
         val1.setFontScale(4f);
         addActor(val1);
 
@@ -129,7 +129,7 @@ public class MathGameStage extends SimpleWorldStage {
 
             }
         };
-        val2.setPosition(getWidth()/2+getWidth()/2.7f-getWidth()/3.7f,getHeight()/2-getHeight()/2.45f);
+        val2.setPosition(getWidth()/2+getWidth()/2.1f-getWidth()/2.4f,getHeight()/2-getHeight()/2.45f);
         val2.setFontScale(4f);
         addActor(val2);
 
@@ -243,6 +243,7 @@ public class MathGameStage extends SimpleWorldStage {
     }}
 
     void kerdeskorok(){
+        clicked = 0;
         timeradd();
         timer.setVisible(true);
         tim = 0;
@@ -298,7 +299,6 @@ public class MathGameStage extends SimpleWorldStage {
                     valaszjobb.setColor(1,0,0,0.8f);
                     rossz();
                 }
-                clicked = 0;
             }
         });
         addTimer(t);
@@ -335,6 +335,7 @@ public class MathGameStage extends SimpleWorldStage {
 
     void timeradd(){
         tim = 0;
+        timer.setText("3");
         t = new TickTimer(1, true, new TickTimerListener() {
 
 

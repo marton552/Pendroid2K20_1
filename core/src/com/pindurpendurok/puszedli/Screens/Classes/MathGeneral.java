@@ -38,8 +38,8 @@ public class MathGeneral {
                 //melyik nagyobb?
                 egyik = rnd.nextInt(15*x)+1;
                 megismelyik = rnd.nextInt(1);
-                if(megismelyik == 0){masik = egyik + (rnd.nextInt(2*x)+1); jomegoldas = masik;}
-                else {masik = egyik - (rnd.nextInt(2*x)+1); jomegoldas = egyik;}
+                if(megismelyik == 0){masik = egyik + (rnd.nextInt(2*x)+1); jomegoldas = masik; bale=false;}
+                else {masik = egyik - (rnd.nextInt(2*x)+1); jomegoldas = egyik;bale=true;}
                 left = egyik+"";
                 right = masik+"";
                 goodanswer = jomegoldas+"";
@@ -92,29 +92,32 @@ public class MathGeneral {
             szamoloscuccok();
         }
 
-        String seged = "";
-        megismelyik = rnd.nextInt(1);
-        if(megismelyik == 0){seged = left; left = right; right = seged; bale = false;}
-        else bale = true;
 
+        if(verzio == 4){
+            left = left.replace(".0","");
+            right = right.replace(".0","");
+            goodanswer = goodanswer.replace(".0","");
+        }
+        else{
+            System.out.println(bale);
         if(left.length()>1)left = left.substring(0, left.length() - 2);
         if(right.length()>1)right = right.substring(0, right.length() - 2);
         if(goodanswer.length()>1)goodanswer = goodanswer.substring(0, goodanswer.length() - 2);
         feladvany = feladvany.replace(".0","");
-    }
+    }}
 
     void szamoloscuccok(){
         goodanswer = egyik2+"";
         osszeadas_kisebbnagyobb(egyik2);
-        megismelyik = rnd.nextInt(1);
-        if(megismelyik == 0){egyik = egyik2; masik = masik2;}
-        else {masik = egyik2; egyik = masik2;}
+        megismelyik = rnd.nextInt(2);
+        if(megismelyik == 0){egyik = egyik2; masik = masik2; bale=true;}
+        else {masik = egyik2; egyik = masik2; bale=false;}
         left = egyik+"";
         right = masik+"";
     }
 
     void osszeadas_kisebbnagyobb(float a){
-        megismelyik = rnd.nextInt(1);
+        megismelyik = rnd.nextInt(2);
         if(megismelyik == 0){masik2 = egyik2 + (rnd.nextInt(x)+1);}
         else {masik2 = egyik2 - (rnd.nextInt(x)+1);}
     }
@@ -137,6 +140,16 @@ public class MathGeneral {
         else {masik = egyik - (rnd.nextInt(5*x)+1);}
     }
 
+    void nagyobb_seged_negyzet(){
+        egyik = rnd.nextInt(3*x)+1;
+        egyik2 = rnd.nextInt(3*x)+1;
+        megismelyik = rnd.nextInt(4);
+        if(megismelyik == 0){masik = egyik + (rnd.nextInt(8)+1);masik2 = egyik2 + (rnd.nextInt(2*x)+1);}
+        if(megismelyik == 1){masik = egyik - (rnd.nextInt(8*x)+1);masik2 = egyik2 + (rnd.nextInt(2*x)+1);}
+        if(megismelyik == 2){masik = egyik + (rnd.nextInt(8*x)+1);masik2 = egyik2 - (rnd.nextInt(2*x)+1);}
+        else {masik = egyik - (rnd.nextInt(8)+1);masik2 = egyik2 - (rnd.nextInt(2*x)+1);}
+    }
+
     void nagyobb_seged(){
         egyik = rnd.nextInt(15*x)+1;
         egyik2 = rnd.nextInt(15*x)+1;
@@ -151,8 +164,8 @@ public class MathGeneral {
         nagyobb_seged();
         left = egyik+"+"+egyik2;
         right = masik+"+"+masik2;
-        if(egyik+egyik2 > masik2+masik)goodanswer = egyik+"+"+egyik2;
-        else if(egyik+egyik2 < masik2+masik)goodanswer = masik+"+"+masik2;
+        if(egyik+egyik2 > masik2+masik){goodanswer = egyik+"+"+egyik2;bale=true;}
+        else if(egyik+egyik2 < masik2+masik){goodanswer = masik+"+"+masik2;bale=false;}
         else nagyobb_osszeadas();
     }
 
@@ -160,8 +173,8 @@ public class MathGeneral {
         nagyobb_seged();
         left = egyik+"-"+egyik2;
         right = masik+"-"+masik2;
-        if(egyik-egyik2 > masik2-masik)goodanswer = egyik+"-"+egyik2;
-        else if(egyik-egyik2 < masik2-masik)goodanswer = masik+"-"+masik2;
+        if(egyik-egyik2 > masik-masik2){goodanswer = egyik+"-"+egyik2;bale=true;}
+        else if(egyik-egyik2 < masik-masik2){goodanswer = masik+"-"+masik2;bale=false;}
         else nagyobb_kivonas();
     }
 
@@ -169,8 +182,8 @@ public class MathGeneral {
         left = egyik+"x"+egyik2;
         right = masik+"x"+masik2;
         nagyobb_seged();
-        if(egyik*egyik2 > masik2*masik)goodanswer = egyik+"x"+egyik2;
-        else if(egyik*egyik2 < masik2*masik)goodanswer = masik+"x"+masik2;
+        if(egyik*egyik2 > masik2*masik){goodanswer = left;bale=true;}
+        else if(egyik*egyik2 < masik2*masik){goodanswer = right;bale=false;}
         else nagyobb_szorzas();
     }
 
@@ -178,17 +191,17 @@ public class MathGeneral {
         nagyobb_seged();
         left = egyik+"/"+egyik2;
         right = masik+"/"+masik2;
-        if(egyik/egyik2 > masik2/masik)goodanswer = egyik+"/"+egyik2;
-        else if(egyik/egyik2 < masik2/masik)goodanswer = masik+"/"+masik2;
+        if(egyik/egyik2 > masik/masik2){goodanswer = egyik+"/"+egyik2;bale=true;}
+        else if(egyik/egyik2 < masik/masik2){goodanswer = masik+"/"+masik2;bale=false;}
         else nagyobb_osztas();
     }
 
     void nagyobb_negyzet(){
-        nagyobb_seged();
-        left = egyik+"^"+egyik2;
-        right = masik+"^"+masik2;
-        if(Math.pow(egyik,egyik2) > Math.pow(masik2,masik))goodanswer = egyik+"^"+egyik2;
-        else if(Math.pow(egyik,egyik2) < Math.pow(masik2,masik))goodanswer = masik+"^"+masik2;
-        else nagyobb_negyzet();
+        nagyobb_seged_negyzet();
+        left = egyik+"pow"+egyik2;
+        right = masik+"pow"+masik2;
+        if(Math.pow(egyik,egyik2) > Math.pow(masik,masik2)){goodanswer = egyik+"pow"+egyik2;bale=true;}
+        else if(Math.pow(egyik,egyik2) < Math.pow(masik,masik2)){goodanswer = masik+"pow"+masik2;bale=false;}
+        else nagyobb_seged_negyzet();
     }
 }
