@@ -2,9 +2,9 @@ START#Mouse Lini#Nő#Sajt Függőség#.;
 0#Szokjon le a sajtról#Azt hiszi az olyan könnyű?#.;
 1#Mikor alakult ki?#Amikor megszülettem, de manapság már nem viseli el a hasam...#.;
 00#Természetesen. Legyen egy kis akaratereje!#Ennyi? Hát maga se ér semmit.#4;
-01#Nem, dehogy. Csak így legalább gyorsabban végzünk.#Remélem magának is lesz valami komoly függősége..7#;
-10#Adok önnek hashajtót és a végén már annyit fog vécére járni, hogy megutálja a sajtot.#Hát köszönöm szépen, de akkor inkább leszek továbbra is sajtfüggő...10#;
-11#Tudok ajánlani rostokban gazdag kenyeret.#Oké.. Ha maga mondja..3#;
+01#Nem, dehogy. Csak így legalább gyorsabban végzünk.#Remélem magának is lesz valami komoly függősége..#7;
+10#Adok önnek hashajtót és a végén már annyit fog vécére járni, hogy megutálja a sajtot.#Hát köszönöm szépen, de akkor inkább leszek továbbra is sajtfüggő...#10;
+11#Tudok ajánlani rostokban gazdag kenyeret.#Oké.. Ha maga mondja..#3;
 
 
 
@@ -12,12 +12,22 @@ START#Cinkos Cézár#Férfi#Szerelem#.;
 0#Ki az a szerencsétlen?#A szomszéd fia#.;
 1#Hogy ityeg a fityeg?#Nem vállalhatjuk fel a kapcsolatunkat a nyilvánosság előtt... Mivel hát ő is férfi...#.;
 00#Pardon? Maga meleg?#Nah látja! Maga is kiakad!#7;
-01#Mi a baj a szomszéd fiával?#Semmi csak hát hogy is mondjam..3#;
-10#Ne érdekelje mit mondanak mások! Legyen önmaga!#Mintha az olyan egyszerű lenne..5#;
-11#Valamelyikük műtesse át magát nővé!#Maga megőrült?!2#;
+01#Mi a baj a szomszéd fiával?#Semmi csak hát hogy is mondjam..#3;
+10#Ne érdekelje mit mondanak mások! Legyen önmaga!#Mintha az olyan egyszerű lenne..#5;
+11#Valamelyikük műtesse át magát nővé!#Maga megőrült?!#2;
 000#Nyögje már ki mi a konkrét problémája!#Az hogy nem vállalhatom fel, hogy meleg vagyok! Azt akit szeretek!#.;
 001#Akarja hogy segítsek vagy sem?#Ezek után? Ha tud valami normálisat is mondani, akkor jól jönne...#.;
 0000#Hát akkor ne vállalja fel!#Nem hogy támogatna...#7;
-0001#Ez de nehéz szülés volt...#Férfi vagyok, nem tudok szülni..3#;
-0010#Vállalja fel és viselje a velejáróit#Még valami bölcsesség..?9#;
-0011#Szerintem fogadjanak örökbe egy gyereket!#De hisz a kacsolatom sincs felvállalva nemhogy egy gyerek pluszba..1#;
+0001#Ez de nehéz szülés volt...#Férfi vagyok, nem tudok szülni..#3;
+0010#Vállalja fel és viselje a velejáróit#Még valami bölcsesség..?#9;
+0011#Szerintem fogadjanak örökbe egy gyereket!#De hisz a kacsolatom sincs felvállalva nemhogy egy gyerek pluszba..#1;
+
+
+
+START#Kuglifej Santa##Becukrozták a fejem#.;
+0#Legközelebb verje meg#Nem tudok verekedni#.;
+1#Legyen optimista, legalább így már ehető#Érzéketlen tuskó, és még orvosnak nevezi magát#.;
+00#Tanuljon meg, mellékállásban kung fu oktató is vagyok#Maga? Akkor inkább cukrozzanak be mégegyszer...#2;
+01#Akkor így járt#Seggfej#1.;
+10#Tudok még cukrot adni#Tartsa meg magának..#5;
+11#Megehetem?#Feljelentem magát!#1;

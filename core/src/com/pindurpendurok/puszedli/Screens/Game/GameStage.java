@@ -21,7 +21,7 @@ import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 public class GameStage extends SimpleWorldStage {
 
     public final static String BACKGROUND = "mainback.png";
-    public final static String FONT = "MrGrieves-Regular.otf";
+    public final static String FONT = "Bosk.otf";
 
     public boolean timer_able_to_count = true;
     public int ticks = 0;
