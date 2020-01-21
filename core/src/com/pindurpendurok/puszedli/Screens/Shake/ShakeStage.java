@@ -8,9 +8,12 @@ import hu.csanyzeg.master.MyBaseClasses.Scene2D.MyStage;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
 
 public class ShakeStage extends MyStage {
-    public static AssetList assetList = new AssetList();
-    static {
+    public static final String DAVEY = "elemek/dave/NudiDavey.png";
 
+    public static AssetList assetList = new AssetList();
+
+    static {
+        assetList.addTexture(DAVEY);
     }
 
     private final float GRAVITY_EARTH = 9.807f;
@@ -25,7 +28,9 @@ public class ShakeStage extends MyStage {
         // gForce will be close to 1 when there is no movement.
         float gForce = (float)Math.sqrt((xGrav * xGrav) + (yGrav * yGrav) + (zGrav * zGrav));
 
-        
+
+
+
 
     }
 }

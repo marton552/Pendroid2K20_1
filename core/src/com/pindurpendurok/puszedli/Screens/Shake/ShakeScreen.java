@@ -22,7 +22,7 @@ public class ShakeScreen extends MyScreen {
 
     @Override
     public AssetList getAssetList() {
-        return null;
+        return list;
     }
 
     @Override

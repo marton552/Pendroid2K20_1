@@ -3,9 +3,13 @@ package com.pindurpendurok.puszedli.Screens.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
+import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
@@ -99,7 +103,17 @@ public class GameStage extends SimpleWorldStage {
                 if(ticks%150==0){count++;
                     datum.leptetes();
                 }
-            }}
+        }}
         }));
+
+        SimpleButton shakeBtn = new SimpleButton(game, "Rázd");
+        shakeBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                setScreen(new ShakeScreen(game));
+            }
+        });
+        addActor(shakeBtn);
     }
 }
