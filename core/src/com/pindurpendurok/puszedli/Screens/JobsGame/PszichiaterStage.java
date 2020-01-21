@@ -58,6 +58,7 @@ public class PszichiaterStage extends SimpleWorldStage {
     MyLabel val2;
     String storyline = "START";
     boolean ready;
+    MyLabel nev;
 
 
     public PszichiaterStage(final MyGame game) {
@@ -69,6 +70,16 @@ public class PszichiaterStage extends SimpleWorldStage {
         OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, BACKGROUND);
         BackGround.setSize(getWidth(),getHeight());
         addActor(BackGround);
+
+        nev = new MyLabel(game, "x", ls) {
+            @Override
+            public void init() {
+
+            }
+        };
+        nev.setFontScale(1);
+        nev.setPosition(0,getViewport().getWorldHeight()-nev.getHeight());
+        addActor(nev);
 
         table = new OneSpriteStaticActor(game, ui);
         table.setSize(getWidth()/1.3f,getHeight()/18);
@@ -181,6 +192,7 @@ public class PszichiaterStage extends SimpleWorldStage {
     }
 
     void ujStory(){
+
         hanyadik = MathUtils.random(1,text.length-1);
         //hanyadik = 2;
         seged1 = text[hanyadik].split(";");
@@ -200,11 +212,15 @@ public class PszichiaterStage extends SimpleWorldStage {
     int hol2 = 0;
     String lehetoseg1 = "";
     String lehetoseg2 = "";
+    boolean setnev = true;
 
     void next(){
         answA.setPosition(0-(answA.getWidth()),table.getY()-answA.getHeight()*2);
         if(storyline == "START"){holtart = 0;storyline="";}
-
+        if(setnev){
+        String neev = (actuallyText[holtart][0].toString()+"  ("+actuallyText[holtart][1].toString()+")").replace("[","");
+        neev = neev.replace("]","");
+        nev.setText(neev); setnev = false;}
         table.setSize(getWidth()/1.3f,getHeight()/18);
         table.setPosition(getViewport().getWorldWidth()/2-table.getWidth()/2,getViewport().getWorldHeight()/1.2f);
         answA.setSize(getWidth()/1.3f,getHeight()/15);
