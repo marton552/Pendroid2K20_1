@@ -21,6 +21,8 @@ import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleWorldStage;
 import hu.csanyzeg.master.MyBaseClasses.UI.MyButton;
 import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
+import static com.badlogic.gdx.scenes.scene2d.utils.ScissorStack.getViewport;
+
 public class MenuStage extends SimpleWorldStage {
 
     public final static String FONT = "alegreyaregular.otf";
