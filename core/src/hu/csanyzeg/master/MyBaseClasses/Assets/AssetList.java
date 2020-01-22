@@ -25,7 +25,7 @@ public class AssetList {
     public static void collectAssetDescriptor(Class aClass, AssetList targetList){
         for(Field f : aClass.getFields()){
             if (f.getType().isInstance(targetList)){
-                //Gdx.app.log("Asset", "Class scanning found: " + f.getName() + " in " + aClass.getName() + " class.");
+                Gdx.app.log("Asset", "Class scanning found: " + f.getName() + " in " + aClass.getName() + " class.");
                 try {
                     AssetList a = (AssetList)f.get(f);
                     targetList.add(a);
@@ -94,6 +94,11 @@ public class AssetList {
             descriptor = map.get(hash);
         }
         return descriptor;
+    }
+
+
+    public MyAssetDescriptor<BitmapFont> addFont(String fileName) {
+        return addFont(fileName, fileName, 32, Color.WHITE);
     }
 
     public MyAssetDescriptor<BitmapFont> addFont(String fileName, int size, Color color) {
