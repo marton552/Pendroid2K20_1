@@ -8,5 +8,7 @@ public class ElementAssets {
     static {
         AssetList.collectAssetDescriptor(SimpleButton.class, list);
         AssetList.collectAssetDescriptor(SimpleLabel.class, list);
+        AssetList.collectAssetDescriptor(ProgressBar.class, list);
+
     }
 }
