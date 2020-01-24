@@ -25,6 +25,7 @@ import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleWorldStage;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
 import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
+import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class PapWorldStage extends SimpleWorldStage {
     public final static String BACKGROUND = "elemek/pap_minigame/map.png";
@@ -34,6 +35,7 @@ public class PapWorldStage extends SimpleWorldStage {
     static {
         assetList.addTexture(BACKGROUND);
         assetList.addTexture(POINTER);
+        assetList.addFont(GameStage.FONT, 60, Color.WHITE).protect = true;
     }
 
     OneSpriteStaticActor pointer;
@@ -41,10 +43,27 @@ public class PapWorldStage extends SimpleWorldStage {
 
     public PapWorldStage(final MyGame game) {
         super(new ResponseViewport(720f), game);
-
+        Label.LabelStyle ls = new Label.LabelStyle();
+        ls.font = game.getMyAssetManager().getFont(GameStage.FONT);
+        ls.fontColor = Color.WHITE;
         OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, BACKGROUND);
         BackGround.setSize(getWidth(),getHeight());
         addActor(BackGround);
+
+        MyLabel felirat = new MyLabel(game, "m", ls) {
+            @Override
+            public void init() {
+
+            }
+        };
+        felirat.setFontScale(0.9f);
+        felirat.setColor(Color.BLACK);
+        felirat.setPosition(getViewport().getWorldWidth()/2-felirat.getWidth()/2,getViewport().getWorldHeight()-felirat.getHeight());
+        addActor(felirat);
+
+        /*int k = MathUtils.random(2,(int)2+(2025-GameStage.save.getInteger("ev")/3));
+        if(GameStage.save.getInteger("papkell") == GameStage.save.getInteger("papmegvan"))GameStage.save.putInteger("papkell",k);
+        felirat.setText("Szükséges munka a fizettséghez:"+GameStage.save.getInteger("papkell")+"\r\nEből kész van:"+GameStage.save.getInteger("papmegvan"));*/
 
         pointer = new OneSpriteStaticActor(game, POINTER);
         pointer.setSize(getWidth()/8,getWidth()/5);

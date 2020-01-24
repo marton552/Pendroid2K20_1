@@ -62,6 +62,10 @@ public class GameStage extends SimpleWorldStage {
             save.putInteger("ev",2001);
             save.putInteger("honap",7);
             save.putInteger("nap",22); //23.-án született csak egyből léptet
+
+            //Pap minigame
+            save.putInteger("papkell",0);
+            save.putInteger("papmegvan",0);
         }
         save.flush();
         datum.leptetes();
