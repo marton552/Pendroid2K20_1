@@ -1,6 +1,7 @@
 package com.pindurpendurok.puszedli.Screens.JobsGame;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -34,9 +35,14 @@ public class PapStage extends SimpleWorldStage {
         assetList.addTexture(BACKGROUND);
         AssetList.collectAssetDescriptor(JelkepActor.class, assetList);
     }
+    public static int pontok = 0;
+    static public JelkepActor jelkep;
+    static public int nehezseg;
 
-    public PapStage(final MyGame game, int szama) {
+
+    public PapStage(final MyGame game, int jelekSzama, int nehezseg) {
         super(new ResponseViewport(720f), game);
+        PapStage.nehezseg = nehezseg;
         final OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, BACKGROUND);
         BackGround.setSize(getViewport().getWorldWidth(),getViewport().getWorldHeight());
         addActor(BackGround);
@@ -59,16 +65,35 @@ public class PapStage extends SimpleWorldStage {
         });
         addTimer(ido);
         */
-        //egybe kidob mindent
-        List<JelkepActor> jelek = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            jelek.add(new JelkepActor(game,world, 0));
+;
+        for (int i = 0; i < jelekSzama; i++) {
+            TickTimer jelekFeltunnek = new TickTimer((4f-nehezseg*0.025f)*i,false, new TickTimerListener(){
+                @Override
+                public void onStop(Timer sender) {
+                    int skin = MathUtils.random(0,0);
+                    jelkep =  new JelkepActor(game,world, skin,PapStage.nehezseg);
+                    addActor(jelkep);
+                    super.onStop(sender);
+                    jelkep.addListener( new ClickListener(){
+                        @Override
+                        public void clicked (InputEvent event, float x, float y){
+                            super.clicked(event, x, y);
+                            PapStage.pontok++;
+                            jelkep.torles();
+                        }
+                    });
+                }
+            });
+            addTimer(jelekFeltunnek);
         }
-        for (int i = 0; i < jelek.size(); i++) {
-            addActor(jelek.get(i));
-        }
-        //comment hogy commitolni tudjak
-
+        TickTimer pontKiiras = new TickTimer((4f-nehezseg*0.025f)*jelekSzama,false, new TickTimerListener(){
+            @Override
+            public void onStop(Timer sender) {
+                super.onStop(sender);
+                System.out.println("pontjaid:"+pontok);
+            }
+        });
+        addTimer(pontKiiras);
     }
 
 }
