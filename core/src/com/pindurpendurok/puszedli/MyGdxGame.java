@@ -5,6 +5,7 @@ import com.badlogic.gdx.Preferences;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 import com.pindurpendurok.puszedli.Screens.GameLoadingStage;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapScreen;
+import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameScreen;
 import com.pindurpendurok.puszedli.Screens.Test.TestScreen;
@@ -24,6 +25,6 @@ public class MyGdxGame extends MyGame {
 	public void create() {
 		super.create();
 		setLoadingStage(new GameLoadingStage(this));
-		setScreen(new PapScreen(this));
+		setScreen(new PapWorldScreen(this));
 	}
 }

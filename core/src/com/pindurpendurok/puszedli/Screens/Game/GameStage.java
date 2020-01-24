@@ -111,7 +111,7 @@ public class GameStage extends SimpleWorldStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                setScreen(new ShakeScreen(game));
+                game.setScreen(new ShakeScreen(game));
             }
         });
         addActor(shakeBtn);
