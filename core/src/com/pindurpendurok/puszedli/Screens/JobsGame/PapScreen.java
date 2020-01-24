@@ -11,7 +11,7 @@ public class PapScreen extends MyScreen {
 
     @Override
     protected void afterAssetsLoaded() {
-        addStage(new PapStage(game), 1, true);
+        addStage(new PapStage(game,1), 1, true);
     }
 
     @Override
