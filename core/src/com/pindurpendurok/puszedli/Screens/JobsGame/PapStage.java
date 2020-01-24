@@ -67,6 +67,7 @@ public class PapStage extends SimpleWorldStage {
         for (int i = 0; i < jelek.size(); i++) {
             addActor(jelek.get(i));
         }
+        //comment hogy commitolni tudjak
 
     }
 
