@@ -109,7 +109,7 @@ public class PapWorldStage extends SimpleWorldStage {
             public void onStop(Timer sender) {
                 super.onStop(sender);
                 addpointer();
-                game.setScreen(new PapScreen(game));
+                game.setScreen(new PapScreen(game,r));
             }
         });
         addTimer(t);

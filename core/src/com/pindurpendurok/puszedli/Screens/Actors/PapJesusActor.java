@@ -16,11 +16,11 @@ import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleWorldStage;
 import static com.badlogic.gdx.scenes.scene2d.utils.ScissorStack.getViewport;
 
 public class PapJesusActor extends OneSpriteStaticActor {
-    public static final String JESUS = "elemek/dave/davey.png";
-
+    public static final String JESUS = "elemek/dave/papDavey.png";
+    public static AssetList list = new AssetList();
     static {
 
-        //list.addTexture(JESUS);
+        list.addTexture(JESUS);
     }
 
     public PapJesusActor(MyGame game, SimpleWorld world, SimpleWorldStage gs) {

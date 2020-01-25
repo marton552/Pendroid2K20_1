@@ -1,6 +1,8 @@
 package com.pindurpendurok.puszedli.Screens.Actors;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.pindurpendurok.puszedli.Screens.Game.GameStage;
+import com.pindurpendurok.puszedli.Screens.JobsGame.PapStage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.ShapeType;
 import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleBodyType;
 import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleWorld;
 import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleWorldHelper;
+import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleWorldStage;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
 import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
@@ -26,51 +29,36 @@ public class JelkepActor extends OneSpriteStaticActor {
 
 
     Random rnd = new Random();
-    static final List<String> texturak = new ArrayList<String>();
+    static final String[] texturak = new String[]{"elemek/Pap_minigame/symbol1.png","elemek/Pap_minigame/symbol2.png","elemek/Pap_minigame/symbol3.png"};
     static AssetList list = new AssetList();
-    private static int kepSzelleseg = 200;
-    private static int kepMagassag = 200;
+    public int kepSzelleseg = 200;
+    public int kepMagassag = 200;
     private SimpleWorldHelper item;
     private int nehezseg;
     private static int pontok = 0;
+    public float x;
+    public float y;
 
     static {
-        texturak.add("circleatback.png");
-        for (int i = 0; i < texturak.size() ; i++) {
-            list.addTexture(texturak.get(i));
+        for (int i = 0; i < texturak.length ; i++) {
+            list.addTexture(texturak[i]);
         }
     }
-
-    public JelkepActor(MyGame game, SimpleWorld world, int jelSzama, int nehezseg) {
-        //jelSzama: 0-tól megy, hányadik textúra
-        //nehezseg: nehézség: 0-tól megy 80ig, 1 érték 0.025 másodperccel rövidebb időt ad
-
-        super(game, texturak.get(jelSzama));
-        this.nehezseg = nehezseg;
+    public JelkepActor(final MyGame game, final SimpleWorld world, int jelSzama, SimpleWorldStage gs) {
+        super(game, texturak[jelSzama]);
+        kepSzelleseg = MathUtils.random((int)gs.getViewport().getWorldWidth()/15,(int)gs.getViewport().getWorldWidth()/5);
+        kepMagassag = kepSzelleseg;
         item = new SimpleWorldHelper(world, this, ShapeType.Circle, SimpleBodyType.Sensor);
-
-        int x = rnd.nextInt((int)getViewport().width+1-kepSzelleseg)+(kepSzelleseg/2);
-        int y = rnd.nextInt((int)getViewport().height+1-kepMagassag)+(kepMagassag/2);
+        item.body.setSize(kepSzelleseg,kepMagassag);
+        x = rnd.nextInt((int)gs.getViewport().getWorldWidth()+1-kepSzelleseg);
+        y = rnd.nextInt((int)gs.getViewport().getWorldHeight()+1-kepMagassag);
         item.body.setPosition(x,y);
-        TickTimer ido = new TickTimer(4f-nehezseg*0.025f,false, new TickTimerListener(){
-            @Override
-            public void onStart(Timer sender) {
-                super.onStart(sender);
-                setActorWorldHelper(item);
-            }
-            @Override
-            public void onStop(Timer sender) {
-                super.onStop(sender);
-                torles();
-            }
-        });
-        addTimer(ido);
-
-        //sw.body.sizeToFixTime(500, 500, 10, PositionRule.Center);
-        //sw.body.sizeToFixTime(1000,1000,2, PositionRule.Center);
+        setActorWorldHelper(item);
     }
+
+
     public void torles(){
         //kell egy normális törlés
-        item.body.setPosition(10000,10000);;
+        item.remove();
     }
 }

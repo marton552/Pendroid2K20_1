@@ -27,6 +27,6 @@ public class MyGdxGame extends MyGame {
 	public void create() {
 		super.create();
 		setLoadingStage(new GameLoadingStage(this));
-		setScreen(new ShakeScreen(this));
+		setScreen(new PapWorldScreen(this));
 	}
 }
