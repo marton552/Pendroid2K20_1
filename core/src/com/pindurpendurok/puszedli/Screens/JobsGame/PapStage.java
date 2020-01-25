@@ -42,7 +42,7 @@ public class PapStage extends SimpleWorldStage {
     public final static String BACKGROUND7 = "elemek/galéria/7.jpg";
     public final static String BACKGROUND8 = "elemek/galéria/8.jpg";
     public final static String BACKGROUND9 = "elemek/galéria/9.jpg";
-    public final static String CROSS = "elemek/pap_minigame/cross.png";
+    public final static String CROSS = "elemek/Pap_minigame/cross.png";
     public final static String TOLT = "ui_textures/sliderknob.png";
     public final static String TOLT1 = "ui_textures/gold.png";
     public final static String TOLT2 = "ui_textures/red.png";

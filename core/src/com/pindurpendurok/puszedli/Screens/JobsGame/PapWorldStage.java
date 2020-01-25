@@ -28,8 +28,8 @@ import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
 import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class PapWorldStage extends SimpleWorldStage {
-    public final static String BACKGROUND = "elemek/pap_minigame/map.png";
-    public final static String POINTER = "elemek/pap_minigame/satan_pointer.png";
+    public final static String BACKGROUND = "elemek/Pap_minigame/map.png";
+    public final static String POINTER = "elemek/Pap_minigame/satan_pointer.png";
 
     public static AssetList assetList = new AssetList();
     static {
