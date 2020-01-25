@@ -153,9 +153,9 @@ public class TrashStage extends SimpleWorldStage {
         endBg.setPosition(0, getViewport().getWorldHeight() / 2 - endBg.getHeight() / 2);
         addActor(endBg);
 
-        endLabel = new SimpleLabel(game, "Sikeresen kiráztad!");
+        endLabel = new SimpleLabel(game, "Sikeresen begyűjtötted\naz összes szemetet!");
         endLabel.setVisible(false);
-        endLabel.setPosition(endLabel.getWidth() / 2 - 30, endBg.getY() - endBg.getHeight() - 50);
+        endLabel.setPosition(getViewport().getWorldWidth() / 2 - endLabel.getWidth() / 2 - 10, endBg.getY() + endBg.getHeight() - 150);
         endLabel.setAlignment(Align.center);
         addActor(endLabel);
 
