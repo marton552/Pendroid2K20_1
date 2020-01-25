@@ -58,12 +58,12 @@ public class PapWorldStage extends SimpleWorldStage {
         };
         felirat.setFontScale(0.9f);
         felirat.setColor(Color.BLACK);
-        felirat.setPosition(getViewport().getWorldWidth()/2-felirat.getWidth()/2,getViewport().getWorldHeight()-felirat.getHeight());
+        felirat.setPosition(0,getViewport().getWorldHeight()-felirat.getHeight()*1.5f);
         addActor(felirat);
 
-        /*int k = MathUtils.random(2,(int)2+(2025-GameStage.save.getInteger("ev")/3));
+        int k = MathUtils.random(2,2+((GameStage.save.getInteger("ev")-2025)/3));
         if(GameStage.save.getInteger("papkell") == GameStage.save.getInteger("papmegvan"))GameStage.save.putInteger("papkell",k);
-        felirat.setText("Szükséges munka a fizettséghez:"+GameStage.save.getInteger("papkell")+"\r\nEből kész van:"+GameStage.save.getInteger("papmegvan"));*/
+        felirat.setText("Szükséges munka a fizettséghez:"+GameStage.save.getInteger("papkell")+"\r\nEből kész van:"+GameStage.save.getInteger("papmegvan"));
 
         pointer = new OneSpriteStaticActor(game, POINTER);
         pointer.setSize(getWidth()/8,getWidth()/5);

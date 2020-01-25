@@ -9,7 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
+import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
+import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
+import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameScreen;
+import com.pindurpendurok.puszedli.Screens.MiniGame.MathMenuStage;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
+import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
@@ -59,7 +64,7 @@ public class GameStage extends SimpleWorldStage {
         if(save.contains("inditas")){
             save.putFloat("inditas",(save.getFloat("inditas")+1));
         }else{
-            save.putInteger("ev",2001);
+            save.putInteger("ev",2030);
             save.putInteger("honap",7);
             save.putInteger("nap",22); //23.-án született csak egyből léptet
 
@@ -119,5 +124,49 @@ public class GameStage extends SimpleWorldStage {
             }
         });
         addActor(shakeBtn);
+
+        SimpleButton pop = new SimpleButton(game, "paps");
+        pop.setX(50);
+        pop.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                game.setScreen(new PapWorldScreen(game));
+            }
+        });
+        addActor(pop);
+
+        SimpleButton pszic = new SimpleButton(game, "Pszichiáter");
+        pszic.setX(100);
+        pszic.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                game.setScreen(new PszichiaterScreen(game));
+            }
+        });
+        addActor(pszic);
+
+        SimpleButton matek = new SimpleButton(game, "matek");
+        matek.setX(150);
+        matek.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                game.setScreen(new MathGameScreen(game));
+            }
+        });
+        addActor(matek);
+
+        SimpleButton trash = new SimpleButton(game, "kukás");
+        trash.setX(200);
+        trash.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                game.setScreen(new TrashScreen(game));
+            }
+        });
+        addActor(trash);
     }
 }
