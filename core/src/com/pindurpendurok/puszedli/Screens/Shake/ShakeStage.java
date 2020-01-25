@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.pindurpendurok.puszedli.Elements.ProgressBar;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Elements.SimpleLabel;
@@ -90,6 +91,7 @@ public class ShakeStage extends MyStage {
         endLabel = new SimpleLabel(game, "Sikeresen kiráztad!");
         endLabel.setVisible(false);
         endLabel.setPosition(endLabel.getWidth() / 2, endBg.getY() + endBg.getHeight() - 50);
+        endLabel.setAlignment(Align.center);
         addActor(endLabel);
 
         endBtn = new SimpleButton(game, "Vissza");

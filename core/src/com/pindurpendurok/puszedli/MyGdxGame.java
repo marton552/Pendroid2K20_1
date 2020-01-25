@@ -9,6 +9,7 @@ import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameScreen;
 import com.pindurpendurok.puszedli.Screens.Test.TestScreen;
+import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
 
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 
@@ -25,6 +26,6 @@ public class MyGdxGame extends MyGame {
 	public void create() {
 		super.create();
 		setLoadingStage(new GameLoadingStage(this));
-		setScreen(new PapScreen(this));
+		setScreen(new TrashScreen(this));
 	}
 }
