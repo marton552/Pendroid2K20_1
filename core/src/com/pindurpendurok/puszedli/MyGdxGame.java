@@ -2,6 +2,7 @@ package com.pindurpendurok.puszedli;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 import com.pindurpendurok.puszedli.Screens.GameLoadingStage;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapScreen;
@@ -27,6 +28,6 @@ public class MyGdxGame extends MyGame {
 	public void create() {
 		super.create();
 		setLoadingStage(new GameLoadingStage(this));
-		setScreen(new GameScreen(this));
+		setScreen(new FociScreen(this));
 	}
 }
