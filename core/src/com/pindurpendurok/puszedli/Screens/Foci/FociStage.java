@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
+import com.pindurpendurok.puszedli.Screens.Actors.labdaActor;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
@@ -38,6 +39,7 @@ public class FociStage extends SimpleWorldStage {
     }
     OneSpriteStaticActor kapus;
     OneSpriteStaticActor labda;
+    TickTimer h;
 
 
     public FociStage(final MyGame game) {
@@ -52,11 +54,11 @@ public class FociStage extends SimpleWorldStage {
         kapus = new OneSpriteStaticActor(game, KAPUS);
         kapus.setSize(getWidth(),getHeight());
         kapus.setPosition(0,0);
-        addActor(kapus);
+        addActor(kapus,10);
 
         newlabda();
 
-        addTimer(new TickTimer(0, true, new TickTimerListener() {
+        h = new TickTimer(0, true, new TickTimerListener() {
             boolean bal = true;
             float speed = 10;
             int rnd = MathUtils.random(30,150);
@@ -75,9 +77,13 @@ public class FociStage extends SimpleWorldStage {
                     if(q == rnd){q = 0; rnd = MathUtils.random(30,150);bal=true;}
                     if(kapus.getX()>(getViewport().getWorldWidth()/2.5f)){bal=true;speed+=0.1;}
                 }
-                }
-        }));
+            }
+        });
+        addTimer(h);
+
     }
+
+    TickTimer z;
 
     void newlabda(){
         int rnd = MathUtils.random(1,3);
@@ -86,6 +92,48 @@ public class FociStage extends SimpleWorldStage {
         if(rnd == 1)labda.setPosition(getWidth()/2-labda.getWidth()/2,0);
         else if(rnd == 2)labda.setPosition(getWidth()/2-labda.getWidth()*2,0);
         else if(rnd == 3)labda.setPosition(getWidth()/2+labda.getWidth(),0);
-        addActor(labda);
+        addActor(labda,11);
+
+
+        final labdaActor asd = new labdaActor(game,this,labda.getX(),labda.getY(),labda.getWidth(),labda.getHeight());
+        z = new TickTimer(0, true, new TickTimerListener() {
+            @Override
+            public void onTick(Timer sender, float correction) {
+                if(asd.get){loves(asd.iranyX,asd.iranyY);}
+            }
+        });
+
+        addTimer(z);
+    }
+
+    public void loves(float x,float y){
+        z.stop();
+        final float speedx = 30*x;
+        final float speedy = 30*y;
+        z = new TickTimer(0, true, new TickTimerListener() {
+            @Override
+            public void onTick(Timer sender, float correction) {
+                labda.setX(labda.getX()+speedx);
+                labda.setY(labda.getY()+speedy);
+                labda.setSize(labda.getWidth()-labda.getWidth()/250,labda.getWidth()-labda.getWidth()/250);
+
+                if(labda.getY()>getViewport().getWorldHeight()/2.7f)stop();
+            }
+        });
+
+        addTimer(z);
+    }
+
+    void stop(){
+        z.stop();
+        h.stop();
+        System.out.printf(kapus.getX()+kapus.getWidth()/3+" and "+labda.getX()+"      ");
+        System.out.println(kapus.getX()+(kapus.getWidth()/1.5f)+" asd "+labda.getX()+labda.getWidth());
+        if(labda.getX()<0+labda.getWidth()*0.7f || labda.getX() > getViewport().getWorldWidth()-labda.getWidth()/1.5f){
+            System.out.println("mellé!");
+        }
+        else if(kapus.getX()+kapus.getWidth()/3<labda.getX()+labda.getWidth() && kapus.getX()+(kapus.getWidth()/1.5f)>labda.getX()){
+            System.out.println("kivédve!");}
+        else System.out.println("goal!");
     }
 }
