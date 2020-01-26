@@ -57,6 +57,7 @@ public class TrashStage extends SimpleWorldStage {
     public static ArrayList<String> plasticTrash = new ArrayList<>();
 
     public static final String WBG = "ui_textures/black.png";
+    public static final String BG = "elemek/trash/kukapalyatalan.png";
 
 
     public static AssetList list = new AssetList();
@@ -94,6 +95,7 @@ public class TrashStage extends SimpleWorldStage {
         plasticTrash.addAll(Arrays.asList(new String[] {PLASTIC1, PLASTIC2, PLASTIC3, PLASTIC4}));
 
         list.addTexture(WBG);
+        list.addTextureAtlas(BG);
 
 
     }
@@ -115,7 +117,17 @@ public class TrashStage extends SimpleWorldStage {
     public TrashStage(final MyGame game) {
         super(new ResponseViewport(720), game);
         setCameraResetToLeftBottomOfScreen();
-        
+
+
+        addActor(new OneSpriteStaticActor(game, BG) {
+            @Override
+            public void init() {
+                super.init();
+
+                setSize(getViewport().getWorldWidth(), getViewport().getWorldHeight());
+            }
+        });
+
         scoreLabel = new SimpleLabel(game, "");
         scoreLabel.setPosition(getViewport().getWorldWidth() / 2, getViewport().getWorldHeight() - scoreLabel.getHeight() - 10);
         scoreLabel.setAlignment(Align.center);
@@ -128,9 +140,12 @@ public class TrashStage extends SimpleWorldStage {
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 if(gameEnded == false) {
-                    bin.setX(x - bin.getWidth() / 2);
-                    if(bin.getX() < 0) bin.setX(0);
-                    if(bin.getX() > getViewport().getWorldWidth()) bin.setX(getViewport().getWorldWidth() - bin.getWidth());
+
+                    float newX = x - bin.getWidth() / 2;
+
+                    if(x >= 0 && x <= getViewport().getWorldWidth())
+                        bin.setX(newX);
+
                 }
                 super.touchDragged(event, x, y, pointer);
             }

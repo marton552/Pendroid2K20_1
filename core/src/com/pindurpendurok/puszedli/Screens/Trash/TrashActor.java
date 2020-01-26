@@ -15,7 +15,7 @@ import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
 
 public class TrashActor extends OneSpriteStaticActor {
 
-    int speed = MathUtils.random(5, 10);
+    int speed = MathUtils.random(10, 20);
     SimpleWorldHelper sw;
     public boolean goodTrash;
 
