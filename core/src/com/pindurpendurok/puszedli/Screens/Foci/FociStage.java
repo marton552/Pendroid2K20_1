@@ -3,10 +3,18 @@ package com.pindurpendurok.puszedli.Screens.Foci;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
+import com.pindurpendurok.puszedli.Screens.Actors.SzurkecuccBarhovaActor;
 import com.pindurpendurok.puszedli.Screens.Actors.labdaActor;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
+import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
+import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
+import com.sun.org.apache.bcel.internal.generic.FADD;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
@@ -17,6 +25,7 @@ import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleWorldStage;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
 import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
+import hu.csanyzeg.master.MyBaseClasses.UI.MyButton;
 import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class FociStage extends SimpleWorldStage {
@@ -40,10 +49,18 @@ public class FociStage extends SimpleWorldStage {
     OneSpriteStaticActor kapus;
     OneSpriteStaticActor labda;
     TickTimer h;
+    MyLabel felirat;
+    MyLabel alirat;
+    SimpleButton back1;
+    SzurkecuccBarhovaActor back;
 
 
     public FociStage(final MyGame game) {
         super(new ResponseViewport(1080f), game);
+        Label.LabelStyle ls = new Label.LabelStyle();
+        ls.font = game.getMyAssetManager().getFont(FONT);
+        ls.fontColor = Color.WHITE;
+
         OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, BACKGROUND);
         BackGround.setSize(getWidth(),getHeight());
         addActor(BackGround);
@@ -55,6 +72,48 @@ public class FociStage extends SimpleWorldStage {
         kapus.setSize(getWidth(),getHeight());
         kapus.setPosition(0,0);
         addActor(kapus,10);
+
+        back = new SzurkecuccBarhovaActor(game,world,0,0,getWidth(),getHeight());
+        addActor(back,999);
+        back.setColor(1,1,1,0.8f);
+
+        felirat = new MyLabel(game, "Kivédve!", ls) {
+            @Override
+            public void init() {
+
+            }
+        };
+        felirat.setPosition(10,getViewport().getWorldHeight()/2-felirat.getHeight()/2);
+        felirat.setFontScale(6);
+        felirat.setColor(Color.WHITE);
+        addActor(felirat,1000);
+        alirat = new MyLabel(game, "Új játék indul 2 másodperc múlva!", ls) {
+            @Override
+            public void init() {
+
+            }
+        };
+        alirat.setPosition(getViewport().getWorldWidth()/30,getViewport().getWorldHeight()/2.7f);
+        alirat.setFontScale(1.35f);
+        alirat.setColor(Color.WHITE);
+        addActor(alirat,1001);
+
+        back1 = new SimpleButton(game, "Vissza");
+        back1.setSize(getWidth()/2,getHeight()/8);
+        back1.setPosition(getWidth()/2-back1.getWidth()/2,getHeight()/4.4f);
+        back1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                game.setScreen(new GameScreen(game));
+            }
+        });
+        addActor(back1,1002);
+
+        felirat.setVisible(false);
+        alirat.setVisible(false);
+        back1.setVisible(false);
+        back.setVisible(false);
 
         newlabda();
 
@@ -99,7 +158,7 @@ public class FociStage extends SimpleWorldStage {
         z = new TickTimer(0, true, new TickTimerListener() {
             @Override
             public void onTick(Timer sender, float correction) {
-                if(asd.get){loves(asd.iranyX,asd.iranyY);}
+                if(asd.get){loves(asd.iranyX,asd.iranyY);asd.del();}
             }
         });
 
@@ -130,10 +189,34 @@ public class FociStage extends SimpleWorldStage {
         System.out.printf(kapus.getX()+kapus.getWidth()/3+" and "+labda.getX()+"      ");
         System.out.println(kapus.getX()+(kapus.getWidth()/1.5f)+" asd "+labda.getX()+labda.getWidth());
         if(labda.getX()<0+labda.getWidth()*0.7f || labda.getX() > getViewport().getWorldWidth()-labda.getWidth()/1.5f){
-            System.out.println("mellé!");
+             vege("Mellé!!!!!");
         }
         else if(kapus.getX()+kapus.getWidth()/3<labda.getX()+labda.getWidth() && kapus.getX()+(kapus.getWidth()/1.5f)>labda.getX()){
-            System.out.println("kivédve!");}
-        else System.out.println("goal!");
+             vege("Kivédve!");}
+        else vege("Goal!!!!!!");
+    }
+
+    void vege(String s){
+        felirat.setText(s);
+        felirat.setVisible(true);
+        alirat.setVisible(true);
+        back1.setVisible(true);
+        back.setVisible(true);
+       TickTimer q = new TickTimer(2, false, new TickTimerListener() {
+           @Override
+           public void onStop(Timer sender) {
+               super.onStop(sender);
+               felirat.setVisible(false);
+               alirat.setVisible(false);
+               back1.setVisible(false);
+               back.setVisible(false);
+               labda.remove();
+               newlabda();
+               z.start();
+               h.start();
+           }
+       });
+
+        addTimer(q);
     }
 }

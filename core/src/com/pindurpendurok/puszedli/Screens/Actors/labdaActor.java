@@ -63,4 +63,8 @@ public class labdaActor {
             }
         });
     }
+
+    public void del(){
+        kocka.remove();
+    }
 }
