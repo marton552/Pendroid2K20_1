@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
+import com.pindurpendurok.puszedli.Screens.Favago.FavagoScreen;
 import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
@@ -180,5 +181,16 @@ public class GameStage extends SimpleWorldStage {
             }
         });
         addActor(foci);
+
+        SimpleButton favagas = new SimpleButton(game, "favagas");
+        favagas.setX(300);
+        favagas.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                game.setScreen(new FavagoScreen(game));
+            }
+        });
+        addActor(favagas);
     }
 }
