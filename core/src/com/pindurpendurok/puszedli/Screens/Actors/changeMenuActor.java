@@ -49,10 +49,12 @@ public class changeMenuActor {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
                 vegeX = x;
-                if(vegeX > kezdX) iranyX = 1;
-                else iranyX = -1;
+                if(kezdX !=0){
+                if(vegeX > kezdX+100) iranyX = 1;
+                else if(vegeX+100 < kezdX) iranyX = -1;
+                System.out.println(vegeX +"   "+kezdX);
                 get = true;
-                elsokattint = true;
+                elsokattint = true;}
             }
         });
     }
