@@ -63,4 +63,11 @@ public class changeMenuActor {
     public void del(){
         kocka.setPosition(0,0);
     }
+
+    public void setVisible(boolean x){
+        kocka.setVisible(x);
+    }
+    public void setZindex(int x){
+        kocka.setZIndex(x);
+    }
 }

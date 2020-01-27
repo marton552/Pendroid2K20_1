@@ -42,9 +42,9 @@ public class GameStage extends SimpleWorldStage {
 
     public final static String FONT = "Bosk.otf";
     static final String[][] HATTEREK = new String[][]{{"elemek/szoba/szoba1.png","elemek/szoba/szoba2.png","elemek/szoba/szoba3.png","elemek/szoba/szoba4.png","elemek/szoba/szoba5.png"},
-            {"elemek/szoba/szoba1_konyha.png"},
-            {"elemek/szoba/szoba1_munka.png"},
-            {"elemek/szoba/szoba1_radio.png"},
+            {"elemek/szoba/szoba1_konyha.png","elemek/szoba/szoba2_konyha.png","elemek/szoba/szoba3_konyha.png","elemek/szoba/szoba4_konyha.png","elemek/szoba/szoba5_konyha.png"},
+            {"elemek/szoba/szoba1_munka.png","elemek/szoba/szoba2_munka.png","elemek/szoba/szoba3_munka.png","elemek/szoba/szoba4_munka.png","elemek/szoba/szoba5_munka.png"},
+            {"elemek/szoba/szoba1_ures.png","elemek/szoba/szoba2_ures.png","elemek/szoba/szoba3_ures.png","elemek/szoba/szoba4_ures.png","elemek/szoba/szoba5_ures.png"},
     };
 
 
@@ -55,7 +55,10 @@ public class GameStage extends SimpleWorldStage {
     public final static String ITALOK = "elemek/italok.png";
     public final static String SZOBAK = "elemek/szobak.png";
     public final static String RUHAK = "elemek/ruhak.png";
+    public final static String JATEKOK = "elemek/games.png";
+    public final static String MUNKAK = "elemek/storyk.png";
     public final static String SAND = "ui_textures/sand.png";
+    public final static String VISSZA = "back.png";
 
     public boolean timer_able_to_count = true;
     public int ticks = 0;
@@ -70,6 +73,9 @@ public class GameStage extends SimpleWorldStage {
     changeMenuActor detect;
     int melyik_hatter = 0;
     OneSpriteStaticActor sand;
+    OneSpriteStaticActor vissza;
+    Borderhuzogato inline;
+    boolean detectOn = true;
     public static List<Border> gombok = new ArrayList<>();
 
 
@@ -81,6 +87,9 @@ public class GameStage extends SimpleWorldStage {
         assetList.addTexture(ITALOK);
         assetList.addTexture(RUHAK);
         assetList.addTexture(SZOBAK);
+        assetList.addTexture(VISSZA);
+        assetList.addTexture(JATEKOK);
+        assetList.addTexture(MUNKAK);
 
         for (int i = 0; i < HATTEREK.length; i++) {
             for (int k = 0; k < HATTEREK[i].length; k++) {
@@ -119,6 +128,8 @@ public class GameStage extends SimpleWorldStage {
         datum.leptetes();
 
         detect = new changeMenuActor(game,this);
+        detect.setVisible(false);
+
 
         OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, HATTEREK[0][save.getInteger("hatter")]);
         BackGround.setSize(getWidth(),getHeight());
@@ -152,37 +163,79 @@ public class GameStage extends SimpleWorldStage {
 
         OneSpriteStaticActor etelek = new OneSpriteStaticActor(game, ETELEK);
         etelek.setSize(getWidth()/4,getWidth()/4);
-        etelek.setPosition(0,0);
+        etelek.setPosition( getWidth()+ getWidth()/2-etelek.getWidth()*1.5f,etelek.getHeight()/2);
         addActor(etelek);
+        etelek.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                etelclicked();
+            }
+        });
 
         OneSpriteStaticActor italok = new OneSpriteStaticActor(game, ITALOK);
         italok.setSize(getWidth()/4,getWidth()/4);
-        italok.setPosition(italok.getWidth(),0);
+        italok.setPosition(getWidth()+ getWidth()/2 +etelek.getWidth()*0.5f,italok.getHeight()/2);
         addActor(italok);
+        italok.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                italclicked();
+            }
+        });
+
+        OneSpriteStaticActor jatekok = new OneSpriteStaticActor(game, JATEKOK);
+        jatekok.setSize(getWidth()/4,getWidth()/4);
+        jatekok.setPosition( -getWidth()+ getWidth()/2-etelek.getWidth()*1.5f,etelek.getHeight()/2);
+        addActor(jatekok);
+
+        OneSpriteStaticActor munkak = new OneSpriteStaticActor(game, MUNKAK);
+        munkak.setSize(getWidth()/4,getWidth()/4);
+        munkak.setPosition(-getWidth()+ getWidth()/2 +etelek.getWidth()*0.5f,italok.getHeight()/2);
+        addActor(munkak);
 
         OneSpriteStaticActor szobak = new OneSpriteStaticActor(game, SZOBAK);
         szobak.setSize(getWidth()/4,getWidth()/4);
-        szobak.setPosition(getWidth()-szobak.getWidth(),0);
+        szobak.setPosition(getWidth()*2+ getWidth()/2-etelek.getWidth()*1.5f,etelek.getHeight()/2);
         addActor(szobak);
 
         OneSpriteStaticActor ruhak = new OneSpriteStaticActor(game, RUHAK);
         ruhak.setSize(getWidth()/4,getWidth()/4);
-        ruhak.setPosition(italok.getWidth()*2,0);
+        ruhak.setPosition(getWidth()*2+ getWidth()/2 +etelek.getWidth()*0.5f,italok.getHeight()/2);
         addActor(ruhak);
+
+        OneSpriteStaticActor szobak1 = new OneSpriteStaticActor(game, SZOBAK);
+        szobak1.setSize(getWidth()/4,getWidth()/4);
+        szobak1.setPosition(getWidth()*-2+ getWidth()/2-etelek.getWidth()*1.5f,etelek.getHeight()/2);
+        addActor(szobak1);
+
+        OneSpriteStaticActor ruhak1 = new OneSpriteStaticActor(game, RUHAK);
+        ruhak1.setSize(getWidth()/4,getWidth()/4);
+        ruhak1.setPosition(getWidth()*-2+ getWidth()/2 +etelek.getWidth()*0.5f,italok.getHeight()/2);
+        addActor(ruhak1);
+
+        vissza = new OneSpriteStaticActor(game, VISSZA);
+        vissza.setSize(getWidth()/5,getWidth()/10);
+        vissza.setPosition(getWidth()-vissza.getWidth(),0);
+        addActor(vissza,10001);
+        vissza.setVisible(false);
+        vissza.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                visszaclicked();
+            }
+        });
 
         sand = new OneSpriteStaticActor(game, SAND);
         sand.setSize(getWidth(),getHeight());
         sand.setPosition(0,0);
         addActor(sand,10001);
-        //sand.setVisible(false);
+        sand.setVisible(false);
 
-        Borderhuzogato inline = new Borderhuzogato(game,this);
-
-
-        for (int i = 0; i < 10; i++) {
-            Border asd = new Border(game,this,i);
-            gombok.add(asd);
-        }
+        inline = new Borderhuzogato(game,this);
+        inline.setVisible(true);
 
         naptar = new MyLabel(game, "Ez itt a datum", ls) {
             @Override
@@ -191,7 +244,7 @@ public class GameStage extends SimpleWorldStage {
             }
         };
         naptar.setPosition(0,getHeight()-naptar.getHeight());
-        naptar.setColor(Color.BLACK);
+        naptar.setColor(Color.WHITE);
         naptar.setFontScale(1.5f);
         addActor(naptar);
 
@@ -220,7 +273,7 @@ public class GameStage extends SimpleWorldStage {
                     datum.leptetes();
                 }
 
-                if(detect.get){
+                if(detect.get && detectOn){
                     if(detect.iranyX==-1)jobbra();
                     else if(detect.iranyX==1)balra();
                     detect.del();
@@ -318,6 +371,49 @@ public class GameStage extends SimpleWorldStage {
 
         //getCamera().position.set(0,getViewport().getWorldHeight()/2,0);
     }
+
+    public void etelclicked(){
+        for (int i = 0; i < Border.KAJA.length; i++) {
+            System.out.println("asd");
+            Border asd = new Border(game,this,i,0,getViewport().getWorldWidth());
+            gombok.add(asd);
+        }
+        sand.setVisible(true);
+        sand.setX(getWidth());
+        inline.setVisible(true);
+        detectOn=false;
+        vissza.setVisible(true);
+        vissza.setX((getWidth())*2-vissza.getWidth());
+        vissza.setZIndex(29000);
+    }
+
+    public void italclicked(){
+        for (int i = 0; i < Border.ITAL.length; i++) {
+            Border asd = new Border(game,this,i,1,getViewport().getWorldWidth());
+            gombok.add(asd);
+        }
+        sand.setVisible(true);
+        sand.setX(getWidth());
+        inline.setVisible(true);
+        detectOn=false;
+        vissza.setVisible(true);
+        vissza.setX((getWidth())*2-vissza.getWidth());
+        vissza.setZIndex(29000);
+    }
+
+    void visszaclicked(){
+        for (int i = 0; i < gombok.size(); i++) {
+            gombok.get(i).remove();
+        }
+        gombok.clear();
+        sand.setVisible(false);
+        inline.setVisible(false);
+        detect.setVisible(true);
+        vissza.setVisible(false);
+        detectOn = true;
+    }
+
+
     TickTimer a;
     void balra(){
         melyik_hatter--;

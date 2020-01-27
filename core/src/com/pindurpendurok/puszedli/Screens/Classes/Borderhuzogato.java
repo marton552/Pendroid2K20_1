@@ -21,21 +21,24 @@ public class Borderhuzogato {
     public float iranyX;
     public boolean get = false;
     boolean elsokattint = true;
+    SimpleWorldStage gs;
 
     public OneSpriteStaticActor kocka;
-    public Borderhuzogato(MyGame game, SimpleWorldStage gs){
+    public Borderhuzogato(MyGame game, SimpleWorldStage gs2){
+        gs = gs2;
         kocka = new OneSpriteStaticActor(game,LABDA);
         kocka.setPosition(0,0);
         kocka.setSize(gs.getViewport().getWorldWidth(), gs.getViewport().getWorldHeight());
-        gs.addActor(kocka,21000);
+        gs.addActor(kocka,19000);
 
 
         //A stagere rakjuk a listenert mert ha kockára rakod bugool
         gs.addListener(new ClickListener() {
+
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 super.touchDragged(event, x, y, pointer);
-                if(elsokattint) {kezdX = y;elsokattint=false;}
+                if(elsokattint) {kezdX = y;elsokattint=false; setpos(1);}
                 //megnézzük hogy a kockára kattintintunk-e (opcionális)
                 if(x >= kocka.getX() && x <= kocka.getX() + kocka.getWidth()) {
                     if(y >= kocka.getY() && y <= kocka.getY() + kocka.getHeight()) {
@@ -63,4 +66,14 @@ public class Borderhuzogato {
     public void del(){
         kocka.setPosition(0,0);
         elsokattint = true;
-    }}
+    }
+    public void setVisible(boolean x){
+        kocka.setVisible(x);
+    }
+    public void setZindex(int x){
+        kocka.setZIndex(x);
+    }
+    public void setpos(int i){
+        kocka.setX(gs.getViewport().getWorldWidth()*i);
+    }
+}
