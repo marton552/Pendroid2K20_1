@@ -45,6 +45,7 @@ public class changeMenuActor {
                 }
             }
 
+
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
@@ -54,7 +55,8 @@ public class changeMenuActor {
                 else if(vegeX+100 < kezdX) iranyX = -1;
                 System.out.println(vegeX +"   "+kezdX);
                 get = true;
-                elsokattint = true;}
+                elsokattint = true;
+                kezdX = 0;}
             }
         });
     }

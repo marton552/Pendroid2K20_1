@@ -36,7 +36,13 @@ import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 public class GameStage extends SimpleWorldStage {
 
     public final static String FONT = "Bosk.otf";
-    static final String[] HATTEREK = new String[]{"elemek/szoba/szoba1.png","elemek/szoba/szoba2.png","elemek/szoba/szoba3.png","elemek/szoba/szoba4.png","elemek/szoba/szoba5.png"};
+    static final String[][] HATTEREK = new String[][]{{"elemek/szoba/szoba1.png","elemek/szoba/szoba2.png","elemek/szoba/szoba3.png","elemek/szoba/szoba4.png","elemek/szoba/szoba5.png"},
+            {"elemek/szoba/szoba1_konyha.png"},
+            {"elemek/szoba/szoba1_munka.png"},
+            {"elemek/szoba/szoba1_radio.png"},
+    };
+
+
     static final String[] BENDZSIK = new String[]{"elemek/dave/Davey.png","elemek/dave/DaveyAlaMexican.png","elemek/dave/DaveyIgen.png","elemek/dave/DaveyVaják.png","elemek/dave/gangsterDavey.png",
             "elemek/dave/jasonDavey.png","elemek/dave/kawaiiDavey.png","elemek/dave/MarioDavey.png","elemek/dave/NudiDavey.png","elemek/dave/papDavey.png",
             "elemek/dave/rendőrDavey.png","elemek/dave/tündérDavey.png","elemek/dave/zacseszDavey.png","elemek/dave/ZoldDavey.png","elemek/dave/matrixDavey.png"};
@@ -56,6 +62,7 @@ public class GameStage extends SimpleWorldStage {
     Date datum = new Date(this);
     public static Preferences save;
     changeMenuActor detect;
+    int melyik_hatter = 0;
 
 
     public static AssetList assetList = new AssetList();
@@ -68,7 +75,9 @@ public class GameStage extends SimpleWorldStage {
         assetList.addTexture(SZOBAK);
 
         for (int i = 0; i < HATTEREK.length; i++) {
-            assetList.addTexture(HATTEREK[i]).protect = true;
+            for (int k = 0; k < HATTEREK[i].length; k++) {
+                assetList.addTexture(HATTEREK[i][k]).protect = true;
+            }
         }
         for (int i = 0; i < BENDZSIK.length; i++) {
             assetList.addTexture(BENDZSIK[i]).protect = true;
@@ -78,7 +87,7 @@ public class GameStage extends SimpleWorldStage {
 
     public GameStage(final MyGame game) {
         super(new ResponseViewport(1080f), game);
-        setCameraResetToLeftBottomOfScreen();
+        setCameraResetToCenterOfScreen();
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
@@ -95,7 +104,7 @@ public class GameStage extends SimpleWorldStage {
             //Pap minigame
             save.putInteger("papkell",0);
             save.putInteger("papmegvan",0);
-            save.putInteger("hatter",4);
+            save.putInteger("hatter",0);
             save.putInteger("dave",0);
         }
         save.flush();
@@ -103,9 +112,30 @@ public class GameStage extends SimpleWorldStage {
 
         detect = new changeMenuActor(game,this);
 
-        OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, HATTEREK[save.getInteger("hatter")]);
+        OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, HATTEREK[0][save.getInteger("hatter")]);
         BackGround.setSize(getWidth(),getHeight());
+        BackGround.setX(0);
         addActor(BackGround);
+
+        OneSpriteStaticActor BackGround_konyha = new OneSpriteStaticActor(game, HATTEREK[1][save.getInteger("hatter")]);
+        BackGround_konyha.setSize(getWidth(),getHeight());
+        BackGround_konyha.setX(getWidth());
+        addActor(BackGround_konyha);
+
+        OneSpriteStaticActor BackGround_munka = new OneSpriteStaticActor(game, HATTEREK[2][save.getInteger("hatter")]);
+        BackGround_munka.setSize(getWidth(),getHeight());
+        BackGround_munka.setX(0-getWidth());
+        addActor(BackGround_munka);
+
+        OneSpriteStaticActor BackGround_radio = new OneSpriteStaticActor(game, HATTEREK[3][save.getInteger("hatter")]);
+        BackGround_radio.setSize(getWidth(),getHeight());
+        BackGround_radio.setX(getWidth()*2);
+        addActor(BackGround_radio);
+
+        OneSpriteStaticActor BackGround_radio2 = new OneSpriteStaticActor(game, HATTEREK[3][save.getInteger("hatter")]);
+        BackGround_radio2.setSize(getWidth(),getHeight());
+        BackGround_radio2.setX(0-getWidth()*2);
+        addActor(BackGround_radio2);
 
         OneSpriteStaticActor Dave = new OneSpriteStaticActor(game, BENDZSIK[save.getInteger("dave")]);
         Dave.setSize(getWidth()/1.5f,getHeight()/1.5f);
@@ -263,31 +293,44 @@ public class GameStage extends SimpleWorldStage {
             }
         });
         addActor(rock);
+
+        //getCamera().position.set(0,getViewport().getWorldHeight()/2,0);
     }
     TickTimer a;
     void balra(){
+        melyik_hatter--;
+        if(melyik_hatter == -3){
+            melyik_hatter = 1;
+            getCamera().position.set(getCamera().position.x+(getViewport().getWorldWidth()*4),getViewport().getWorldHeight()/2,0);
+        }
         final float nu = getCamera().position.x;
-        final float ize = getViewport().getWorldHeight()/50;
+        final float ize = getViewport().getWorldWidth()/20;
+        final float finish = nu-getViewport().getWorldWidth();
+        int x = 0;
         a = new TickTimer(0, true, new TickTimerListener() {
             @Override
             public void onTick(Timer sender, float correction) {
-                getCamera().position.set(getCamera().position.x-ize,getViewport().getWorldHeight()/2,0);
-
-                if(getCamera().position.x < nu-getViewport().getWorldWidth())stop();
+                if(getCamera().position.x <= finish)stop();
+                else getCamera().position.set(getCamera().position.x-ize,getViewport().getWorldHeight()/2,0);
             }
         });
         addTimer(a);
     }
 
     void jobbra(){
+        melyik_hatter++;
+        if(melyik_hatter == 3){
+            melyik_hatter = -1;
+            getCamera().position.set(getCamera().position.x-(getViewport().getWorldWidth()*4),getViewport().getWorldHeight()/2,0);
+        }
         final float nu = getCamera().position.x;
-        final float ize = getViewport().getWorldHeight()/50;
+        final float ize = getViewport().getWorldWidth()/20;
         a = new TickTimer(0, true, new TickTimerListener() {
             @Override
             public void onTick(Timer sender, float correction) {
                 getCamera().position.set(getCamera().position.x+ize,getViewport().getWorldHeight()/2,0);
 
-                if(getCamera().position.x > nu+getViewport().getWorldWidth())stop();
+                if(getCamera().position.x >= nu+getViewport().getWorldWidth())stop();
             }
         });
         addTimer(a);
