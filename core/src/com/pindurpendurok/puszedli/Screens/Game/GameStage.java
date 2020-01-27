@@ -33,12 +33,16 @@ import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class GameStage extends SimpleWorldStage {
 
-    public final static String BACKGROUND = "mainback.png";
     public final static String FONT = "Bosk.otf";
     static final String[] HATTEREK = new String[]{"elemek/szoba/szoba1.png","elemek/szoba/szoba2.png","elemek/szoba/szoba3.png","elemek/szoba/szoba4.png","elemek/szoba/szoba5.png"};
     static final String[] BENDZSIK = new String[]{"elemek/dave/Davey.png","elemek/dave/DaveyAlaMexican.png","elemek/dave/DaveyIgen.png","elemek/dave/DaveyVaják.png","elemek/dave/gangsterDavey.png",
             "elemek/dave/jasonDavey.png","elemek/dave/kawaiiDavey.png","elemek/dave/marioDavey.png","elemek/dave/NudiDavey.png","elemek/dave/papDavey.png",
             "elemek/dave/rendőrDavey.png","elemek/dave/tündérDavey.png","elemek/dave/zacseszDavey.png","elemek/dave/ZoldDavey.png","elemek/dave/matrixDavey.png"};
+    public final static String ETELEK = "elemek/etelek.png";
+    public final static String ITALOK = "elemek/italok.png";
+    public final static String SZOBAK = "elemek/szobak.png";
+    public final static String RUHAK = "elemek/ruhak.png";
+
     public boolean timer_able_to_count = true;
     public int ticks = 0;
     public int count = 0;
@@ -55,7 +59,11 @@ public class GameStage extends SimpleWorldStage {
     static {
         AssetList.collectAssetDescriptor(CircleAtBackgroundActor.class, assetList);
         assetList.addFont(FONT, 60, Color.WHITE).protect = true;
-        assetList.addTexture(BACKGROUND);
+        assetList.addTexture(ETELEK);
+        assetList.addTexture(ITALOK);
+        assetList.addTexture(RUHAK);
+        assetList.addTexture(SZOBAK);
+
         for (int i = 0; i < HATTEREK.length; i++) {
             assetList.addTexture(HATTEREK[i]).protect = true;
         }
@@ -84,7 +92,7 @@ public class GameStage extends SimpleWorldStage {
             //Pap minigame
             save.putInteger("papkell",0);
             save.putInteger("papmegvan",0);
-            save.putInteger("hatter",0);
+            save.putInteger("hatter",4);
             save.putInteger("dave",0);
         }
         save.flush();
@@ -99,6 +107,26 @@ public class GameStage extends SimpleWorldStage {
         Dave.setSize(getWidth()/1.5f,getHeight()/1.5f);
         Dave.setPosition(getWidth()/2-Dave.getWidth()/2,getHeight()/40);
         addActor(Dave);
+
+        OneSpriteStaticActor etelek = new OneSpriteStaticActor(game, ETELEK);
+        etelek.setSize(getWidth()/4,getWidth()/4);
+        etelek.setPosition(0,0);
+        addActor(etelek);
+
+        OneSpriteStaticActor italok = new OneSpriteStaticActor(game, ITALOK);
+        italok.setSize(getWidth()/4,getWidth()/4);
+        italok.setPosition(italok.getWidth(),0);
+        addActor(italok);
+
+        OneSpriteStaticActor szobak = new OneSpriteStaticActor(game, SZOBAK);
+        szobak.setSize(getWidth()/4,getWidth()/4);
+        szobak.setPosition(getWidth()-szobak.getWidth(),0);
+        addActor(szobak);
+
+        OneSpriteStaticActor ruhak = new OneSpriteStaticActor(game, RUHAK);
+        ruhak.setSize(getWidth()/4,getWidth()/4);
+        ruhak.setPosition(italok.getWidth()*2,0);
+        addActor(ruhak);
 
         naptar = new MyLabel(game, "Ez itt a datum", ls) {
             @Override
