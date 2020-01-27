@@ -22,6 +22,7 @@ public class Borderhuzogato {
     public boolean get = false;
     boolean elsokattint = true;
     SimpleWorldStage gs;
+    public int one = 1;
 
     public OneSpriteStaticActor kocka;
     public Borderhuzogato(MyGame game, SimpleWorldStage gs2){
@@ -38,7 +39,7 @@ public class Borderhuzogato {
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 super.touchDragged(event, x, y, pointer);
-                if(elsokattint) {kezdX = y;elsokattint=false; setpos(1);}
+                if(elsokattint) {kezdX = y;elsokattint=false; setpos(one);}
                 //megnézzük hogy a kockára kattintintunk-e (opcionális)
                 if(x >= kocka.getX() && x <= kocka.getX() + kocka.getWidth()) {
                     if(y >= kocka.getY() && y <= kocka.getY() + kocka.getHeight()) {
