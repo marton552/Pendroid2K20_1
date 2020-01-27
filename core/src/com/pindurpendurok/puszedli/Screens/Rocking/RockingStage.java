@@ -20,15 +20,18 @@ import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 public class RockingStage extends MyStage {
 
     public static final String WBG = "ui_textures/black.png";
+    public static final String RED = "ui_textures/red.png";
 
 
     public static AssetList list = new AssetList();
     static {
         list.addTexture(WBG);
+        list.addTexture(RED);
     }
 
 
@@ -47,6 +50,8 @@ public class RockingStage extends MyStage {
     SimpleLabel endLabel;
     SimpleButton endBtn;
 
+    SimpleLabel debug;
+
     public RockingStage(final MyGame game) {
         super(new ResponseViewport(720), game);
 
@@ -55,11 +60,13 @@ public class RockingStage extends MyStage {
         bar = new ProgressBar(getViewport().getWorldWidth() - 100, 40, ProgressBar.BG, ProgressBar.BAR, game);
         bar.setPosition(getViewport().getWorldWidth() / 2 - bar.getWidth() / 2, getViewport().getWorldHeight() - bar.getHeight() - 20);
         bar.setBarStep(0);
+        bar.addZone(RED, goodPercentStart, goodPercentSize);
         addActor(bar);
+
 
         secLabel = new SimpleLabel(game, sec+"");
         secLabel.setAlignment(Align.center);
-        secLabel.setPosition(getViewport().getWorldWidth() / 2 - secLabel.getWidth() / 2, bar.getY() - bar.getHeight() - secLabel.getHeight() - 20);
+        secLabel.setPosition(getViewport().getWorldWidth() / 2 - secLabel.getWidth() / 2, bar.getY() - bar.getHeight() - secLabel.getHeight());
         addActor(secLabel);
 
 
@@ -78,10 +85,22 @@ public class RockingStage extends MyStage {
                 float gForce = (float)Math.sqrt((xGrav * xGrav) + (yGrav * yGrav) + (zGrav * zGrav));
 
 
-                currPercent = gForce * (2 / 100);
+                if(gForce > 1.8f) currPercent += 10;
+                if(currPercent > 100) currPercent = 100;
+                debug.setText("gforce: "+gForce+" percent: "+currPercent);
                 bar.setBarStep(currPercent);
 
 
+            }
+        }));
+
+        addTimer(new TickTimer(0.1f, true, new TickTimerListener(){
+            @Override
+            public void onRepeat(TickTimer sender) {
+                super.onRepeat(sender);
+                currPercent--;
+                if(currPercent < 0) currPercent = 0;
+                bar.setBarStep(currPercent);
             }
         }));
 
@@ -104,6 +123,8 @@ public class RockingStage extends MyStage {
             }
         }));
 
+        debug = new SimpleLabel(game, "DEBUG: ");
+        addActor(debug);
 
         endBg = new OneSpriteStaticActor(game, WBG);
         endBg.setVisible(false);
@@ -130,6 +151,11 @@ public class RockingStage extends MyStage {
         addActor(endBtn);
 
 
+    }
+
+    private float mapValue (float value, float fromSource, float toSource, float fromTarget, float toTarget)
+    {
+        return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
     }
 
     private void endGame() {
