@@ -2,6 +2,7 @@ package com.pindurpendurok.puszedli.Screens.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Actors.StatusBarActor;
+import com.pindurpendurok.puszedli.Screens.Actors.changeMenuActor;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
 import com.pindurpendurok.puszedli.Screens.Favago.FavagoScreen;
 import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
@@ -36,7 +38,7 @@ public class GameStage extends SimpleWorldStage {
     public final static String FONT = "Bosk.otf";
     static final String[] HATTEREK = new String[]{"elemek/szoba/szoba1.png","elemek/szoba/szoba2.png","elemek/szoba/szoba3.png","elemek/szoba/szoba4.png","elemek/szoba/szoba5.png"};
     static final String[] BENDZSIK = new String[]{"elemek/dave/Davey.png","elemek/dave/DaveyAlaMexican.png","elemek/dave/DaveyIgen.png","elemek/dave/DaveyVaják.png","elemek/dave/gangsterDavey.png",
-            "elemek/dave/jasonDavey.png","elemek/dave/kawaiiDavey.png","elemek/dave/marioDavey.png","elemek/dave/NudiDavey.png","elemek/dave/papDavey.png",
+            "elemek/dave/jasonDavey.png","elemek/dave/kawaiiDavey.png","elemek/dave/MarioDavey.png","elemek/dave/NudiDavey.png","elemek/dave/papDavey.png",
             "elemek/dave/rendőrDavey.png","elemek/dave/tündérDavey.png","elemek/dave/zacseszDavey.png","elemek/dave/ZoldDavey.png","elemek/dave/matrixDavey.png"};
     public final static String ETELEK = "elemek/etelek.png";
     public final static String ITALOK = "elemek/italok.png";
@@ -53,6 +55,7 @@ public class GameStage extends SimpleWorldStage {
     MyLabel naptar;
     Date datum = new Date(this);
     public static Preferences save;
+    changeMenuActor detect;
 
 
     public static AssetList assetList = new AssetList();
@@ -98,6 +101,7 @@ public class GameStage extends SimpleWorldStage {
         save.flush();
         datum.leptetes();
 
+        detect = new changeMenuActor(game,this);
 
         OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, HATTEREK[save.getInteger("hatter")]);
         BackGround.setSize(getWidth(),getHeight());
@@ -162,6 +166,13 @@ public class GameStage extends SimpleWorldStage {
                     naptar.setText(datum.ev+"."+datum.getMonth(datum.honap)+"."+datum.nap+"  "+ora2+":"+perc2);
                 if(ticks%150==0){count++;
                     datum.leptetes();
+                }
+
+                if(detect.get){
+                    if(detect.iranyX==-1)jobbra();
+                    else if(detect.iranyX==1)balra();
+                    detect.del();
+                    detect.get = false;
                 }
         }}
         }));
@@ -253,4 +264,37 @@ public class GameStage extends SimpleWorldStage {
         });
         addActor(rock);
     }
+    TickTimer a;
+    void balra(){
+        final float nu = getCamera().position.x;
+        final float ize = getViewport().getWorldHeight()/50;
+        a = new TickTimer(0, true, new TickTimerListener() {
+            @Override
+            public void onTick(Timer sender, float correction) {
+                getCamera().position.set(getCamera().position.x-ize,getViewport().getWorldHeight()/2,0);
+
+                if(getCamera().position.x < nu-getViewport().getWorldWidth())stop();
+            }
+        });
+        addTimer(a);
+    }
+
+    void jobbra(){
+        final float nu = getCamera().position.x;
+        final float ize = getViewport().getWorldHeight()/50;
+        a = new TickTimer(0, true, new TickTimerListener() {
+            @Override
+            public void onTick(Timer sender, float correction) {
+                getCamera().position.set(getCamera().position.x+ize,getViewport().getWorldHeight()/2,0);
+
+                if(getCamera().position.x > nu+getViewport().getWorldWidth())stop();
+            }
+        });
+        addTimer(a);
+    }
+
+    void stop(){
+        a.stop();
+    }
+
 }
