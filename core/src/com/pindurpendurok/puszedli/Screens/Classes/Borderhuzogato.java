@@ -1,14 +1,15 @@
-package com.pindurpendurok.puszedli.Screens.Actors;
+package com.pindurpendurok.puszedli.Screens.Classes;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.pindurpendurok.puszedli.Screens.Game.GameStage;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleWorldStage;
 
-public class changeMenuActor {
+public class Borderhuzogato {
     public static final String LABDA = "null.png";
     public static AssetList list = new AssetList();
     static {
@@ -22,11 +23,11 @@ public class changeMenuActor {
     boolean elsokattint = true;
 
     public OneSpriteStaticActor kocka;
-    public changeMenuActor(MyGame game, SimpleWorldStage gs){
+    public Borderhuzogato(MyGame game, SimpleWorldStage gs){
         kocka = new OneSpriteStaticActor(game,LABDA);
         kocka.setPosition(0,0);
         kocka.setSize(gs.getViewport().getWorldWidth(), gs.getViewport().getWorldHeight());
-        gs.addActor(kocka,10000);
+        gs.addActor(kocka,21000);
 
 
         //A stagere rakjuk a listenert mert ha kockára rakod bugool
@@ -34,13 +35,18 @@ public class changeMenuActor {
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 super.touchDragged(event, x, y, pointer);
-                if(elsokattint) {kezdX = x;elsokattint=false;}
+                if(elsokattint) {kezdX = y;elsokattint=false;}
                 //megnézzük hogy a kockára kattintintunk-e (opcionális)
                 if(x >= kocka.getX() && x <= kocka.getX() + kocka.getWidth()) {
                     if(y >= kocka.getY() && y <= kocka.getY() + kocka.getHeight()) {
 
                         //Itt pedig középre pozícionáljuk a kockát rá az x,y koordinátára
-                        kocka.setPosition(x - kocka.getWidth() / 2, y - kocka.getHeight() / 2);
+                        //kocka.setPosition(x - kocka.getWidth() / 2, y - kocka.getHeight() / 2);
+                        for (int i = 0; i < GameStage.gombok.size(); i++) {
+                            GameStage.gombok.get(i).mozgat((y-kezdX));
+
+                        }
+                        if(y != kezdX)kezdX = y;
                     }
                 }
             }
@@ -49,18 +55,12 @@ public class changeMenuActor {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
-                vegeX = x;
-                if(kezdX !=0){
-                if(vegeX > kezdX+100) iranyX = 1;
-                else if(vegeX+100 < kezdX) iranyX = -1;
-                get = true;
-                elsokattint = true;
-                kezdX = 0;}
+                del();
             }
         });
     }
 
     public void del(){
         kocka.setPosition(0,0);
-    }
-}
+        elsokattint = true;
+    }}

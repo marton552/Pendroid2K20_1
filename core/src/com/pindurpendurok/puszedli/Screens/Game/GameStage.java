@@ -11,6 +11,8 @@ import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Actors.StatusBarActor;
 import com.pindurpendurok.puszedli.Screens.Actors.changeMenuActor;
+import com.pindurpendurok.puszedli.Screens.Classes.Border;
+import com.pindurpendurok.puszedli.Screens.Classes.Borderhuzogato;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
 import com.pindurpendurok.puszedli.Screens.Favago.FavagoScreen;
 import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
@@ -21,6 +23,9 @@ import com.pindurpendurok.puszedli.Screens.MiniGame.MathMenuStage;
 import com.pindurpendurok.puszedli.Screens.Rocking.RockingScreen;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
 import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
@@ -50,6 +55,7 @@ public class GameStage extends SimpleWorldStage {
     public final static String ITALOK = "elemek/italok.png";
     public final static String SZOBAK = "elemek/szobak.png";
     public final static String RUHAK = "elemek/ruhak.png";
+    public final static String SAND = "ui_textures/sand.png";
 
     public boolean timer_able_to_count = true;
     public int ticks = 0;
@@ -63,6 +69,8 @@ public class GameStage extends SimpleWorldStage {
     public static Preferences save;
     changeMenuActor detect;
     int melyik_hatter = 0;
+    OneSpriteStaticActor sand;
+    public static List<Border> gombok = new ArrayList<>();
 
 
     public static AssetList assetList = new AssetList();
@@ -161,6 +169,20 @@ public class GameStage extends SimpleWorldStage {
         ruhak.setSize(getWidth()/4,getWidth()/4);
         ruhak.setPosition(italok.getWidth()*2,0);
         addActor(ruhak);
+
+        sand = new OneSpriteStaticActor(game, SAND);
+        sand.setSize(getWidth(),getHeight());
+        sand.setPosition(0,0);
+        addActor(sand,10001);
+        //sand.setVisible(false);
+
+        Borderhuzogato inline = new Borderhuzogato(game,this);
+
+
+        for (int i = 0; i < 10; i++) {
+            Border asd = new Border(game,this,i);
+            gombok.add(asd);
+        }
 
         naptar = new MyLabel(game, "Ez itt a datum", ls) {
             @Override
