@@ -53,6 +53,8 @@ public class FociStage extends SimpleWorldStage {
     MyLabel alirat;
     SimpleButton back1;
     SzurkecuccBarhovaActor back;
+    public static boolean van = false;
+    public static int penzm = 0;
 
 
     public FociStage(final MyGame game) {
@@ -105,6 +107,7 @@ public class FociStage extends SimpleWorldStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                penzm = penzm*10;
                 game.setScreen(new GameScreen(game));
             }
         });
@@ -193,7 +196,7 @@ public class FociStage extends SimpleWorldStage {
         }
         else if(kapus.getX()+kapus.getWidth()/3<labda.getX()+labda.getWidth() && kapus.getX()+(kapus.getWidth()/1.5f)>labda.getX()){
              vege("Kivédve!");}
-        else vege("Goal!!!!!!");
+        else{ vege("Goal!!!!!!"); van =true; penzm++;}
     }
 
     void vege(String s){

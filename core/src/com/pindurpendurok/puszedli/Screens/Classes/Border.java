@@ -101,7 +101,9 @@ public class Border {
 
         blocked = tiltva;
         selected = selected1;
-        back = new OneSpriteStaticActor(game, BACK);
+        if(type == 4) back = new OneSpriteStaticActor(game, MINIGAME[hanyadik]);
+        else if(type == 5)back = new OneSpriteStaticActor(game, WORK[hanyadik]);
+        else back = new OneSpriteStaticActor(game, BACK);
         back.setSize(gs.getWidth()/3,gs.getWidth()/3);
         if(hanyadik%2==0 || hanyadik == 0)back.setPosition(screen + gs.getViewport().getWorldWidth()/2-back.getWidth()*1.1f,gs.getViewport().getWorldHeight()-(back.getHeight()*1.1f)*(hanyadik+2)/2);
         else back.setPosition(screen+ gs.getViewport().getWorldWidth()/2+(back.getWidth()*1.1f-back.getWidth()),gs.getViewport().getWorldHeight()-(back.getHeight()*1.1f)*(hanyadik+1)/2);
@@ -111,8 +113,8 @@ public class Border {
         else if(type == 1) kep = new OneSpriteStaticActor(game, ITAL[hanyadik]);
         else if(type == 2) kep = new OneSpriteStaticActor(game, GameStage.BENDZSIK[hanyadik]);
         else if(type == 3) kep = new OneSpriteStaticActor(game, GameStage.HATTEREK[0][hanyadik]);
-        else if(type == 4) kep = new OneSpriteStaticActor(game, MINIGAME[hanyadik]);
-        else if(type == 5) kep = new OneSpriteStaticActor(game, WORK[hanyadik]);
+        else if(type == 4) kep = new OneSpriteStaticActor(game, LABDA);
+        else if(type == 5) kep = new OneSpriteStaticActor(game, LABDA);
         kep.setSize(back.getWidth()/1.5f,back.getWidth()/1.5f);
         kep.setPosition(back.getX()+back.getWidth()/2-kep.getWidth()/2,back.getY()+back.getHeight()/3.2f);
         gs.addActor(kep,19999);
@@ -224,6 +226,8 @@ public class Border {
                     s.setCharAt(GameStage.daveSelected,'1');
                     GameStage.save.putString("daveskin", s.toString());
 
+                    GameStage.save.flush();
+
                     putSelect(true);
                     s = new StringBuilder(GameStage.save.getString("daveskin"));
                     s.setCharAt(hanyadik,'2');
@@ -234,14 +238,16 @@ public class Border {
                 }
                 else if(type==3 && GameStage.save.getString("szobak").charAt(hanyadik) == '1'){
                     GameStage.gombok.get(GameStage.szobaSelected).putSelect(false);
-                    StringBuilder s = new StringBuilder(GameStage.save.getString("szobak"));
-                    s.setCharAt(GameStage.szobaSelected,'1');
-                    GameStage.save.putString("szobak", s.toString());
+                    char[] s = (GameStage.save.getString("szobak").toCharArray());
+                    s[GameStage.szobaSelected] = '1';
+                    GameStage.save.putString("szobak", String.valueOf(s));
+
+                    GameStage.save.flush();
 
                     putSelect(true);
-                    s = new StringBuilder(GameStage.save.getString("szobak"));
-                    s.setCharAt(hanyadik,'2');
-                    GameStage.save.putString("szobak", s.toString());
+                    s = (GameStage.save.getString("szobak").toCharArray());
+                    s[hanyadik] = '2';
+                    GameStage.save.putString("szobak", String.valueOf(s));
                     GameStage.szobaSelected = hanyadik;
                     selected = true;
                 }
@@ -255,7 +261,9 @@ public class Border {
                 }
                 else if(type == 5){
                     setmunka(hanyadik,game);
-                }}
+                }
+                GameStage.save.flush();
+                }
             ondrag = true;
             }
 

@@ -1,5 +1,6 @@
 package com.pindurpendurok.puszedli.Screens.Favago;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,6 +11,7 @@ import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Actors.SzurkecuccBarhovaActor;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
+import com.pindurpendurok.puszedli.Screens.Game.GameStage;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
@@ -44,7 +46,11 @@ public class FavagoStage extends SimpleWorldStage {
     OneSpriteStaticActor zold1;
     MyLabel felirat;
     MyLabel felirat2;
+    MyLabel feliratasd;
+    MyLabel feliratasd2;
     SimpleButton back1;
+    public static boolean atad = false;
+    public static int gotmoney;
     boolean kettevagva = false;
 
     public FavagoStage(final MyGame game) {
@@ -52,6 +58,13 @@ public class FavagoStage extends SimpleWorldStage {
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                atad=true;
+                game.setScreen(new GameScreen(game));
+            }
+        });
 
         OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, BACKGROUND);
         BackGround.setSize(getWidth(),getHeight());
@@ -84,10 +97,13 @@ public class FavagoStage extends SimpleWorldStage {
                 if(kettevagva){
                     zold1.setVisible(false);
                     felirat.setVisible(false);
+                    feliratasd.setVisible(false);
+                    feliratasd2.setVisible(false);
                     felirat2.setVisible(false);
                     back1.setVisible(false);
                     h.start();
-                    fejsze.setX(getViewport().getWorldWidth()/2);
+                    float rnd = MathUtils.random(0,getViewport().getWorldWidth());
+                    fejsze.setX(rnd);
                     kettevagva = false;
                 }
                 else kettevagas();
@@ -105,6 +121,26 @@ public class FavagoStage extends SimpleWorldStage {
         felirat.setFontScale(2);
         felirat.setColor(Color.BLACK);
         addActor(felirat,900);
+        feliratasd = new MyLabel(game, "50% - 50%!", ls) {
+            @Override
+            public void init() {
+
+            }
+        };
+        feliratasd.setPosition(getWidth()/2.5f,getViewport().getWorldHeight()-felirat.getHeight()*3f);
+        feliratasd.setFontScale(2);
+        feliratasd.setColor(Color.BLACK);
+        addActor(feliratasd,900);
+        feliratasd2 = new MyLabel(game, "50% - 50%!", ls) {
+            @Override
+            public void init() {
+
+            }
+        };
+        feliratasd2.setPosition(getWidth()/3f,getViewport().getWorldHeight()-felirat.getHeight()*4.5f);
+        feliratasd2.setFontScale(2);
+        feliratasd2.setColor(Color.BLACK);
+        addActor(feliratasd2,900);
 
         felirat2 = new MyLabel(game, "Újrakezdéshez kattintson bárhova", ls) {
             @Override
@@ -112,7 +148,7 @@ public class FavagoStage extends SimpleWorldStage {
 
             }
         };
-        felirat2.setPosition(getWidth()/23,getViewport().getWorldHeight()-felirat.getHeight()*3.5f);
+        felirat2.setPosition(getWidth()/23,getViewport().getWorldHeight()-felirat.getHeight()*6f);
         felirat2.setFontScale(1.3f);
         felirat2.setColor(Color.BLACK);
         addActor(felirat2,900);
@@ -124,12 +160,15 @@ public class FavagoStage extends SimpleWorldStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                atad=true;
                 game.setScreen(new GameScreen(game));
             }
         });
         addActor(back1,1002);
 
         felirat.setVisible(false);
+        feliratasd.setVisible(false);
+        feliratasd2.setVisible(false);
         felirat2.setVisible(false);
         back1.setVisible(false);
 
@@ -159,10 +198,27 @@ public class FavagoStage extends SimpleWorldStage {
         zold1.setX(x+fejsze.getWidth()/4);
         zold1.setWidth(fejsze.getWidth()/2);
         felirat.setVisible(true);
+        feliratasd.setVisible(true);
+        feliratasd2.setVisible(true);
         felirat2.setVisible(true);
         back1.setVisible(true);
-
+        int csillag = 0;
         int szazalek = (int)((x/getViewport().getWorldWidth())*100);
+        if(szazalek > 48 && szazalek < 52)csillag = 10;
+        else if(szazalek > 45 && szazalek < 55)csillag = 9;
+        else if(szazalek > 42 && szazalek < 58)csillag = 8;
+        else if(szazalek > 37 && szazalek < 63)csillag = 7;
+        else if(szazalek > 34 && szazalek < 67)csillag = 6;
+        else if(szazalek > 30 && szazalek < 70)csillag = 5;
+        else if(szazalek > 27 && szazalek < 73)csillag = 4;
+        else if(szazalek > 24 && szazalek < 77)csillag = 3;
+        else if(szazalek > 20 && szazalek < 80)csillag = 2;
+        else if(szazalek > 10 && szazalek < 90)csillag = 1;
+        else csillag = 0;
+        int penz = MathUtils.random(csillag,csillag*2);
+        gotmoney+=penz;
         felirat.setText(szazalek+"% - "+(100-szazalek)+"%");
+        feliratasd.setText("10/"+csillag);
+        feliratasd2.setText("+"+penz+" penz");
     }
 }

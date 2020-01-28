@@ -17,7 +17,9 @@ import com.pindurpendurok.puszedli.Screens.Classes.Borderhuzogato;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
 import com.pindurpendurok.puszedli.Screens.Classes.GratulaloKep;
 import com.pindurpendurok.puszedli.Screens.Favago.FavagoScreen;
+import com.pindurpendurok.puszedli.Screens.Favago.FavagoStage;
 import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
+import com.pindurpendurok.puszedli.Screens.Foci.FociStage;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameScreen;
@@ -96,6 +98,7 @@ public class GameStage extends SimpleWorldStage {
     int daveseged = 0;
     public static int daveSelected = 0;
     public static boolean kattinthatsz = true;
+    boolean canchangescreen = true;
 
     public static List<Border> gombok = new ArrayList<>();
 
@@ -131,7 +134,7 @@ public class GameStage extends SimpleWorldStage {
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
         save = Gdx.app.getPreferences("gameSave");
-        save.clear();
+        //save.clear();
 
         if(save.contains("inditas")){
             save.putFloat("inditas",(save.getFloat("inditas")+1));
@@ -151,12 +154,26 @@ public class GameStage extends SimpleWorldStage {
             save.putString("jatekok","110101101");
             save.putString("szobak","21100");
             save.putString("daveskin","211000000000000");
+
+            save.putInteger("ehseg",100);
+            save.putInteger("szomjusag",100);
+            save.putInteger("stressz",30);
+            save.putInteger("veralkohol",30);
         }
         save.flush();
         datum.leptetes();
 
         detect = new changeMenuActor(game,this);
         detect.setVisible(false);
+
+        if(FavagoStage.atad){asd.letrehoz(game,this,"Sikeres favágás!",FavagoStage.gotmoney,0,0,-5,0,0);
+        FavagoStage.atad = false; save.putInteger("penz",save.getInteger("penz")+FavagoStage.gotmoney);
+            save.putInteger("stressz",save.getInteger("stressz")-5);}
+
+        if(FociStage.van){asd.letrehoz(game,this,"Jó meccs volt!",FociStage.penzm,0,0,-5,0,0);
+        FociStage.van = false; save.putInteger("penz",save.getInteger("penz")+FociStage.penzm);
+            save.putInteger("stressz",save.getInteger("stressz")-5);
+        }
 
 
         BackGround = new OneSpriteStaticActor(game, HATTEREK[0][save.getInteger("hatter")]);
@@ -337,10 +354,11 @@ public class GameStage extends SimpleWorldStage {
         penz0.setFontScale(1.5f);
         addActor(penz0);
 
-        bar = new StatusBarActor(game,this,"red",getWidth()/1.5f,getHeight()/30,100,100,3.5f,"Éhség");
-        bar2 = new StatusBarActor(game,this,"green",getWidth()/1.5f,getHeight()/30,100,100,5,"Szomjúság");
-        bar3 = new StatusBarActor(game,this,"blue",getWidth()/1.5f,getHeight()/30,100,30,6.5f,"Stressz");
-        bar4 = new StatusBarActor(game,this,"gold",getWidth()/1.5f,getHeight()/30,100,30,8,"Véralkohol szint");
+        //System.out.println(Math.round(save.getFloat("ehseg")));
+        bar = new StatusBarActor(game,this,"red",getWidth()/1.5f,getHeight()/30,100,save.getInteger("ehseg"),3.5f,"Éhség");
+        bar2 = new StatusBarActor(game,this,"green",getWidth()/1.5f,getHeight()/30,100,save.getInteger("szomjusag"),5,"Szomjúság");
+        bar3 = new StatusBarActor(game,this,"blue",getWidth()/1.5f,getHeight()/30,100,save.getInteger("stressz"),6.5f,"Stressz");
+        bar4 = new StatusBarActor(game,this,"gold",getWidth()/1.5f,getHeight()/30,100,save.getInteger("veralkohol"),8,"Véralkohol szint");
 
 
         addTimer(new TickTimer(0, true, new TickTimerListener() {
@@ -362,14 +380,18 @@ public class GameStage extends SimpleWorldStage {
                     datum.leptetes();
 
                     bar.changeValue(-1);
+                    save.putInteger("ehseg",bar.jelenlegi);
                 }
 
                     if(ticks%220==0){
                         bar2.changeValue(-1);
+                        save.putInteger("szomjusag",bar2.jelenlegi);
                     }
                     if(ticks%300==0){
                         bar3.changeValue(1);
+                        save.putInteger("stressz",bar3.jelenlegi);
                         bar4.changeValue(-1);
+                        save.putInteger("veralkohol",bar4.jelenlegi);
                     }
 
                     if(daveSelected != daveseged){
@@ -387,6 +409,8 @@ public class GameStage extends SimpleWorldStage {
                         save.putInteger("hatter",szobaSelected);
                         changewallpaper();
                     }
+
+                    System.out.printf(save.getString("szobak")+"\r\n");
 
                 if(detect.get && detectOn){
                     if(detect.iranyX==-1)jobbra();
@@ -554,7 +578,8 @@ public class GameStage extends SimpleWorldStage {
 
 
     TickTimer a;
-    void balra(){
+    void balra(){if(canchangescreen){
+        canchangescreen = false;
         melyik_hatter--;
         if(melyik_hatter == -3){
             melyik_hatter = 1;
@@ -571,10 +596,12 @@ public class GameStage extends SimpleWorldStage {
                 else getCamera().position.set(getCamera().position.x-ize,getViewport().getWorldHeight()/2,0);
             }
         });
-        addTimer(a);
+        addTimer(a);}
     }
 
     void jobbra(){
+        if(canchangescreen){
+        canchangescreen = false;
         melyik_hatter++;
         if(melyik_hatter == 3){
             melyik_hatter = -1;
@@ -591,10 +618,10 @@ public class GameStage extends SimpleWorldStage {
             }
         });
         addTimer(a);
-    }
+    }}
 
     void stop(){
-        a.stop();
+        a.stop();canchangescreen = true;
     }
 
 }
