@@ -30,6 +30,7 @@ public class Border {
     public final static String BACK = "elemek/border.png";
     public final static String COIN = "penz.png";
     public final static String BLOCK = "elemek/LOCKED.png";
+    public final static String SEL = "elemek/SELECTED.png";
     public static final String[] KAJA = new String[]{"elemek/etel/alma.png","elemek/etel/alma2.png","elemek/etel/barack.png","elemek/etel/chips.png","elemek/etel/csike.png",
             "elemek/etel/hamburger.png","elemek/etel/hamburger2.png","elemek/etel/popcorn.png","elemek/etel/spaggeti.png","elemek/etel/steak.png"};
            static final int[] penz = new int[]{20,25,30,150,300,250,270,120,300,400};
@@ -65,7 +66,8 @@ public class Border {
         assetList.addTexture(BACK).protect = true;
         assetList.addTexture(COIN).protect = true;
         assetList.addTexture(LABDA);
-        assetList.addTexture(BLOCK).protect = true;
+        assetList.addTexture(BLOCK);
+        assetList.addTexture(SEL);
         for (int i = 0; i < KAJA.length; i++) {
             assetList.addTexture(KAJA[i]).protect = true;
         }
@@ -86,16 +88,19 @@ public class Border {
     MyLabel text;
     OneSpriteStaticActor coin;
     OneSpriteStaticActor click;
+    OneSpriteStaticActor valasztott;
     OneSpriteStaticActor block;
     boolean ondrag = true;
     boolean blocked = false;
+    boolean selected = false;
 
-    public Border(final MyGame game, final SimpleWorldStage gs, final int hanyadik, final int type, float screen,boolean tiltva){
+    public Border(final MyGame game, final SimpleWorldStage gs, final int hanyadik, final int type, float screen,boolean tiltva,boolean selected1){
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
 
         blocked = tiltva;
+        selected = selected1;
         back = new OneSpriteStaticActor(game, BACK);
         back.setSize(gs.getWidth()/3,gs.getWidth()/3);
         if(hanyadik%2==0 || hanyadik == 0)back.setPosition(screen + gs.getViewport().getWorldWidth()/2-back.getWidth()*1.1f,gs.getViewport().getWorldHeight()-(back.getHeight()*1.1f)*(hanyadik+2)/2);
@@ -184,6 +189,13 @@ public class Border {
         block.setVisible(false);
         if(blocked) block.setVisible(true);
 
+        valasztott = new OneSpriteStaticActor(game, SEL);
+        valasztott.setSize(gs.getWidth()/3,gs.getWidth()/3);
+        valasztott.setPosition(back.getX(),back.getY());
+        gs.addActor(valasztott,21000);
+        valasztott.setVisible(false);
+        if(selected) valasztott.setVisible(true);
+
         click.addListener(new ClickListener() {
 
             @Override
@@ -197,8 +209,32 @@ public class Border {
                     GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz2[hanyadik]);}
                 else if (type==2 && GameStage.save.getInteger("penz") >= penz3[hanyadik]){ize.letrehoz(game,gs,"Új ruhák huhú!!",penz3[hanyadik]*-1,0,0,0,0,gs.getViewport().getWorldWidth()*2);
                     GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz3[hanyadik]);}
-                else if (type==3 && GameStage.save.getInteger("penz") >= penz4[hanyadik]){ize.letrehoz(game,gs,"Új szoba huhú!!",penz4[hanyadik]*-1,0,0,0,0,gs.getViewport().getWorldWidth()*2);
+                else if (type==3 && GameStage.save.getString("szobak").charAt(hanyadik) ==0 && GameStage.save.getInteger("penz") >= penz4[hanyadik]){ize.letrehoz(game,gs,"Új szoba huhú!!",penz4[hanyadik]*-1,0,0,0,0,gs.getViewport().getWorldWidth()*2);
                     GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz4[hanyadik]);}
+                else if(type==2 && GameStage.save.getString("daveskin").charAt(hanyadik) == '1'){
+                    GameStage.gombok.get(GameStage.daveSelected).putSelect(false);
+                    StringBuilder s = new StringBuilder(GameStage.save.getString("daveskin"));
+                    s.setCharAt(GameStage.daveSelected,'1');
+                    GameStage.save.putString("daveskin", s.toString());
+
+                    putSelect(true);
+                    s = new StringBuilder(GameStage.save.getString("daveskin"));
+                    s.setCharAt(hanyadik,'2');
+                    GameStage.save.putString("daveskin", s.toString());
+                    GameStage.daveSelected = hanyadik;
+                }
+                else if(type==3 && GameStage.save.getString("szobak").charAt(hanyadik) == '1'){
+                    GameStage.gombok.get(GameStage.szobaSelected).putSelect(false);
+                    StringBuilder s = new StringBuilder(GameStage.save.getString("szobak"));
+                    s.setCharAt(GameStage.szobaSelected,'1');
+                    GameStage.save.putString("szobak", s.toString());
+
+                    putSelect(true);
+                    s = new StringBuilder(GameStage.save.getString("szobak"));
+                    s.setCharAt(hanyadik,'2');
+                    GameStage.save.putString("szobak", s.toString());
+                    GameStage.szobaSelected = hanyadik;
+                }
                 else if(type<2) {ize.letrehoz(game,gs,"Sajnos kevés a pénz :(",0,0,0,0,0,gs.getViewport().getWorldWidth());
                     }
                 else if(type<4){
@@ -248,6 +284,7 @@ public class Border {
         coin.setPosition(back.getX()+back.getWidth()/2+((back.getWidth()/25)*text.getText().length),back.getY()+back.getHeight()/12);
         click.setPosition(back.getX(),back.getY());
         if(blocked)block.setPosition(back.getX(),back.getY());
+        if(selected)valasztott.setPosition(back.getX(),back.getY());
     }
     public void remove(){
         back.remove();
@@ -256,5 +293,15 @@ public class Border {
         coin.remove();
         click.remove();
         if(blocked)block.remove();
+        if(selected)valasztott.remove();
+    }
+
+    public void delOsszeg(){
+        text.setText("Megvéve");
+        coin.setVisible(false);
+    }
+
+    public void putSelect(boolean x){
+        valasztott.setVisible(x);
     }
 }

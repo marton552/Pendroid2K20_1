@@ -85,6 +85,9 @@ public class GameStage extends SimpleWorldStage {
     StatusBarActor bar2;
     StatusBarActor bar3;
     StatusBarActor bar4;
+    OneSpriteStaticActor Dave;
+    public static int szobaSelected = 0;
+    public static int daveSelected = 0;
 
     public static List<Border> gombok = new ArrayList<>();
 
@@ -138,6 +141,8 @@ public class GameStage extends SimpleWorldStage {
             save.putInteger("penz",100);
             save.putString("munkak","10101");
             save.putString("jatekok","110101101");
+            save.putString("szobak","21100");
+            save.putString("daveskin","211000000000000");
         }
         save.flush();
         datum.leptetes();
@@ -171,7 +176,7 @@ public class GameStage extends SimpleWorldStage {
         BackGround_radio2.setX(0-getWidth()*2);
         addActor(BackGround_radio2);
 
-        OneSpriteStaticActor Dave = new OneSpriteStaticActor(game, BENDZSIK[save.getInteger("dave")]);
+        Dave = new OneSpriteStaticActor(game, BENDZSIK[save.getInteger("dave")]);
         Dave.setSize(getWidth()/1.5f,getHeight()/1.5f);
         Dave.setPosition(getWidth()/2-Dave.getWidth()/2,getHeight()/40);
         addActor(Dave);
@@ -347,6 +352,7 @@ public class GameStage extends SimpleWorldStage {
                     naptar.setText(datum.ev+"."+datum.getMonth(datum.honap)+"."+datum.nap+"  "+ora2+":"+perc2);
                 if(ticks%150==0){count++;
                     datum.leptetes();
+
                 }
 
                 if(detect.get && detectOn){
@@ -364,7 +370,7 @@ public class GameStage extends SimpleWorldStage {
     public void etelclicked(){
         inline.one=1;
         for (int i = 0; i < Border.KAJA.length; i++) {
-            final Border asd = new Border(game,this,i,0,getViewport().getWorldWidth(),false);
+            final Border asd = new Border(game,this,i,0,getViewport().getWorldWidth(),false,false);
             gombok.add(asd);
         }
         sand.setVisible(true);
@@ -379,7 +385,7 @@ public class GameStage extends SimpleWorldStage {
     public void italclicked(){
         inline.one=1;
         for (int i = 0; i < Border.ITAL.length; i++) {
-            Border asd = new Border(game,this,i,1,getViewport().getWorldWidth(),false);
+            Border asd = new Border(game,this,i,1,getViewport().getWorldWidth(),false,false);
             gombok.add(asd);
         }
         sand.setVisible(true);
@@ -393,8 +399,12 @@ public class GameStage extends SimpleWorldStage {
 
     public void skinekclicked(){
         inline.one=melyik_hatter;
+        String munkak = save.getString("daveskin");
         for (int i = 0; i < BENDZSIK.length; i++) {
-            Border asd = new Border(game,this,i,2,getViewport().getWorldWidth()*melyik_hatter,false);
+            Border asd;
+            if(munkak.charAt(i) == '0') asd = new Border(game,this,i,2,getViewport().getWorldWidth()*melyik_hatter,false,false);
+            else if(munkak.charAt(i) == '1'){asd = new Border(game,this,i,2,getViewport().getWorldWidth()*melyik_hatter,false,false); asd.delOsszeg();}
+            else{asd = new Border(game,this,i,2,getViewport().getWorldWidth()*melyik_hatter,false,true); daveSelected = i; asd.delOsszeg();}
             gombok.add(asd);
         }
         sand.setVisible(true);
@@ -409,8 +419,12 @@ public class GameStage extends SimpleWorldStage {
 
     public void szobakclicked(){
         inline.one=melyik_hatter;
+        String munkak = save.getString("szobak");
         for (int i = 0; i < HATTEREK.length; i++) {
-            Border asd = new Border(game,this,i,3,getViewport().getWorldWidth()*melyik_hatter,false);
+            Border asd;
+            if(munkak.charAt(i) == '0') asd = new Border(game,this,i,3,getViewport().getWorldWidth()*melyik_hatter,false,false);
+            else if(munkak.charAt(i) == '1'){asd = new Border(game,this,i,3,getViewport().getWorldWidth()*melyik_hatter,false,false); asd.delOsszeg();}
+            else{ asd = new Border(game,this,i,3,getViewport().getWorldWidth()*melyik_hatter,false,true); szobaSelected = i; asd.delOsszeg();}
             gombok.add(asd);
         }
         sand.setVisible(true);
@@ -429,8 +443,8 @@ public class GameStage extends SimpleWorldStage {
         for (int i = 0; i < Border.WORK.length; i++) {
             Border asd;
             //System.out.println(munkak[i]);
-            if(munkak.charAt(i) == '0') asd= new Border(game,this,i,5,getViewport().getWorldWidth()*melyik_hatter,true);
-            else asd = new Border(game,this,i,5,getViewport().getWorldWidth()*melyik_hatter,false);
+            if(munkak.charAt(i) == '0') asd= new Border(game,this,i,5,getViewport().getWorldWidth()*melyik_hatter,true,false);
+            else asd = new Border(game,this,i,5,getViewport().getWorldWidth()*melyik_hatter,false,false);
             gombok.add(asd);
         }
         sand.setVisible(true);
@@ -447,8 +461,8 @@ public class GameStage extends SimpleWorldStage {
         String munkak = save.getString("jatekok");
         for (int i = 0; i < Border.MINIGAME.length; i++) {
             Border asd;
-            if(munkak.charAt(i) == '0') asd = new Border(game,this,i,4,getViewport().getWorldWidth()*melyik_hatter,true);
-            else asd = new Border(game,this,i,4,getViewport().getWorldWidth()*melyik_hatter,false);
+            if(munkak.charAt(i) == '0') asd = new Border(game,this,i,4,getViewport().getWorldWidth()*melyik_hatter,true,false);
+            else asd = new Border(game,this,i,4,getViewport().getWorldWidth()*melyik_hatter,false,false);
             gombok.add(asd);
         }
         sand.setVisible(true);
