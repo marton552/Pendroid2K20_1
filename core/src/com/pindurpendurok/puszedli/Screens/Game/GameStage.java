@@ -86,7 +86,14 @@ public class GameStage extends SimpleWorldStage {
     StatusBarActor bar3;
     StatusBarActor bar4;
     OneSpriteStaticActor Dave;
+    OneSpriteStaticActor BackGround;
+    OneSpriteStaticActor BackGround_konyha;
+    OneSpriteStaticActor BackGround_munka;
+    OneSpriteStaticActor BackGround_radio;
+    OneSpriteStaticActor BackGround_radio2;
+    int szobaseged = 0;
     public static int szobaSelected = 0;
+    int daveseged = 0;
     public static int daveSelected = 0;
 
     public static List<Border> gombok = new ArrayList<>();
@@ -151,27 +158,27 @@ public class GameStage extends SimpleWorldStage {
         detect.setVisible(false);
 
 
-        OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, HATTEREK[0][save.getInteger("hatter")]);
+        BackGround = new OneSpriteStaticActor(game, HATTEREK[0][save.getInteger("hatter")]);
         BackGround.setSize(getWidth(),getHeight());
         BackGround.setX(0);
         addActor(BackGround);
 
-        OneSpriteStaticActor BackGround_konyha = new OneSpriteStaticActor(game, HATTEREK[1][save.getInteger("hatter")]);
+        BackGround_konyha = new OneSpriteStaticActor(game, HATTEREK[1][save.getInteger("hatter")]);
         BackGround_konyha.setSize(getWidth(),getHeight());
         BackGround_konyha.setX(getWidth());
         addActor(BackGround_konyha);
 
-        OneSpriteStaticActor BackGround_munka = new OneSpriteStaticActor(game, HATTEREK[2][save.getInteger("hatter")]);
+        BackGround_munka = new OneSpriteStaticActor(game, HATTEREK[2][save.getInteger("hatter")]);
         BackGround_munka.setSize(getWidth(),getHeight());
         BackGround_munka.setX(0-getWidth());
         addActor(BackGround_munka);
 
-        OneSpriteStaticActor BackGround_radio = new OneSpriteStaticActor(game, HATTEREK[3][save.getInteger("hatter")]);
+        BackGround_radio = new OneSpriteStaticActor(game, HATTEREK[3][save.getInteger("hatter")]);
         BackGround_radio.setSize(getWidth(),getHeight());
         BackGround_radio.setX(getWidth()*2);
         addActor(BackGround_radio);
 
-        OneSpriteStaticActor BackGround_radio2 = new OneSpriteStaticActor(game, HATTEREK[3][save.getInteger("hatter")]);
+        BackGround_radio2 = new OneSpriteStaticActor(game, HATTEREK[3][save.getInteger("hatter")]);
         BackGround_radio2.setSize(getWidth(),getHeight());
         BackGround_radio2.setX(0-getWidth()*2);
         addActor(BackGround_radio2);
@@ -353,6 +360,22 @@ public class GameStage extends SimpleWorldStage {
                 if(ticks%150==0){count++;
                     datum.leptetes();
 
+                    if(daveSelected != daveseged){
+                        daveseged = daveSelected;
+                        Dave.remove();
+                        save.putInteger("dave",daveSelected);
+                        Dave = new OneSpriteStaticActor(game, BENDZSIK[save.getInteger("dave")]);
+                        Dave.setSize(getWidth()/1.5f,getHeight()/1.5f);
+                        Dave.setPosition(getWidth()/2-Dave.getWidth()/2,getHeight()/40);
+                        addActor(Dave);
+                    }
+
+                    if(szobaSelected != szobaseged){
+                        szobaseged = szobaSelected;
+                        save.putInteger("hatter",szobaSelected);
+                        changewallpaper();
+                    }
+
                 }
 
                 if(detect.get && detectOn){
@@ -365,6 +388,39 @@ public class GameStage extends SimpleWorldStage {
                 save.flush();
         }}
         }));
+    }
+
+    void changewallpaper(){
+        BackGround.remove();
+        BackGround_konyha.remove();
+        BackGround_munka.remove();
+        BackGround_radio.remove();
+        BackGround_radio2.remove();
+
+        BackGround = new OneSpriteStaticActor(game, HATTEREK[0][save.getInteger("hatter")]);
+        BackGround.setSize(getWidth(),getHeight());
+        BackGround.setX(0);
+        addActor(BackGround,1);
+
+        BackGround_konyha = new OneSpriteStaticActor(game, HATTEREK[1][save.getInteger("hatter")]);
+        BackGround_konyha.setSize(getWidth(),getHeight());
+        BackGround_konyha.setX(getWidth());
+        addActor(BackGround_konyha,1);
+
+        BackGround_munka = new OneSpriteStaticActor(game, HATTEREK[2][save.getInteger("hatter")]);
+        BackGround_munka.setSize(getWidth(),getHeight());
+        BackGround_munka.setX(0-getWidth());
+        addActor(BackGround_munka,1);
+
+        BackGround_radio = new OneSpriteStaticActor(game, HATTEREK[3][save.getInteger("hatter")]);
+        BackGround_radio.setSize(getWidth(),getHeight());
+        BackGround_radio.setX(getWidth()*2);
+        addActor(BackGround_radio,1);
+
+        BackGround_radio2 = new OneSpriteStaticActor(game, HATTEREK[3][save.getInteger("hatter")]);
+        BackGround_radio2.setSize(getWidth(),getHeight());
+        BackGround_radio2.setX(0-getWidth()*2);
+        addActor(BackGround_radio2,1);
     }
 
     public void etelclicked(){

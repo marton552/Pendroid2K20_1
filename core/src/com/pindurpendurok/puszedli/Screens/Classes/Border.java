@@ -222,6 +222,7 @@ public class Border {
                     s.setCharAt(hanyadik,'2');
                     GameStage.save.putString("daveskin", s.toString());
                     GameStage.daveSelected = hanyadik;
+                    selected = true;
                 }
                 else if(type==3 && GameStage.save.getString("szobak").charAt(hanyadik) == '1'){
                     GameStage.gombok.get(GameStage.szobaSelected).putSelect(false);
@@ -234,6 +235,7 @@ public class Border {
                     s.setCharAt(hanyadik,'2');
                     GameStage.save.putString("szobak", s.toString());
                     GameStage.szobaSelected = hanyadik;
+                    selected = true;
                 }
                 else if(type<2) {ize.letrehoz(game,gs,"Sajnos kevés a pénz :(",0,0,0,0,0,gs.getViewport().getWorldWidth());
                     }
