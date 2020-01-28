@@ -30,14 +30,6 @@ public class GratulaloKep {
     static MyLabel text3;
     static MyLabel text4;
     static String seged = ";";
-    MyGame game;
-    SimpleWorldStage gs;
-    String szoveg;
-    int penz;
-    int ehseg;
-    int szomjusag;
-    int stressz;
-    int alkohol;
 
     public GratulaloKep(){
     }
@@ -154,9 +146,9 @@ public class GratulaloKep {
             @Override
             public void onStop(Timer sender) {
                 super.onStop(sender);
-                if(penz != 0)text.remove();
                 text0.remove();
                 back.remove();
+                if(penz != 0)text.remove();
                 if(ehseg != 0)text1.remove();
                 if(szomjusag != 0)text2.remove();
                 if(stressz != 0)text3.remove();

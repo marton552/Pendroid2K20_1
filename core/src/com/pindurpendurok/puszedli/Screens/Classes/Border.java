@@ -5,7 +5,17 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
+import com.pindurpendurok.puszedli.Screens.Bell.BellScreen;
+import com.pindurpendurok.puszedli.Screens.Favago.FavagoScreen;
+import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameStage;
+import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
+import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
+import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameScreen;
+import com.pindurpendurok.puszedli.Screens.MiniGame.MathMenuStage;
+import com.pindurpendurok.puszedli.Screens.Rocking.RockingScreen;
+import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
+import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
@@ -19,6 +29,7 @@ public class Border {
     public final static String FONT = "Bosk.otf";
     public final static String BACK = "elemek/border.png";
     public final static String COIN = "penz.png";
+    public final static String BLOCK = "elemek/LOCKED.png";
     public static final String[] KAJA = new String[]{"elemek/etel/alma.png","elemek/etel/alma2.png","elemek/etel/barack.png","elemek/etel/chips.png","elemek/etel/csike.png",
             "elemek/etel/hamburger.png","elemek/etel/hamburger2.png","elemek/etel/popcorn.png","elemek/etel/spaggeti.png","elemek/etel/steak.png"};
            static final int[] penz = new int[]{20,25,30,150,300,250,270,120,300,400};
@@ -53,7 +64,8 @@ public class Border {
         assetList.addFont(FONT, 60, Color.WHITE).protect = true;
         assetList.addTexture(BACK).protect = true;
         assetList.addTexture(COIN).protect = true;
-        assetList.addTexture(LABDA).protect = true;
+        assetList.addTexture(LABDA);
+        assetList.addTexture(BLOCK).protect = true;
         for (int i = 0; i < KAJA.length; i++) {
             assetList.addTexture(KAJA[i]).protect = true;
         }
@@ -74,13 +86,16 @@ public class Border {
     MyLabel text;
     OneSpriteStaticActor coin;
     OneSpriteStaticActor click;
+    OneSpriteStaticActor block;
     boolean ondrag = true;
+    boolean blocked = false;
 
-    public Border(final MyGame game, final SimpleWorldStage gs, final int hanyadik, final int type, float screen){
+    public Border(final MyGame game, final SimpleWorldStage gs, final int hanyadik, final int type, float screen,boolean tiltva){
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
 
+        blocked = tiltva;
         back = new OneSpriteStaticActor(game, BACK);
         back.setSize(gs.getWidth()/3,gs.getWidth()/3);
         if(hanyadik%2==0 || hanyadik == 0)back.setPosition(screen + gs.getViewport().getWorldWidth()/2-back.getWidth()*1.1f,gs.getViewport().getWorldHeight()-(back.getHeight()*1.1f)*(hanyadik+2)/2);
@@ -144,7 +159,8 @@ public class Border {
                 }
             };
         }
-        text.setPosition(back.getX()+back.getWidth()/2-((back.getWidth()/25)*text.getText().length),back.getY()+back.getHeight()/30);
+        if(text.getText().length<7) text.setPosition(back.getX()+back.getWidth()/2-((back.getWidth()/25)*text.getText().length),back.getY()+back.getHeight()/30);
+        else text.setPosition(back.getX()+back.getWidth()/2-((back.getWidth()/55)*text.getText().length),back.getY()+back.getHeight()/30);
         text.setColor(Color.BLACK);
         text.setFontScale(0.8f);
         gs.addActor(text,19999);
@@ -154,11 +170,19 @@ public class Border {
         coin.setPosition(back.getX()+back.getWidth()/2+((back.getWidth()/25)*text.getText().length),back.getY()+back.getHeight()/12);
         gs.addActor(coin,19999);
 
+        if(type == 4 || type == 5)coin.setVisible(false);
+
         click = new OneSpriteStaticActor(game, LABDA);
         click.setSize(gs.getWidth()/3,gs.getWidth()/3);
-        if(hanyadik%2==0 || hanyadik == 0)click.setPosition(screen + gs.getViewport().getWorldWidth()/2-click.getWidth()*1.1f,gs.getViewport().getWorldHeight()-(click.getHeight()*1.1f)*(hanyadik+2)/2);
-        else click.setPosition(screen+ gs.getViewport().getWorldWidth()/2+(click.getWidth()*1.1f-click.getWidth()),gs.getViewport().getWorldHeight()-(click.getHeight()*1.1f)*(hanyadik+1)/2);
+        click.setPosition(back.getX(),back.getY());
         gs.addActor(click,19999);
+
+        block = new OneSpriteStaticActor(game, BLOCK);
+        block.setSize(gs.getWidth()/3,gs.getWidth()/3);
+        block.setPosition(back.getX(),back.getY());
+        gs.addActor(block,21000);
+        block.setVisible(false);
+        if(blocked) block.setVisible(true);
 
         click.addListener(new ClickListener() {
 
@@ -167,10 +191,25 @@ public class Border {
                 super.touchUp(event, x, y, pointer, button);
                 if(ondrag){
                 //System.out.printf("asd");
-                if (type==0)ize.letrehoz(game,gs,"Jó étvágyat!",penz[hanyadik]*-1,etel[hanyadik],0,stressz[0],0,gs.getViewport().getWorldWidth());
-                else if (type==1)ize.letrehoz(game,gs,"Egészségedre!",penz2[hanyadik]*-1,0,ital[hanyadik],stressz2[0],alkohol[hanyadik],gs.getViewport().getWorldWidth());
-
+                if (type==0 && GameStage.save.getInteger("penz") >= penz[hanyadik]){ize.letrehoz(game,gs,"Jó étvágyat!",penz[hanyadik]*-1,etel[hanyadik],0,stressz[0],0,gs.getViewport().getWorldWidth());
+                    GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz[hanyadik]);}
+                else if (type==1 && GameStage.save.getInteger("penz") >= penz2[hanyadik]){ize.letrehoz(game,gs,"Egészségedre!",penz2[hanyadik]*-1,0,ital[hanyadik],stressz2[0],alkohol[hanyadik],gs.getViewport().getWorldWidth());
+                    GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz2[hanyadik]);}
+                else if (type==2 && GameStage.save.getInteger("penz") >= penz3[hanyadik]){ize.letrehoz(game,gs,"Új ruhák huhú!!",penz3[hanyadik]*-1,0,0,0,0,gs.getViewport().getWorldWidth()*2);
+                    GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz3[hanyadik]);}
+                else if (type==3 && GameStage.save.getInteger("penz") >= penz4[hanyadik]){ize.letrehoz(game,gs,"Új szoba huhú!!",penz4[hanyadik]*-1,0,0,0,0,gs.getViewport().getWorldWidth()*2);
+                    GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz4[hanyadik]);}
+                else if(type<2) {ize.letrehoz(game,gs,"Sajnos kevés a pénz :(",0,0,0,0,0,gs.getViewport().getWorldWidth());
+                    }
+                else if(type<4){
+                    ize.letrehoz(game,gs,"Sajnos kevés a pénz :(",0,0,0,0,0,gs.getViewport().getWorldWidth()*2);
                 }
+                else if(type == 4){
+                    setgame(hanyadik,game);
+                }
+                else if(type == 5){
+                    setmunka(hanyadik,game);
+                }}
             ondrag = true;
             }
 
@@ -182,12 +221,33 @@ public class Border {
         });
     }
 
+    public void setmunka(int hanyadik, MyGame game){
+        if(hanyadik == 0)game.setScreen(new TrashScreen(game));
+        else if(hanyadik == 1) System.out.printf("Ez a játék nincs kész és valószínűleg sose készül el");
+        else if(hanyadik == 2) game.setScreen(new PszichiaterScreen(game));
+        else if(hanyadik == 3) System.out.printf("Ez a játék nincs kész és valószínűleg sose készül el");
+        else if(hanyadik == 4) game.setScreen(new PapWorldScreen(game));
+    }
+
+    public void setgame(int hanyadik, MyGame game){
+        if(hanyadik == 0)game.setScreen(new RockingScreen(game));
+        else if(hanyadik == 1) game.setScreen(new BellScreen(game));
+        else if(hanyadik == 2) System.out.printf("Ez a játék nincs kész és valószínűleg sose készül el");
+        else if(hanyadik == 3) game.setScreen(new MathGameScreen(game));
+        else if(hanyadik == 4) System.out.printf("Ez a játék nincs kész és valószínűleg sose készül el");
+        else if(hanyadik == 5) game.setScreen(new ShakeScreen(game));
+        else if(hanyadik == 6) game.setScreen(new FociScreen(game));
+        else if(hanyadik == 7) System.out.printf("Ez a játék nincs kész és valószínűleg sose készül el");
+        else if(hanyadik == 8) game.setScreen(new FavagoScreen(game));
+    }
 
     public void mozgat(float y){
         back.setY(back.getY()+y);
         kep.setPosition(back.getX()+back.getWidth()/2-kep.getWidth()/2,back.getY()+back.getHeight()/3.2f);
         text.setPosition(back.getX()+back.getWidth()/2-((back.getWidth()/25)*text.getText().length),back.getY()+back.getHeight()/30);
         coin.setPosition(back.getX()+back.getWidth()/2+((back.getWidth()/25)*text.getText().length),back.getY()+back.getHeight()/12);
+        click.setPosition(back.getX(),back.getY());
+        if(blocked)block.setPosition(back.getX(),back.getY());
     }
     public void remove(){
         back.remove();
@@ -195,5 +255,6 @@ public class Border {
         text.remove();
         coin.remove();
         click.remove();
+        if(blocked)block.remove();
     }
 }
