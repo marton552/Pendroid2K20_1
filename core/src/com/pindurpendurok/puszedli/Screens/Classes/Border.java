@@ -226,6 +226,8 @@ public class Border {
                     s.setCharAt(GameStage.daveSelected,'1');
                     GameStage.save.putString("daveskin", s.toString());
 
+                    GameStage.save.flush();
+
                     putSelect(true);
                     s = new StringBuilder(GameStage.save.getString("daveskin"));
                     s.setCharAt(hanyadik,'2');
@@ -236,14 +238,16 @@ public class Border {
                 }
                 else if(type==3 && GameStage.save.getString("szobak").charAt(hanyadik) == '1'){
                     GameStage.gombok.get(GameStage.szobaSelected).putSelect(false);
-                    StringBuilder s = new StringBuilder(GameStage.save.getString("szobak"));
-                    s.setCharAt(GameStage.szobaSelected,'1');
-                    GameStage.save.putString("szobak", s.toString());
+                    char[] s = (GameStage.save.getString("szobak").toCharArray());
+                    s[GameStage.szobaSelected] = '1';
+                    GameStage.save.putString("szobak", String.valueOf(s));
+
+                    GameStage.save.flush();
 
                     putSelect(true);
-                    s = new StringBuilder(GameStage.save.getString("szobak"));
-                    s.setCharAt(hanyadik,'2');
-                    GameStage.save.putString("szobak", s.toString());
+                    s = (GameStage.save.getString("szobak").toCharArray());
+                    s[hanyadik] = '2';
+                    GameStage.save.putString("szobak", String.valueOf(s));
                     GameStage.szobaSelected = hanyadik;
                     selected = true;
                 }
@@ -257,7 +261,9 @@ public class Border {
                 }
                 else if(type == 5){
                     setmunka(hanyadik,game);
-                }}
+                }
+                GameStage.save.flush();
+                }
             ondrag = true;
             }
 

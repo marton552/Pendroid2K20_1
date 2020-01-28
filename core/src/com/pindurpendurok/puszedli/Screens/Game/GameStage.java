@@ -98,6 +98,7 @@ public class GameStage extends SimpleWorldStage {
     int daveseged = 0;
     public static int daveSelected = 0;
     public static boolean kattinthatsz = true;
+    boolean canchangescreen = true;
 
     public static List<Border> gombok = new ArrayList<>();
 
@@ -409,7 +410,7 @@ public class GameStage extends SimpleWorldStage {
                         changewallpaper();
                     }
 
-                    System.out.printf(save.getInteger("ehseg")+"\r\n");
+                    System.out.printf(save.getString("szobak")+"\r\n");
 
                 if(detect.get && detectOn){
                     if(detect.iranyX==-1)jobbra();
@@ -577,7 +578,8 @@ public class GameStage extends SimpleWorldStage {
 
 
     TickTimer a;
-    void balra(){
+    void balra(){if(canchangescreen){
+        canchangescreen = false;
         melyik_hatter--;
         if(melyik_hatter == -3){
             melyik_hatter = 1;
@@ -594,10 +596,12 @@ public class GameStage extends SimpleWorldStage {
                 else getCamera().position.set(getCamera().position.x-ize,getViewport().getWorldHeight()/2,0);
             }
         });
-        addTimer(a);
+        addTimer(a);}
     }
 
     void jobbra(){
+        if(canchangescreen){
+        canchangescreen = false;
         melyik_hatter++;
         if(melyik_hatter == 3){
             melyik_hatter = -1;
@@ -614,10 +618,10 @@ public class GameStage extends SimpleWorldStage {
             }
         });
         addTimer(a);
-    }
+    }}
 
     void stop(){
-        a.stop();
+        a.stop();canchangescreen = true;
     }
 
 }
