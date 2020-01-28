@@ -1,7 +1,9 @@
 package com.pindurpendurok.puszedli.Screens.Classes;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Game.GameStage;
 
@@ -13,20 +15,28 @@ import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class Border {
 
+    public static final String LABDA = "null.png";
     public final static String FONT = "Bosk.otf";
     public final static String BACK = "elemek/border.png";
     public final static String COIN = "penz.png";
     public static final String[] KAJA = new String[]{"elemek/etel/alma.png","elemek/etel/alma2.png","elemek/etel/barack.png","elemek/etel/chips.png","elemek/etel/csike.png",
             "elemek/etel/hamburger.png","elemek/etel/hamburger2.png","elemek/etel/popcorn.png","elemek/etel/spaggeti.png","elemek/etel/steak.png"};
-    static final int[] penz = new int[]{20,25,30,150,300,250,270,120,300,400};
+           static final int[] penz = new int[]{20,25,30,150,300,250,270,120,300,400};
+
+    public static final int[] etel = new int[]{10,12,13,20,25,25,26,15,30,35};
+    public static final int[] stressz = new int[]{0,0,0,-10,-5,-3,-4,-2,0,0};
 
     public static final String[] ITAL = new String[]{"elemek/ital/cola.png","elemek/ital/cola2.png","elemek/ital/gyumile.png","elemek/ital/gyumile2.png","elemek/ital/kv2.png",
             "elemek/ital/sorike.png","elemek/ital/sorike_2l_javitott.png","elemek/ital/viz.png","elemek/ital/viz2.png",};
-    static final int[] penz2 = new int[]{100,60,200,190,120,250,450,100,50};
+    public static final int[] penz2 = new int[]{100,60,200,190,120,250,450,100,50};
+    public static final int[] ital =     new int[]{15,10,20,19,5,-10,-5,20,10};
+    public static final int[] stressz2 = new int[]{-2,0,0,0,-10,-20,-30,0,0};
+    public static final int[] alkohol =  new int[]{0,0,0,0,0,20,30,0,0};
 
-    static final int[] penz3 = new int[]{0,2000,1500,1800,1900,1500,3000,2800,1000,1000,1400,1700,3100,2000,5000};
 
-    static final int[] penz4 = new int[]{0,1000,1200,2000,2200};
+    public static final int[] penz3 = new int[]{0,2000,1500,1800,1900,1500,3000,2800,1000,1000,1400,1700,3100,2000,5000};
+
+    public static final int[] penz4 = new int[]{0,1000,1200,2000,2200};
 
     public static AssetList assetList = new AssetList();
     static {
@@ -34,6 +44,7 @@ public class Border {
         assetList.addFont(FONT, 60, Color.WHITE).protect = true;
         assetList.addTexture(BACK).protect = true;
         assetList.addTexture(COIN).protect = true;
+        assetList.addTexture(LABDA).protect = true;
         for (int i = 0; i < KAJA.length; i++) {
             assetList.addTexture(KAJA[i]).protect = true;
         }
@@ -42,12 +53,15 @@ public class Border {
         }
     }
 
+    GratulaloKep ize = new GratulaloKep();
     OneSpriteStaticActor back;
     OneSpriteStaticActor kep;
     MyLabel text;
     OneSpriteStaticActor coin;
+    OneSpriteStaticActor click;
+    boolean ondrag = true;
 
-    public Border(MyGame game, SimpleWorldStage gs,int hanyadik,int type,float screen){
+    public Border(final MyGame game, final SimpleWorldStage gs, final int hanyadik, final int type, float screen){
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
@@ -106,10 +120,37 @@ public class Border {
         coin.setSize(gs.getWidth()/23,gs.getWidth()/23);
         coin.setPosition(back.getX()+back.getWidth()/2+((back.getWidth()/25)*text.getText().length),back.getY()+back.getHeight()/12);
         gs.addActor(coin,19999);
+
+        click = new OneSpriteStaticActor(game, LABDA);
+        click.setSize(gs.getWidth()/3,gs.getWidth()/3);
+        if(hanyadik%2==0 || hanyadik == 0)click.setPosition(screen + gs.getViewport().getWorldWidth()/2-click.getWidth()*1.1f,gs.getViewport().getWorldHeight()-(click.getHeight()*1.1f)*(hanyadik+2)/2);
+        else click.setPosition(screen+ gs.getViewport().getWorldWidth()/2+(click.getWidth()*1.1f-click.getWidth()),gs.getViewport().getWorldHeight()-(click.getHeight()*1.1f)*(hanyadik+1)/2);
+        gs.addActor(click,19999);
+
+        click.addListener(new ClickListener() {
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                if(ondrag){
+                //System.out.printf("asd");
+                if (type==0)ize.letrehoz(game,gs,"Jó étvágyat!",penz[hanyadik]*-1,etel[hanyadik],0,stressz[0],0,gs.getViewport().getWorldWidth());
+                else if (type==1)ize.letrehoz(game,gs,"Egészségedre!",penz2[hanyadik]*-1,0,ital[hanyadik],stressz2[0],alkohol[hanyadik],gs.getViewport().getWorldWidth());
+
+                }
+            ondrag = true;
+            }
+
+            @Override
+            public void touchDragged(InputEvent event, float x, float y, int pointer) {
+                super.touchDragged(event, x, y, pointer);
+                ondrag = false;
+            }
+        });
     }
 
+
     public void mozgat(float y){
-        System.out.println("asd");
         back.setY(back.getY()+y);
         kep.setPosition(back.getX()+back.getWidth()/2-kep.getWidth()/2,back.getY()+back.getHeight()/3.2f);
         text.setPosition(back.getX()+back.getWidth()/2-((back.getWidth()/25)*text.getText().length),back.getY()+back.getHeight()/30);
@@ -120,5 +161,6 @@ public class Border {
         kep.remove();
         text.remove();
         coin.remove();
+        click.remove();
     }
 }

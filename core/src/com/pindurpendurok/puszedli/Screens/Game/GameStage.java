@@ -15,6 +15,7 @@ import com.pindurpendurok.puszedli.Screens.Bell.BellScreen;
 import com.pindurpendurok.puszedli.Screens.Classes.Border;
 import com.pindurpendurok.puszedli.Screens.Classes.Borderhuzogato;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
+import com.pindurpendurok.puszedli.Screens.Classes.GratulaloKep;
 import com.pindurpendurok.puszedli.Screens.Favago.FavagoScreen;
 import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
@@ -77,6 +78,8 @@ public class GameStage extends SimpleWorldStage {
     OneSpriteStaticActor vissza;
     Borderhuzogato inline;
     boolean detectOn = true;
+    GratulaloKep asd = new GratulaloKep();
+
     public static List<Border> gombok = new ArrayList<>();
 
 
@@ -415,7 +418,7 @@ public class GameStage extends SimpleWorldStage {
     public void etelclicked(){
         inline.one=1;
         for (int i = 0; i < Border.KAJA.length; i++) {
-            Border asd = new Border(game,this,i,0,getViewport().getWorldWidth());
+            final Border asd = new Border(game,this,i,0,getViewport().getWorldWidth());
             gombok.add(asd);
         }
         sand.setVisible(true);
