@@ -35,7 +35,7 @@ public class MathMenuStage extends SimpleWorldStage {
     }
 
     List<SimpleButton> gombok = new ArrayList<>();
-    String[] sz = new String[]{"","Melyik a nagyobb?","Osszeadas","Kivonas","Szorzas","Osztas","Negyzetre emeles"};
+    String[] sz = new String[]{"","Melyik a nagyobb?","Osszeadas","Kivonas","Szorzas","Osztas","Negyzetre emeles","Vissza"};
 
     public MathMenuStage(final MyGame game, final int status) {     //0 = paused 1 = elvesztett 2 = menu //3+a játékmódók (x-3)
         super(new ResponseViewport(720), game);
@@ -60,10 +60,12 @@ public class MathMenuStage extends SimpleWorldStage {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    ((MathGameScreen) getScreen()).changeStage(0,s);
+                    if(sz[s-3]!="Vissza")((MathGameScreen) getScreen()).changeStage(0,s);
+                    else game.setScreen(new GameScreen(game));
                 }
             });
             osszeadas.setPosition(x, y - (height*i));
+            osszeadas.setHeight(height/2);
             osszeadas.setWidth(width);
             addActor(osszeadas);
             gombok.add(osszeadas);

@@ -5,13 +5,15 @@ import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.MyScreen;
 
 public class PapScreen extends MyScreen {
-    public PapScreen(MyGame game) {
+    int x;
+    public PapScreen(MyGame game,int y) {
         super(game);
+        x=y;
     }
 
     @Override
     protected void afterAssetsLoaded() {
-        addStage(new PapStage(game), 1, true);
+        addStage(new PapStage(game,x), 1, true);
     }
 
     @Override
