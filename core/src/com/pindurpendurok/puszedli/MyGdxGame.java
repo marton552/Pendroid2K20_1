@@ -2,6 +2,7 @@ package com.pindurpendurok.puszedli;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.pindurpendurok.puszedli.Puzzle.PuzzleScreen;
 import com.pindurpendurok.puszedli.Screens.Bell.BellScreen;
 import com.pindurpendurok.puszedli.Screens.Favago.FavagoScreen;
 import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
