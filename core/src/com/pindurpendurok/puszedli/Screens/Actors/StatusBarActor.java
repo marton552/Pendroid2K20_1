@@ -30,7 +30,7 @@ public class StatusBarActor {
     OneSpriteStaticActor szin;
     int max;
     int jelenlegi;
-    float ertek;
+    public static float ertek;
 
     public StatusBarActor(MyGame game, SimpleWorldStage gs, String color, float width, float height, int maxsize, int kezdoertek, float positionY,String szoveg) {
         Label.LabelStyle ls = new Label.LabelStyle();

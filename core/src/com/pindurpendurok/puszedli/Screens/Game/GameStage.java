@@ -152,6 +152,11 @@ public class GameStage extends SimpleWorldStage {
             save.putString("jatekok","110101101");
             save.putString("szobak","21100");
             save.putString("daveskin","211000000000000");
+
+            save.putFloat("ehseg",100);
+            save.putFloat("szomjusag",100);
+            save.putFloat("stressz",100);
+            save.putFloat("veralkohol",100);
         }
         save.flush();
         datum.leptetes();
@@ -364,14 +369,18 @@ public class GameStage extends SimpleWorldStage {
                     datum.leptetes();
 
                     bar.changeValue(-1);
+                    save.putFloat("ehseg",bar.ertek);
                 }
 
                     if(ticks%220==0){
                         bar2.changeValue(-1);
+                        save.putFloat("szomjusag",bar2.ertek);
                     }
                     if(ticks%300==0){
                         bar3.changeValue(1);
+                        save.putFloat("stressz",bar3.ertek);
                         bar4.changeValue(-1);
+                        save.putFloat("veralkohol",bar4.ertek);
                     }
 
                     if(daveSelected != daveseged){
