@@ -81,10 +81,10 @@ public class GameStage extends SimpleWorldStage {
     Borderhuzogato inline;
     boolean detectOn = true;
     GratulaloKep asd = new GratulaloKep();
-    StatusBarActor bar;
-    StatusBarActor bar2;
-    StatusBarActor bar3;
-    StatusBarActor bar4;
+    public static StatusBarActor bar;
+    public static StatusBarActor bar2;
+    public static StatusBarActor bar3;
+    public static StatusBarActor bar4;
     OneSpriteStaticActor Dave;
     OneSpriteStaticActor BackGround;
     OneSpriteStaticActor BackGround_konyha;
@@ -95,6 +95,7 @@ public class GameStage extends SimpleWorldStage {
     public static int szobaSelected = 0;
     int daveseged = 0;
     public static int daveSelected = 0;
+    public static boolean kattinthatsz = true;
 
     public static List<Border> gombok = new ArrayList<>();
 
@@ -338,8 +339,8 @@ public class GameStage extends SimpleWorldStage {
 
         bar = new StatusBarActor(game,this,"red",getWidth()/1.5f,getHeight()/30,100,100,3.5f,"Éhség");
         bar2 = new StatusBarActor(game,this,"green",getWidth()/1.5f,getHeight()/30,100,100,5,"Szomjúság");
-        bar3 = new StatusBarActor(game,this,"blue",getWidth()/1.5f,getHeight()/30,100,100,6.5f,"Stressz");
-        bar4 = new StatusBarActor(game,this,"gold",getWidth()/1.5f,getHeight()/30,100,100,8,"Véralkohol szint");
+        bar3 = new StatusBarActor(game,this,"blue",getWidth()/1.5f,getHeight()/30,100,30,6.5f,"Stressz");
+        bar4 = new StatusBarActor(game,this,"gold",getWidth()/1.5f,getHeight()/30,100,30,8,"Véralkohol szint");
 
 
         addTimer(new TickTimer(0, true, new TickTimerListener() {
@@ -360,6 +361,17 @@ public class GameStage extends SimpleWorldStage {
                 if(ticks%150==0){count++;
                     datum.leptetes();
 
+                    bar.changeValue(-1);
+                }
+
+                    if(ticks%220==0){
+                        bar2.changeValue(-1);
+                    }
+                    if(ticks%300==0){
+                        bar3.changeValue(1);
+                        bar4.changeValue(-1);
+                    }
+
                     if(daveSelected != daveseged){
                         daveseged = daveSelected;
                         Dave.remove();
@@ -375,8 +387,6 @@ public class GameStage extends SimpleWorldStage {
                         save.putInteger("hatter",szobaSelected);
                         changewallpaper();
                     }
-
-                }
 
                 if(detect.get && detectOn){
                     if(detect.iranyX==-1)jobbra();

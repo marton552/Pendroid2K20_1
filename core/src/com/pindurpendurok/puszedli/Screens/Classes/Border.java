@@ -203,11 +203,18 @@ public class Border {
                 super.touchUp(event, x, y, pointer, button);
                 if(ondrag){
                 //System.out.printf("asd");
-                if (type==0 && GameStage.save.getInteger("penz") >= penz[hanyadik]){ize.letrehoz(game,gs,"Jó étvágyat!",penz[hanyadik]*-1,etel[hanyadik],0,stressz[0],0,gs.getViewport().getWorldWidth());
-                    GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz[hanyadik]);}
-                else if (type==1 && GameStage.save.getInteger("penz") >= penz2[hanyadik]){ize.letrehoz(game,gs,"Egészségedre!",penz2[hanyadik]*-1,0,ital[hanyadik],stressz2[0],alkohol[hanyadik],gs.getViewport().getWorldWidth());
-                    GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz2[hanyadik]);}
-                else if (type==2 && GameStage.save.getInteger("penz") >= penz3[hanyadik]){ize.letrehoz(game,gs,"Új ruhák huhú!!",penz3[hanyadik]*-1,0,0,0,0,gs.getViewport().getWorldWidth()*2);
+                if (type==0 && GameStage.save.getInteger("penz") >= penz[hanyadik]){ize.letrehoz(game,gs,"Jó étvágyat!",penz[hanyadik]*-1,etel[hanyadik],0,stressz[hanyadik],0,gs.getViewport().getWorldWidth());
+                    GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz[hanyadik]);
+                    GameStage.bar.changeValue(etel[hanyadik]);
+                    GameStage.bar3.changeValue(stressz[hanyadik]);
+                }
+                else if (type==1 && GameStage.save.getInteger("penz") >= penz2[hanyadik]){ize.letrehoz(game,gs,"Egészségedre!",penz2[hanyadik]*-1,0,ital[hanyadik],stressz2[hanyadik],alkohol[hanyadik],gs.getViewport().getWorldWidth());
+                    GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz2[hanyadik]);
+                    GameStage.bar2.changeValue(ital[hanyadik]);
+                    GameStage.bar3.changeValue(stressz2[hanyadik]);
+                    GameStage.bar4.changeValue(alkohol[hanyadik]);
+                }
+                else if (type==2 && GameStage.save.getString("daveskin").charAt(hanyadik) ==0 && GameStage.save.getInteger("penz") >= penz3[hanyadik]){ize.letrehoz(game,gs,"Új ruhák huhú!!",penz3[hanyadik]*-1,0,0,0,0,gs.getViewport().getWorldWidth()*2);
                     GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz3[hanyadik]);}
                 else if (type==3 && GameStage.save.getString("szobak").charAt(hanyadik) ==0 && GameStage.save.getInteger("penz") >= penz4[hanyadik]){ize.letrehoz(game,gs,"Új szoba huhú!!",penz4[hanyadik]*-1,0,0,0,0,gs.getViewport().getWorldWidth()*2);
                     GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz4[hanyadik]);}
@@ -223,6 +230,7 @@ public class Border {
                     GameStage.save.putString("daveskin", s.toString());
                     GameStage.daveSelected = hanyadik;
                     selected = true;
+                    System.out.println(s);
                 }
                 else if(type==3 && GameStage.save.getString("szobak").charAt(hanyadik) == '1'){
                     GameStage.gombok.get(GameStage.szobaSelected).putSelect(false);

@@ -3,6 +3,7 @@ package com.pindurpendurok.puszedli.Screens.Classes;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
+import com.pindurpendurok.puszedli.Screens.Game.GameStage;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapScreen;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
@@ -38,8 +39,8 @@ public class GratulaloKep {
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
-
-
+        if(GameStage.kattinthatsz){
+        GameStage.kattinthatsz = false;
         System.out.println("asd");
         back = new OneSpriteStaticActor(game, UI);
         float h = gs.getHeight()/30;
@@ -153,8 +154,9 @@ public class GratulaloKep {
                 if(szomjusag != 0)text2.remove();
                 if(stressz != 0)text3.remove();
                 if(alkohol != 0)text4.remove();
+                GameStage.kattinthatsz = true;
             }
         });
         gs.addTimer(t);
-    }
+    }}
 }

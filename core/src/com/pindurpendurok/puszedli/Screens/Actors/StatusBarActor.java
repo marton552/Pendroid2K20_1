@@ -35,7 +35,7 @@ public class StatusBarActor {
     public StatusBarActor(MyGame game, SimpleWorldStage gs, String color, float width, float height, int maxsize, int kezdoertek, float positionY,String szoveg) {
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = game.getMyAssetManager().getFont(FONT);
-        ls.fontColor = Color.WHITE;
+        ls.fontColor = Color.BLACK;
 
         OneSpriteStaticActor bar = new OneSpriteStaticActor(game, BAR);
         bar.setSize(width,height);
@@ -66,8 +66,20 @@ public class StatusBarActor {
     }
 
     public void changeValue(int value){
-        if(jelenlegi > 0 && jelenlegi < max){
+        if(jelenlegi <= max-value && value > 0){
             jelenlegi+=value;
+            szin.setWidth(ertek*jelenlegi);
+        }
+        else if(jelenlegi <= max && value > 0){
+            jelenlegi=max;
+            szin.setWidth(ertek*jelenlegi);
+        }
+        else if(value < 0 && jelenlegi >= 0+value){
+            jelenlegi+=value;
+            szin.setWidth(ertek*jelenlegi);
+        }
+        else if(value < 0 && jelenlegi >= 0){
+            jelenlegi=0;
             szin.setWidth(ertek*jelenlegi);
         }
     }
