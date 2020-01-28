@@ -38,6 +38,15 @@ public class Border {
 
     public static final int[] penz4 = new int[]{0,1000,1200,2000,2200};
 
+
+    public static final String[] MINIGAME = new String[]{"elemek/icon/minigame1.png","elemek/icon/minigame2.png","elemek/icon/minigame3.png","elemek/icon/minigame4.png","elemek/icon/minigame5.png",
+            "elemek/icon/minigame6.png","elemek/icon/minigame7.png","elemek/icon/minigame8.png","elemek/icon/minigame9.png"};
+
+    public static final String[] WORK = new String[]{"elemek/icon/munka1.png","elemek/icon/munka2.png","elemek/icon/munka3.png","elemek/icon/munka4.png","elemek/icon/munka5.png"};
+    public static final String[] szoveg = new String[]{"Ringatás","Csorgo","Puzzle","Matek","Betűk","Önkielégítés","Foci",
+    "WoW","Favágás"};
+    public static final String[] szoveg2 = new String[]{"Kukás","Pornó rendező","Pszichiáter","Gamer","Pap"};
+
     public static AssetList assetList = new AssetList();
     static {
         AssetList.collectAssetDescriptor(CircleAtBackgroundActor.class, assetList);
@@ -50,6 +59,12 @@ public class Border {
         }
         for (int i = 0; i < ITAL.length; i++) {
             assetList.addTexture(ITAL[i]).protect = true;
+        }
+        for (int i = 0; i < MINIGAME.length; i++) {
+            assetList.addTexture(MINIGAME[i]).protect = true;
+        }
+        for (int i = 0; i < WORK.length; i++) {
+            assetList.addTexture(WORK[i]).protect = true;
         }
     }
 
@@ -76,6 +91,8 @@ public class Border {
         else if(type == 1) kep = new OneSpriteStaticActor(game, ITAL[hanyadik]);
         else if(type == 2) kep = new OneSpriteStaticActor(game, GameStage.BENDZSIK[hanyadik]);
         else if(type == 3) kep = new OneSpriteStaticActor(game, GameStage.HATTEREK[0][hanyadik]);
+        else if(type == 4) kep = new OneSpriteStaticActor(game, MINIGAME[hanyadik]);
+        else if(type == 5) kep = new OneSpriteStaticActor(game, WORK[hanyadik]);
         kep.setSize(back.getWidth()/1.5f,back.getWidth()/1.5f);
         kep.setPosition(back.getX()+back.getWidth()/2-kep.getWidth()/2,back.getY()+back.getHeight()/3.2f);
         gs.addActor(kep,19999);
@@ -105,6 +122,22 @@ public class Border {
         }
         else if(type == 3){
             text = new MyLabel(game, penz4[hanyadik]+"", ls) {
+                @Override
+                public void init() {
+
+                }
+            };
+        }
+        else if(type == 4){
+            text = new MyLabel(game, szoveg[hanyadik]+"", ls) {
+                @Override
+                public void init() {
+
+                }
+            };
+        }
+        else if(type == 5){
+            text = new MyLabel(game, szoveg2[hanyadik]+"", ls) {
                 @Override
                 public void init() {
 
