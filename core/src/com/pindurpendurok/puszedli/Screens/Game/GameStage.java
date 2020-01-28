@@ -17,6 +17,7 @@ import com.pindurpendurok.puszedli.Screens.Classes.Borderhuzogato;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
 import com.pindurpendurok.puszedli.Screens.Classes.GratulaloKep;
 import com.pindurpendurok.puszedli.Screens.Favago.FavagoScreen;
+import com.pindurpendurok.puszedli.Screens.Favago.FavagoStage;
 import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
@@ -158,6 +159,7 @@ public class GameStage extends SimpleWorldStage {
         detect = new changeMenuActor(game,this);
         detect.setVisible(false);
 
+        if(FavagoStage.atad){asd.letrehoz(game,this,"Sikeres favágás!",FavagoStage.gotmoney,0,0,0,0,0);FavagoStage.atad = false; save.putInteger("penz",save.getInteger("penz")+FavagoStage.gotmoney);}
 
         BackGround = new OneSpriteStaticActor(game, HATTEREK[0][save.getInteger("hatter")]);
         BackGround.setSize(getWidth(),getHeight());
