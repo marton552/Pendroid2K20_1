@@ -40,6 +40,8 @@ public class PapWorldStage extends SimpleWorldStage {
 
     OneSpriteStaticActor pointer;
     int r;
+    public static boolean vanpenz;
+    public static int penzm = 0;
 
     public PapWorldStage(final MyGame game) {
         super(new ResponseViewport(720f), game);
@@ -61,9 +63,7 @@ public class PapWorldStage extends SimpleWorldStage {
         felirat.setPosition(0,getViewport().getWorldHeight()-felirat.getHeight()*1.5f);
         addActor(felirat);
 
-        int k = MathUtils.random(2,2+((GameStage.save.getInteger("ev")-2025)/3));
-        if(GameStage.save.getInteger("papkell") == GameStage.save.getInteger("papmegvan"))GameStage.save.putInteger("papkell",k);
-        felirat.setText("Szükséges munka a fizettséghez:"+GameStage.save.getInteger("papkell")+"\r\nEből kész van:"+GameStage.save.getInteger("papmegvan"));
+        felirat.setText("Szerzett fizetés eddig:"+penzm);
 
         pointer = new OneSpriteStaticActor(game, POINTER);
         pointer.setSize(getWidth()/8,getWidth()/5);

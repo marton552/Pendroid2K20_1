@@ -12,6 +12,7 @@ import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Actors.StatusBarActor;
 import com.pindurpendurok.puszedli.Screens.Actors.changeMenuActor;
 import com.pindurpendurok.puszedli.Screens.Bell.BellScreen;
+import com.pindurpendurok.puszedli.Screens.Bell.BellStage;
 import com.pindurpendurok.puszedli.Screens.Classes.Border;
 import com.pindurpendurok.puszedli.Screens.Classes.Borderhuzogato;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
@@ -21,11 +22,15 @@ import com.pindurpendurok.puszedli.Screens.Favago.FavagoStage;
 import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
 import com.pindurpendurok.puszedli.Screens.Foci.FociStage;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
+import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldStage;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameScreen;
+import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameStage;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathMenuStage;
 import com.pindurpendurok.puszedli.Screens.Rocking.RockingScreen;
+import com.pindurpendurok.puszedli.Screens.Rocking.RockingStage;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
+import com.pindurpendurok.puszedli.Screens.Shake.ShakeStage;
 import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
 
 import java.util.ArrayList;
@@ -105,7 +110,6 @@ public class GameStage extends SimpleWorldStage {
 
     public static AssetList assetList = new AssetList();
     static {
-        AssetList.collectAssetDescriptor(CircleAtBackgroundActor.class, assetList);
         assetList.addFont(FONT, 60, Color.WHITE).protect = true;
         assetList.addTexture(ETELEK);
         assetList.addTexture(ITALOK);
@@ -145,8 +149,6 @@ public class GameStage extends SimpleWorldStage {
             save.putInteger("nap",22); //23.-án született csak egyből léptet
 
             //Pap minigame
-            save.putInteger("papkell",0);
-            save.putInteger("papmegvan",0);
             save.putInteger("hatter",0);
             save.putInteger("dave",0);
             save.putInteger("penz",100);
@@ -168,11 +170,55 @@ public class GameStage extends SimpleWorldStage {
 
         if(FavagoStage.atad){asd.letrehoz(game,this,"Sikeres favágás!",FavagoStage.gotmoney,0,0,-5,0,0);
         FavagoStage.atad = false; save.putInteger("penz",save.getInteger("penz")+FavagoStage.gotmoney);
-            save.putInteger("stressz",save.getInteger("stressz")-5);}
+            save.putInteger("stressz",save.getInteger("stressz")-5);
+            FavagoStage.gotmoney = 0;
+            bar3.changeValue(-5);
+            save.putInteger("stressz",save.getInteger("stressz")-5);
+            save.flush();
+        }
 
         if(FociStage.van){asd.letrehoz(game,this,"Jó meccs volt!",FociStage.penzm,0,0,-5,0,0);
         FociStage.van = false; save.putInteger("penz",save.getInteger("penz")+FociStage.penzm);
             save.putInteger("stressz",save.getInteger("stressz")-5);
+            FociStage.penzm = 0;
+            bar3.changeValue(-5);
+            save.putInteger("stressz",save.getInteger("stressz")-5);
+            save.flush();
+        }
+
+        if(PapWorldStage.vanpenz){asd.letrehoz(game,this,"Szentatyám fizetése:",PapWorldStage.penzm,0,0,0,0,0);
+            PapWorldStage.vanpenz = false; save.putInteger("penz",save.getInteger("penz")+PapWorldStage.penzm);
+            PapWorldStage.penzm = 0;
+            save.flush();
+        }
+
+        if(BellStage.volt){asd.letrehoz(game,this,"Csörgetés:",BellStage.penz,0,0,BellStage.stressz,0,0);
+            BellStage.volt = false; save.putInteger("penz",save.getInteger("penz")+BellStage.penz);
+            BellStage.penz = 0;
+            bar3.changeValue(BellStage.stressz);
+            save.putInteger("stressz",save.getInteger("stressz")+BellStage.stressz);
+            BellStage.stressz = 0;
+            save.flush();
+        }
+
+        if(RockingStage.volt){asd.letrehoz(game,this,"Bendzsike aluszikál!",50,0,0,-10,0,0);
+            RockingStage.volt = false; save.putInteger("penz",save.getInteger("penz")+50);
+            bar3.changeValue(-10);
+            save.putInteger("stressz",save.getInteger("stressz")-10);
+            save.flush();
+        }
+
+        if(ShakeStage.volt){asd.letrehoz(game,this,"Ohh ez jó volt!",35,0,0,-8,0,0);
+            ShakeStage.volt = false; save.putInteger("penz",save.getInteger("penz")+35);
+            bar3.changeValue(-18);
+            save.putInteger("stressz",save.getInteger("stressz")-8);
+            save.flush();
+        }
+
+        if(MathGameStage.volt){asd.letrehoz(game,this,"Durva feladvány volt!",MathGameStage.penzm,0,0,0,0,0);
+            MathGameStage.volt = false; save.putInteger("penz",save.getInteger("penz")+MathGameStage.penzm);
+            MathGameStage.penzm = 0;
+            save.flush();
         }
 
 
@@ -394,23 +440,31 @@ public class GameStage extends SimpleWorldStage {
                         save.putInteger("veralkohol",bar4.jelenlegi);
                     }
 
+                    for (int i = 0; i < save.getString("daveskin").length(); i++) {
+                        if(save.getString("daveskin").charAt(i) == '2')daveSelected = i;
+                    }
+                    for (int i = 0; i < save.getString("szobak").length(); i++) {
+                        if(save.getString("szobak").charAt(i) == '2')szobaSelected = i;
+                    }
+
+                    if(szobaSelected != szobaseged){
+                        szobaseged = szobaSelected;
+                        save.putInteger("hatter",szobaSelected);
+                        save.flush();
+                        changewallpaper();
+                    }
+
                     if(daveSelected != daveseged){
                         daveseged = daveSelected;
                         Dave.remove();
                         save.putInteger("dave",daveSelected);
+                        save.flush();
                         Dave = new OneSpriteStaticActor(game, BENDZSIK[save.getInteger("dave")]);
                         Dave.setSize(getWidth()/1.5f,getHeight()/1.5f);
                         Dave.setPosition(getWidth()/2-Dave.getWidth()/2,getHeight()/40);
                         addActor(Dave);
                     }
 
-                    if(szobaSelected != szobaseged){
-                        szobaseged = szobaSelected;
-                        save.putInteger("hatter",szobaSelected);
-                        changewallpaper();
-                    }
-
-                    System.out.printf(save.getString("szobak")+"\r\n");
 
                 if(detect.get && detectOn){
                     if(detect.iranyX==-1)jobbra();
@@ -424,7 +478,7 @@ public class GameStage extends SimpleWorldStage {
         }));
     }
 
-    void changewallpaper(){
+    public void changewallpaper(){
         BackGround.remove();
         BackGround_konyha.remove();
         BackGround_munka.remove();

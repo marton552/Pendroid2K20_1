@@ -44,6 +44,8 @@ public class MathGameStage extends SimpleWorldStage {
         AssetList.collectAssetDescriptor(ElementAssets.class, assetList);
     }
 
+    public static boolean volt = false;
+    public static int penzm = 0;
 
     float width = getViewport().getWorldWidth()/1.5f;
     float height = getViewport().getWorldHeight()/7;
@@ -305,6 +307,8 @@ public class MathGameStage extends SimpleWorldStage {
     }
 
     void ujra(){
+        penzm+=10;
+        volt = true;
         TickTimer g = new TickTimer(1, false, new TickTimerListener() {
 
             @Override

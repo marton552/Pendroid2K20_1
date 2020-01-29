@@ -196,6 +196,8 @@ public class PapStage extends SimpleWorldStage {
         TickTimer t4 = new TickTimer(1.5f,false, new TickTimerListener(){
 
             public void onStop(Timer sender) {
+                PapWorldStage.vanpenz = true;
+                PapWorldStage.penzm+=50;
                 game.setScreen(new PapWorldScreen(game));
             }
         });

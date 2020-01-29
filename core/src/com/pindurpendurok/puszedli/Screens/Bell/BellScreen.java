@@ -7,10 +7,10 @@ import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.MyScreen;
 
 public class BellScreen extends MyScreen {
-    public static AssetList list = new AssetList();
+    public static AssetList assetList = new AssetList();
     static {
-        AssetList.collectAssetDescriptor(ElementAssets.class, list);
-        AssetList.collectAssetDescriptor(BellStage.class, list);
+        AssetList.collectAssetDescriptor(ElementAssets.class, assetList);
+        AssetList.collectAssetDescriptor(BellStage.class, assetList);
     }
 
     public BellScreen(MyGame game) {
@@ -25,7 +25,7 @@ public class BellScreen extends MyScreen {
 
     @Override
     public AssetList getAssetList() {
-        return list;
+        return assetList;
     }
 
     @Override

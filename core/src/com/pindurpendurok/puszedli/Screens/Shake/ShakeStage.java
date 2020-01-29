@@ -45,6 +45,8 @@ public class ShakeStage extends MyStage {
     SimpleLabel endLabel;
     SimpleButton endBtn;
 
+    public static boolean volt =false;
+
     SimpleLabel debugLabel;
     OneSpriteAnimatedActor bottle;
 
@@ -124,6 +126,7 @@ public class ShakeStage extends MyStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                volt = true;
                 game.setScreen(new GameScreen(game));
             }
         });

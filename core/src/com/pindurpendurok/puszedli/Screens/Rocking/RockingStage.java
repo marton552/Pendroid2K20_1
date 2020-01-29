@@ -26,12 +26,18 @@ public class RockingStage extends MyStage {
 
     public static final String WBG = "ui_textures/black.png";
     public static final String RED = "ui_textures/red.png";
+    public static final String DAVE1 = "elemek/baba_davey/babadavey.png";
+    public static final String DAVE2 = "elemek/baba_davey/babadavey_alszik_shhh.png";
+    public static final String DAVE3 = "elemek/baba_davey/sir_a_babadavey.png";
 
 
     public static AssetList list = new AssetList();
     static {
         list.addTexture(WBG);
         list.addTexture(RED);
+        list.addTexture(DAVE1);
+        list.addTexture(DAVE2);
+        list.addTexture(DAVE3);
     }
 
 
@@ -49,8 +55,12 @@ public class RockingStage extends MyStage {
     OneSpriteStaticActor endBg;
     SimpleLabel endLabel;
     SimpleButton endBtn;
+    public static boolean volt = false;
 
     SimpleLabel debug;
+    OneSpriteStaticActor davey1;
+    OneSpriteStaticActor davey2;
+    OneSpriteStaticActor davey3;
 
     public RockingStage(final MyGame game) {
         super(new ResponseViewport(720), game);
@@ -68,6 +78,20 @@ public class RockingStage extends MyStage {
         secLabel.setAlignment(Align.center);
         secLabel.setPosition(getViewport().getWorldWidth() / 2 - secLabel.getWidth() / 2, bar.getY() - bar.getHeight() - secLabel.getHeight());
         addActor(secLabel);
+
+        davey1 = new OneSpriteStaticActor(game, DAVE1);
+        davey1.setPosition(getViewport().getWorldWidth() / 2 - davey1.getWidth() / 2, getViewport().getWorldHeight() / 2 - davey1.getHeight() / 2);
+        addActor(davey1);
+
+        davey2 = new OneSpriteStaticActor(game, DAVE2);
+        davey2.setPosition(getViewport().getWorldWidth() / 2 - davey2.getWidth() / 2, getViewport().getWorldHeight() / 2 - davey2.getHeight() / 2);
+        addActor(davey2);
+
+        davey3 = new OneSpriteStaticActor(game, DAVE3);
+        davey3.setPosition(getViewport().getWorldWidth() / 2 - davey3.getWidth() / 2, getViewport().getWorldHeight() / 2 - davey3.getHeight() / 2);
+        addActor(davey3);
+        davey2.setVisible(false);
+        davey3.setVisible(false);
 
 
         addTimer(new TickTimer(0, true, new TickTimerListener() {
@@ -87,7 +111,6 @@ public class RockingStage extends MyStage {
 
                 if(gForce > 1.8f) currPercent += 10;
                 if(currPercent > 100) currPercent = 100;
-                debug.setText("gforce: "+gForce+" percent: "+currPercent);
                 bar.setBarStep(currPercent);
 
 
@@ -113,6 +136,9 @@ public class RockingStage extends MyStage {
                 if (gameEnded) return;
 
                 if(currPercent >= goodPercentStart && currPercent <= goodPercentStart + goodPercentSize) {
+                    davey1.setVisible(false);
+                    davey2.setVisible(true);
+                    davey3.setVisible(false);
                     sec--;
                     updateLabel();
 
@@ -120,11 +146,19 @@ public class RockingStage extends MyStage {
                         endGame();
                     }
                 }
+                if(currPercent > goodPercentSize+goodPercentSize){
+                    davey1.setVisible(false);
+                    davey2.setVisible(false);
+                    davey3.setVisible(true);
+                }
+                if(currPercent< goodPercentStart){
+                    davey3.setVisible(false);
+                    davey2.setVisible(false);
+                    davey1.setVisible(true);
+                }
             }
         }));
 
-        debug = new SimpleLabel(game, "DEBUG: ");
-        addActor(debug);
 
         endBg = new OneSpriteStaticActor(game, WBG);
         endBg.setVisible(false);
@@ -145,6 +179,7 @@ public class RockingStage extends MyStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                volt = true;
                 game.setScreen(new GameScreen(game));
             }
         });
