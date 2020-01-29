@@ -71,6 +71,8 @@ public class GameStage extends SimpleWorldStage {
     public final static String SAND = "ui_textures/sand.png";
     public final static String VISSZA = "back.png";
     public final static String COIN = "penz.png";
+    public final static String NAPHOLD = "elemek/nap_hol_basszameg.png";
+    public final static String OZ = "elemek/hattervazze.png";
 
     public boolean timer_able_to_count = true;
     public int ticks = 0;
@@ -100,12 +102,15 @@ public class GameStage extends SimpleWorldStage {
     OneSpriteStaticActor BackGround_munka;
     OneSpriteStaticActor BackGround_radio;
     OneSpriteStaticActor BackGround_radio2;
+    OneSpriteStaticActor hatter;
+    OneSpriteStaticActor naphold;
     int szobaseged = 0;
     public static int szobaSelected = 0;
     int daveseged = 0;
     public static int daveSelected = 0;
     public static boolean kattinthatsz = true;
     boolean canchangescreen = true;
+    float fok = 0;
 
     public static List<Border> gombok = new ArrayList<>();
 
@@ -121,6 +126,8 @@ public class GameStage extends SimpleWorldStage {
         assetList.addTexture(JATEKOK);
         assetList.addTexture(MUNKAK);
         assetList.addTexture(COIN);
+        assetList.addTexture(OZ);
+        assetList.addTexture(NAPHOLD);
 
         for (int i = 0; i < HATTEREK.length; i++) {
             for (int k = 0; k < HATTEREK[i].length; k++) {
@@ -140,7 +147,7 @@ public class GameStage extends SimpleWorldStage {
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
         save = Gdx.app.getPreferences("gameSave");
-        //save.clear();
+        save.clear();
 
         if(save.contains("inditas")){
             save.putFloat("inditas",(save.getFloat("inditas")+1));
@@ -235,6 +242,17 @@ public class GameStage extends SimpleWorldStage {
             save.flush();
         }
 
+        hatter = new OneSpriteStaticActor(game, OZ);
+        hatter.setSize(getWidth()/1.7f,getWidth()/1.7f);
+        hatter.setPosition(getWidth()/2-hatter.getWidth()/2,getHeight()/2-hatter.getHeight()/2.5f);
+        addActor(hatter,-10);
+
+        naphold = new OneSpriteStaticActor(game, NAPHOLD);
+        naphold.setSize(getWidth()*2,getWidth()*2);
+        naphold.setPosition(getWidth()/2-naphold.getWidth()/2,getHeight()/2-naphold.getHeight()/2f);
+        naphold.setOrigintoCenter();
+        addActor(naphold,-20);
+        naphold.setRotation(180);
 
         BackGround = new OneSpriteStaticActor(game, HATTEREK[0][save.getInteger("hatter")]);
         BackGround.setSize(getWidth(),getHeight());
@@ -427,7 +445,7 @@ public class GameStage extends SimpleWorldStage {
             public void onTick(Timer sender, float correction) {
                 if(timer_able_to_count){
                     ticks++;
-                    perc+=10;
+                    perc+=20;
                     if(perc == 60){perc = 0; ora++;}
                     if(ora ==25)ora=0;
                     if(perc == 0)perc2="00";
@@ -436,7 +454,7 @@ public class GameStage extends SimpleWorldStage {
                     else if(ora < 10)ora2="0"+ora;
                     else ora2=ora+"";
                     naptar.setText(datum.ev+"."+datum.getMonth(datum.honap)+"."+datum.nap+"  "+ora2+":"+perc2);
-                if(ticks%150==0){count++;
+                if(ticks%75==0){count++;
                     datum.leptetes();
 
                     bar.changeValue(-1);
@@ -479,6 +497,7 @@ public class GameStage extends SimpleWorldStage {
                         addActor(Dave);
                     }
 
+                    rotate();
 
                 if(detect.get && detectOn){
                     if(detect.iranyX==-1)jobbra();
@@ -644,6 +663,10 @@ public class GameStage extends SimpleWorldStage {
         detectOn = true;
     }
 
+    void rotate(){
+        naphold.setRotation(fok);
+        fok+=5f;
+    }
 
     TickTimer a;
     void balra(){if(canchangescreen){
