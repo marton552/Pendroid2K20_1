@@ -57,8 +57,10 @@ public class TrashStage extends SimpleWorldStage {
     public static ArrayList<String> plasticTrash = new ArrayList<>();
 
     public static final String WBG = "ui_textures/black.png";
-    public static final String BG = "elemek/trash/kukapalyatalan.png";
+    public static final String BG = "elemek/trash/kukapalyatalan.jpg";
 
+    public static boolean van = false;
+    public static int penz;
 
     public static AssetList list = new AssetList();
     static {
@@ -95,7 +97,7 @@ public class TrashStage extends SimpleWorldStage {
         plasticTrash.addAll(Arrays.asList(new String[] {PLASTIC1, PLASTIC2, PLASTIC3, PLASTIC4}));
 
         list.addTexture(WBG);
-        list.addTextureAtlas(BG);
+        list.addTexture(BG);
 
 
     }
@@ -103,7 +105,7 @@ public class TrashStage extends SimpleWorldStage {
     boolean gameEnded = false;
 
     public int score = 0;
-    public int finalScore = MathUtils.random(10, 20);
+    public int finalScore = MathUtils.random(3, 8);
     public int collectingTrashID = MathUtils.random(0, 3);
 
 
@@ -181,6 +183,8 @@ public class TrashStage extends SimpleWorldStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                van = true;
+                penz = MathUtils.random(30,50);
                 game.setScreen(new GameScreen(game));
             }
         });

@@ -24,6 +24,7 @@ import com.pindurpendurok.puszedli.Screens.Foci.FociStage;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldStage;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
+import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterStage;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameScreen;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameStage;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathMenuStage;
@@ -32,6 +33,7 @@ import com.pindurpendurok.puszedli.Screens.Rocking.RockingStage;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeStage;
 import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
+import com.pindurpendurok.puszedli.Screens.Trash.TrashStage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -218,6 +220,18 @@ public class GameStage extends SimpleWorldStage {
         if(MathGameStage.volt){asd.letrehoz(game,this,"Durva feladvány volt!",MathGameStage.penzm,0,0,0,0,0);
             MathGameStage.volt = false; save.putInteger("penz",save.getInteger("penz")+MathGameStage.penzm);
             MathGameStage.penzm = 0;
+            save.flush();
+        }
+
+        if(PszichiaterStage.van){asd.letrehoz(game,this,"Dr.Bendzsi OMG!",PszichiaterStage.penz,0,0,0,0,0);
+            PszichiaterStage.van = false; save.putInteger("penz",save.getInteger("penz")+PszichiaterStage.penz);
+            PszichiaterStage.penz = 0;
+            save.flush();
+        }
+
+        if(TrashStage.van){asd.letrehoz(game,this,"Kukamuki!",TrashStage.penz,0,0,0,0,0);
+            TrashStage.van = false; save.putInteger("penz",save.getInteger("penz")+TrashStage.penz);
+            TrashStage.penz = 0;
             save.flush();
         }
 

@@ -27,17 +27,18 @@ public class FavagoStage extends SimpleWorldStage {
 
     public final static String BACKGROUND = "ui_textures/sliderknob.png";
     public final static String FONT = "Bosk.otf";
-    public final static String TUSKO = "elemek/tusko.png";
     public final static String BALTA = "elemek/balta.png";
-
+    public static final String[] TUSKOK = new String[]{"elemek/cut/tusko.png","elemek/cut/vaghatodolog_1.png","elemek/cut/vaghatodolog_2.png","elemek/cut/vaghatodolog_3.png","elemek/cut/vaghatodolog_4.png","elemek/cut/vaghatodolog_5.png",};
 
     public static AssetList assetList = new AssetList();
     static {
         AssetList.collectAssetDescriptor(CircleAtBackgroundActor.class, assetList);
         assetList.addFont(FONT, 60, Color.WHITE).protect = true;
         assetList.addTexture(BACKGROUND);
-        assetList.addTexture(TUSKO);
         assetList.addTexture(BALTA);
+        for (int i = 0; i < TUSKOK.length; i++) {
+            assetList.addTexture(TUSKOK[i]);
+        }
     }
 
     TickTimer h;
@@ -70,7 +71,7 @@ public class FavagoStage extends SimpleWorldStage {
         BackGround.setSize(getWidth(),getHeight());
         addActor(BackGround);
 
-        tusko1 = new OneSpriteStaticActor(game, TUSKO);
+        tusko1 = new OneSpriteStaticActor(game, TUSKOK[MathUtils.random(0,5)]);
         tusko1.setSize(getWidth(),getWidth());
         tusko1.setPosition(getWidth()/2-tusko1.getWidth()/2,getHeight()/5);
         addActor(tusko1,10);
@@ -105,6 +106,11 @@ public class FavagoStage extends SimpleWorldStage {
                     float rnd = MathUtils.random(0,getViewport().getWorldWidth());
                     fejsze.setX(rnd);
                     kettevagva = false;
+                    tusko1.remove();
+                    tusko1 = new OneSpriteStaticActor(game, TUSKOK[MathUtils.random(0,5)]);
+                    tusko1.setSize(getWidth(),getWidth());
+                    tusko1.setPosition(getWidth()/2-tusko1.getWidth()/2,getHeight()/5);
+                    addActor(tusko1,10);
                 }
                 else kettevagas();
 
@@ -193,7 +199,7 @@ public class FavagoStage extends SimpleWorldStage {
     void kettevagas(){
         kettevagva = true;
         h.stop();
-        float x= fejsze.getX();
+        float x= fejsze.getX()-fejsze.getWidth()/2;
         zold1.setVisible(true);
         zold1.setX(x+fejsze.getWidth()/4);
         zold1.setWidth(fejsze.getWidth()/2);

@@ -28,6 +28,6 @@ START#Kuglifej Santa#Részeg#Becukrozták a fejem#.;
 0#Legközelebb verje meg#Nem tudok verekedni#.;
 1#Legyen optimista, legalább így már ehető#Érzéketlen tuskó, és még orvosnak nevezi magát#.;
 00#Tanuljon meg, mellékállásban kung fu oktató is vagyok#Maga? Akkor inkább cukrozzanak be mégegyszer...#2;
-01#Akkor így járt#Seggfej#1.;
+01#Akkor így járt#Seggfej#1;
 10#Tudok még cukrot adni#Tartsa meg magának..#5;
 11#Megehetem?#Feljelentem magát!#1;
