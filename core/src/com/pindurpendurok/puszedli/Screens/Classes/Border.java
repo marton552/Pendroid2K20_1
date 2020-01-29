@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.pindurpendurok.puszedli.Puzzle.PuzzleScreen;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Bell.BellScreen;
 import com.pindurpendurok.puszedli.Screens.Favago.FavagoScreen;
@@ -13,9 +14,11 @@ import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameScreen;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathMenuStage;
+import com.pindurpendurok.puszedli.Screens.Porno.PornoScreen;
 import com.pindurpendurok.puszedli.Screens.Rocking.RockingScreen;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
 import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
+import com.pindurpendurok.puszedli.Screens.Wow.WowScreen;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
@@ -279,21 +282,21 @@ public class Border {
 
     public void setmunka(int hanyadik, MyGame game){
         if(hanyadik == 0)game.setScreen(new TrashScreen(game));
-        else if(hanyadik == 1) System.out.printf("Ez a játék nincs kész és valószínűleg sose készül el");
+        else if(hanyadik == 1) game.setScreen(new PornoScreen(game));
         else if(hanyadik == 2) game.setScreen(new PszichiaterScreen(game));
-        else if(hanyadik == 3) System.out.printf("Ez a játék nincs kész és valószínűleg sose készül el");
+        else if(hanyadik == 3) game.setScreen(new WowScreen(game));
         else if(hanyadik == 4) game.setScreen(new PapWorldScreen(game));
     }
 
     public void setgame(int hanyadik, MyGame game){
         if(hanyadik == 0)game.setScreen(new RockingScreen(game));
         else if(hanyadik == 1) game.setScreen(new BellScreen(game));
-        else if(hanyadik == 2) System.out.printf("Ez a játék nincs kész és valószínűleg sose készül el");
+        else if(hanyadik == 2) game.setScreen(new PuzzleScreen(game));
         else if(hanyadik == 3) game.setScreen(new MathGameScreen(game));
         else if(hanyadik == 4) System.out.printf("Ez a játék nincs kész és valószínűleg sose készül el");
         else if(hanyadik == 5) game.setScreen(new ShakeScreen(game));
         else if(hanyadik == 6) game.setScreen(new FociScreen(game));
-        else if(hanyadik == 7) System.out.printf("Ez a játék nincs kész és valószínűleg sose készül el");
+        else if(hanyadik == 7) game.setScreen(new WowScreen(game));
         else if(hanyadik == 8) game.setScreen(new FavagoScreen(game));
     }
 

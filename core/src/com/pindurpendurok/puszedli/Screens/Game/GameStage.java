@@ -147,7 +147,7 @@ public class GameStage extends SimpleWorldStage {
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
         save = Gdx.app.getPreferences("gameSave");
-        save.clear();
+        //save.clear();
 
         if(save.contains("inditas")){
             save.putFloat("inditas",(save.getFloat("inditas")+1));
@@ -161,8 +161,8 @@ public class GameStage extends SimpleWorldStage {
             save.putInteger("hatter",0);
             save.putInteger("dave",0);
             save.putInteger("penz",100);
-            save.putString("munkak","10101");
-            save.putString("jatekok","110101101");
+            save.putString("munkak","11111");
+            save.putString("jatekok","111101111");
             save.putString("szobak","21100");
             save.putString("daveskin","211000000000000");
 
@@ -498,6 +498,15 @@ public class GameStage extends SimpleWorldStage {
                     }
 
                     rotate();
+
+                    if(melyik_hatter == 0){
+                        naphold.setPosition(getWidth()/2-naphold.getWidth()/2,getHeight()/2-naphold.getHeight()/2f);
+                        hatter.setPosition(getWidth()/2-hatter.getWidth()/2,getHeight()/2-hatter.getHeight()/2.5f);
+                    }
+                    else if(melyik_hatter == 1){
+                        naphold.setPosition(getWidth()+getWidth()/2-naphold.getWidth()/2,getHeight()/2-naphold.getHeight()/2f);
+                        hatter.setPosition(getWidth()+getWidth()/2-hatter.getWidth()/2,getHeight()/2-hatter.getHeight()/2.5f);
+                    }
 
                 if(detect.get && detectOn){
                     if(detect.iranyX==-1)jobbra();
