@@ -8,12 +8,24 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.MyGroup;
+import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class PuzzleBoard extends MyGroup {
+    public static final String RED = "ui_textures/red.png";
+
+    public static AssetList list = new AssetList();
+    static {
+
+    }
+
     PuzzleActor[][] actors = new PuzzleActor[5][5];
     ArrayList<Integer> ids = new ArrayList<Integer>();
+
+    OneSpriteStaticActor red;
+
 
     public PuzzleBoard(MyGame game, String puzzleAtlasHash) {
         super(game);
@@ -21,6 +33,11 @@ public class PuzzleBoard extends MyGroup {
         setPosition(getX() + 10, getY() + 10);
 
         for(int i = 0; i < 25; i++) ids.add(i);
+
+        red = new OneSpriteStaticActor(game, RED);
+        red.setSize(106, 106);
+        red.setVisible(false);
+        addActor(red);
 
         float theX = 0;
         float theY = 400;
@@ -87,12 +104,17 @@ public class PuzzleBoard extends MyGroup {
     PuzzleActor clickedActor = null;
 
     public void clickedPuzzle(PuzzleActor actor) {
-        if(clickedActor == null) clickedActor = actor;
+        if(clickedActor == null) {
+            clickedActor = actor;
+            red.setPosition(clickedActor.getX() - 3, clickedActor.getY() - 3);
+            red.setVisible(true);
+        }
         else {
             if(clickedActor != actor) {
                 int actorFrame = actor.getActualFrame();
                 actor.setFrame(clickedActor.getActualFrame());
                 clickedActor.setFrame(actorFrame);
+                red.setVisible(false);
 
                 if(checkIfPuzzleIsCompleted()) winPuzzle();
             }

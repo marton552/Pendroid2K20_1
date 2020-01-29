@@ -1,5 +1,6 @@
 package com.pindurpendurok.puszedli.Puzzle;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -16,14 +17,19 @@ import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
 
 public class PuzzleStage extends MyStage {
-    public static final String PUZZLE1 = "puzzle/puzzle1.atlas";
+    //public static final String PUZZLE1 = "puzzle/1.atlas";
     public static final String WBG = "ui_textures/black.png";
+    public static final String FONTOCSKA = "alegreyaregular.otf";
 
 
     public static AssetList list = new AssetList();
     static {
-        list.addTextureAtlas(PUZZLE1);
+        for(int i = 1; i < 30; i++) list.addTextureAtlas("puzzle/"+i+".atlas");
+        for(int i = 1; i < 30; i++) list.addTexture("puzzle/"+i+".png");
+
         list.addTexture(WBG);
+        list.addFont(FONTOCSKA, 80);
+        AssetList.collectAssetDescriptor(PuzzleBoard.class, list);
     }
 
 
@@ -33,8 +39,8 @@ public class PuzzleStage extends MyStage {
 
     public PuzzleStage(MyGame game) {
         super(new ResponseViewport(720), game);
-
-        PuzzleBoard b = new PuzzleBoard(game, PUZZLE1) {
+        int id = MathUtils.random(1, 29);
+        PuzzleBoard b = new PuzzleBoard(game,"puzzle/"+ id +".atlas" ) {
             @Override
             public void winPuzzle() {
                 super.winPuzzle();
@@ -45,8 +51,18 @@ public class PuzzleStage extends MyStage {
 
             }
         };
-        b.setPosition(getViewport().getWorldWidth() / 2 -  b.getWidth() / 2 - 10, getViewport().getWorldHeight() / 2 - b.getHeight() / 2 - 10);
+        b.setPosition(getViewport().getWorldWidth() / 2 -  b.getWidth() / 2 - 10, 50);
         addActor(b);
+
+        OneSpriteStaticActor kep = new OneSpriteStaticActor(game, "puzzle/"+id+".png");
+        kep.setSize(500, 500);
+        kep.setPosition(getViewport().getWorldWidth() / 2 -  kep.getWidth() / 2 - 10, getViewport().getWorldHeight() - kep.getHeight() - 50);
+        addActor(kep);
+
+        SimpleLabel label = new SimpleLabel(game, "Rakd ki:", FONTOCSKA);
+        label.setAlignment(Align.center);
+        label.setPosition(getViewport().getWorldWidth() / 2 - label.getWidth() / 2, getViewport().getWorldHeight() / 2 - label.getHeight() / 2);
+        addActor(label);
 
 
         endBg = new OneSpriteStaticActor(game, WBG);
@@ -55,7 +71,7 @@ public class PuzzleStage extends MyStage {
         endBg.setPosition(0, getViewport().getWorldHeight() / 2 - endBg.getHeight() / 2);
         addActor(endBg);
 
-        endLabel = new SimpleLabel(game, "Sikeresen kiraktad a puzzlet!");
+        endLabel = new SimpleLabel(game, "Sikeresen kiraktad\na puzzlet!");
         endLabel.setVisible(false);
         endLabel.setPosition(getViewport().getWorldWidth() / 2 - endLabel.getWidth() / 2 - 15, endBg.getY() + endBg.getHeight() - 150);
         endLabel.setAlignment(Align.center);
