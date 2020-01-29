@@ -18,6 +18,7 @@ import com.pindurpendurok.puszedli.Screens.Rocking.RockingScreen;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
 import com.pindurpendurok.puszedli.Screens.Test.TestScreen;
 import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
+import com.pindurpendurok.puszedli.Screens.Wow.WowScreen;
 
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 
@@ -34,6 +35,6 @@ public class MyGdxGame extends MyGame {
 	public void create() {
 		super.create();
 		setLoadingStage(new GameLoadingStage(this));
-		setScreen(new GameScreen(this));
+		setScreen(new WowScreen(this));
 	}
 }

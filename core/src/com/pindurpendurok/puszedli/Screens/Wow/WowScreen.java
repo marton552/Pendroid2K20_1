@@ -1,0 +1,34 @@
+package com.pindurpendurok.puszedli.Screens.Wow;
+
+import com.badlogic.gdx.Gdx;
+
+import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
+import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
+import hu.csanyzeg.master.MyBaseClasses.Scene2D.MyScreen;
+
+public class WowScreen extends MyScreen {
+
+    public static AssetList list = new AssetList();
+    static {
+        AssetList.collectAssetDescriptor(WowStage.class, list);
+    }
+    public WowScreen(MyGame game) {
+        super(game);
+    }
+
+    @Override
+    protected void afterAssetsLoaded() {
+        WowStage stage = new WowStage(game);
+        addStage(stage, 1, true);
+    }
+
+    @Override
+    public AssetList getAssetList() {
+        return list;
+    }
+
+    @Override
+    public void init() {
+
+    }
+}
