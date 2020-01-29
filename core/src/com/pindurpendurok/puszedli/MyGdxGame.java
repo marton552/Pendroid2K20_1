@@ -10,6 +10,7 @@ import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameStage;
 import com.pindurpendurok.puszedli.Screens.GameLoadingStage;
+import com.pindurpendurok.puszedli.Screens.Guess.GuessScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
@@ -37,6 +38,6 @@ public class MyGdxGame extends MyGame {
 	public void create() {
 		super.create();
 		setLoadingStage(new GameLoadingStage(this));
-		setScreen(new GameScreen(this));
+		setScreen(new GuessScreen(this));
 	}
 }

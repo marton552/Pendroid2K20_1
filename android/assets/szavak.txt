@@ -12,6 +12,7 @@ kv
 dob
 láb
 szőrös
+valami
 cukor
 téboly
 sóskifli
