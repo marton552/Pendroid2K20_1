@@ -51,6 +51,7 @@ public class OneSpriteAnimatedActor extends OneSpriteActor {
     public void init() {
         super.init();
         setSize(textureAtlas.getRegions().get(0).getRegionWidth(), textureAtlas.getRegions().get(0).getRegionHeight());
+        setFrame(0);
     }
 
     public float getFps() {
