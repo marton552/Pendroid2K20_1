@@ -1,5 +1,6 @@
 package hu.csanyzeg.master.MyBaseClasses.Scene2D;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -38,8 +39,8 @@ public class OneSpriteAnimatedActor extends OneSpriteActor {
         super(game, null);
         this.textureAtlas = game.getMyAssetManager().getTextureAtlas(hash);
         sprite = new Sprite(textureAtlas.getRegions().get(0).getTexture());
-        init();
         this.game = game;
+        init();
     }
 
     public MyGame getGame() {
@@ -84,6 +85,7 @@ public class OneSpriteAnimatedActor extends OneSpriteActor {
     public void setFrame(int frame)
     {
         sprite.setRegion(textureAtlas.getRegions().get(frame % textureAtlas.getRegions().size));
+        actualFrame = frame;
     }
 
     public void setFramePercent(float percent) {
@@ -109,26 +111,4 @@ public class OneSpriteAnimatedActor extends OneSpriteActor {
         return textureAtlas;
     }
 
-    @Override
-    protected void positionChanged() {
-        super.positionChanged();
-        setFrame(((int) (elapsedTime * fps)));
-    }
-
-    @Override
-    protected void rotationChanged() {
-        super.rotationChanged();
-        setFrame(((int) (elapsedTime * fps)));
-    }
-
-    @Override
-    protected void sizeChanged() {
-        super.sizeChanged();
-        setFrame(((int) (elapsedTime * fps)));
-    }
-
-    @Override
-    public void addListener() {
-
-    }
 }

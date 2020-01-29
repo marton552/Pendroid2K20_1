@@ -82,6 +82,4 @@ abstract public class OneSpriteActor extends MyActor implements InitableInterfac
         super.setColor(c);
         sprite.setColor(c);
     }
-
-    public abstract void addListener();
 }

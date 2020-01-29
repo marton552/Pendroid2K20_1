@@ -32,6 +32,6 @@ public class MyGdxGame extends MyGame {
 	public void create() {
 		super.create();
 		setLoadingStage(new GameLoadingStage(this));
-		setScreen(new GameScreen(this));
+		setScreen(new PuzzleScreen(this));
 	}
 }

@@ -18,9 +18,8 @@ public class PuzzleActor extends OneSpriteAnimatedActor {
     @Override
     public void setFrame(int frame) {
         super.setFrame(frame);
-        System.out.println("Setting frame: "+frame);
     }
-
+/*
     public void setFrameSprite(int id) {
         System.out.println("SET ID: "+id);
         sprite = new Sprite(textureAtlas.getRegions().get(id).getTexture());
@@ -29,5 +28,11 @@ public class PuzzleActor extends OneSpriteAnimatedActor {
         sprite.setSize(textureAtlas.getRegions().get(id).getRegionWidth(), textureAtlas.getRegions().get(id).getRegionHeight());
         //setFrame(id);
 
+    }
+*/
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        //System.out.println(getActualFrame());
     }
 }

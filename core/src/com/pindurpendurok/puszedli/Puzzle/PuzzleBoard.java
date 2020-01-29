@@ -17,10 +17,13 @@ public class PuzzleBoard extends MyGroup {
         int id = 0;
         float theX = 0;
         float theY = 400;
+        PuzzleActor pa= null;
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                PuzzleActor pa = new PuzzleActor(game, puzzleAtlasHash);
-                pa.setFrameSprite(id);
+                pa = new PuzzleActor(game, puzzleAtlasHash);
+                pa.setFrame(id);
+
+                addActor(pa);
 
                 System.out.println(id+": "+pa.getActualFrame());
                 final int finalJ = j;
@@ -38,7 +41,7 @@ public class PuzzleBoard extends MyGroup {
                 pa.setPosition(theX, theY);
 
                 actors[i][j] = pa;
-                addActor(pa);
+                //Object o = new Object();
 
                 theX += 110;
                 id++;
@@ -47,8 +50,6 @@ public class PuzzleBoard extends MyGroup {
             theX = 0;
             theY -= 100;
         }
-
-
     }
 
     /*private PuzzleActor getPActor(String hash) {

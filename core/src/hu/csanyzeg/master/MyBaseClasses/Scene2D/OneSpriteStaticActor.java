@@ -24,8 +24,4 @@ public class OneSpriteStaticActor extends OneSpriteActor {
         return sprite.getTexture();
     }
 
-    @Override
-    public void addListener() {
-
-    }
 }
