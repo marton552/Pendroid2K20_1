@@ -37,6 +37,7 @@ import com.pindurpendurok.puszedli.Screens.Rocking.RockingStage;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeStage;
 import com.pindurpendurok.puszedli.Screens.Story.StoryStage;
+import com.pindurpendurok.puszedli.Screens.Story.TutorialStage;
 import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
 import com.pindurpendurok.puszedli.Screens.Trash.TrashStage;
 import com.pindurpendurok.puszedli.Screens.Wow.WowStage;
@@ -514,6 +515,18 @@ public class GameStage extends SimpleWorldStage {
                 ((MyScreen)getGame().getScreen()).removeStage(sender);
             }
         }, 2, true);
+
+        /*
+        //TUTORIAL PÉLDA
+        ((MyScreen)getGame().getScreen()).addStage(new TutorialStage(game, new String[]{KEPEK[0],KEPEK[1],KEPEK[2]}) {
+            @Override
+            public void tutorialEnded(TutorialStage stage) {
+                super.tutorialEnded(stage);
+                ((MyScreen)getGame().getScreen()).removeStage(stage);
+
+            }
+        }, 10, true);
+        */
 
         addTimer(new TickTimer(0, true, new TickTimerListener() {
 
