@@ -78,14 +78,15 @@ public class FavagoStage extends SimpleWorldStage {
                 game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
             }
         });
-
-        tusko1 = new OneSpriteStaticActor(game, TUSKOK[MathUtils.random(0,5)]);
-        tusko1.setSize(getWidth(),getWidth());
+        int rnd = MathUtils.random(0,5);
+        tusko1 = new OneSpriteStaticActor(game, TUSKOK[rnd]);
+        if(rnd == 1 || rnd == 5) tusko1.setSize(getWidth(),getHeight()*0.8f);
+        else tusko1.setSize(getWidth(),getWidth());
         tusko1.setPosition(getWidth()/2-tusko1.getWidth()/2,getHeight()/5);
         addActor(tusko1,10);
 
         zold1 = new OneSpriteStaticActor(game, BACKGROUND);
-        zold1.setSize(getWidth(),getWidth());
+        zold1.setSize(getWidth(),getHeight());
         zold1.setPosition(getWidth()/2-zold1.getWidth()/2,getHeight()/5);
         addActor(zold1,11);
         zold1.setVisible(false);

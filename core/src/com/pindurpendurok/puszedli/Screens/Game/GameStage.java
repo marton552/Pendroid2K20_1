@@ -72,6 +72,8 @@ public class GameStage extends SimpleWorldStage {
     public final static String RUHAK = "elemek/ruhak.png";
     public final static String JATEKOK = "elemek/games.png";
     public final static String MUNKAK = "elemek/storyk.png";
+    public final static String TUT = "elemek/tutorial.png";
+    public final static String NEXT = "elemek/esemeny.png";
     public final static String SAND = "ui_textures/sand.png";
     public final static String VISSZA = "back.png";
     public final static String COIN = "penz.png";
@@ -132,6 +134,8 @@ public class GameStage extends SimpleWorldStage {
         assetList.addTexture(COIN);
         assetList.addTexture(OZ);
         assetList.addTexture(NAPHOLD);
+        assetList.addTexture(NEXT);
+        assetList.addTexture(TUT);
 
         for (int i = 0; i < HATTEREK.length; i++) {
             for (int k = 0; k < HATTEREK[i].length; k++) {
@@ -157,9 +161,9 @@ public class GameStage extends SimpleWorldStage {
             save.putFloat("inditas",(save.getFloat("inditas")+1));
         }else{
             save.putFloat("inditas",1);
-            save.putInteger("ev",2020);
-            save.putInteger("honap",12);
-            save.putInteger("nap",30); //23.-án született csak egyből léptet
+            save.putInteger("ev",2001);
+            save.putInteger("honap",07);
+            save.putInteger("nap",22); //23.-án született csak egyből léptet
 
             //Pap minigame
             save.putInteger("hatter",0);
@@ -399,6 +403,30 @@ public class GameStage extends SimpleWorldStage {
                 getCamera().position.set(getCamera().position.x+(getViewport().getWorldWidth()*4),getViewport().getWorldHeight()/2,0);
                 melyik_hatter = 2;
                 skinekclicked();
+            }
+        });
+
+        OneSpriteStaticActor tut = new OneSpriteStaticActor(game, TUT);
+        tut.setSize(getWidth()/4,getWidth()/4);
+        tut.setPosition(tut.getWidth()*0.5f,tut.getHeight()/2);
+        addActor(tut);
+        tut.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //TUTORIALOK BEJÖNNEK
+            }
+        });
+
+        OneSpriteStaticActor next = new OneSpriteStaticActor(game, NEXT);
+        next.setSize(getWidth()/4,getWidth()/4);
+        next.setPosition(getWidth()-next.getWidth()*1.5f,next.getHeight()/2);
+        addActor(next);
+        next.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //KÖVETKEZŐ ÉLETESEMÉNY
             }
         });
 
