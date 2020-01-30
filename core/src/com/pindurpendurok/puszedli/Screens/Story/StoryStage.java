@@ -23,7 +23,6 @@ public class StoryStage extends MyStage {
 
     int ittTart = -1;
 
-    OneSpriteStaticActor bg = null;
     Music music;
 
     public StoryStage(MyGame game, String[] imageHashes, String[] musicHashes) {
@@ -50,14 +49,13 @@ public class StoryStage extends MyStage {
             return;
         }
 
-        if(bg != null) {
-            bg.remove();
-            bg = null;
-        }
-
-        bg = new OneSpriteStaticActor(game, imageHashes[ittTart]);
-        bg.setSize(getViewport().getWorldWidth(), getViewport().getWorldHeight());
-        addActor(bg);
+        addActor(new OneSpriteStaticActor(game, imageHashes[ittTart]) {
+            @Override
+            public void init() {
+                super.init();
+                setSize(getViewport().getWorldWidth(), getViewport().getWorldHeight());
+            }
+        });
 
         music = game.getMyAssetManager().getMusic(musicHashes[ittTart]);
         music.setOnCompletionListener(new Music.OnCompletionListener() {
