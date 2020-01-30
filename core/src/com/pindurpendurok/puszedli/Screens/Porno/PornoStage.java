@@ -26,7 +26,7 @@ public class PornoStage extends SimpleWorldStage {
 
     public static final String[] FIU = new String[]{"elemek/pori/PoreszCsavesz1.png","elemek/pori/PoreszCsavesz2.png","elemek/pori/PoreszCsavesz3.png"};
     public static final String[] LANY = new String[]{"elemek/pori/PoreszWaman1.png","elemek/pori/PoreszWaman2.png","elemek/pori/PoreszWaman3.png","elemek/pori/PoreszWaman4.png",
-            "elemek/pori/PoreszWaman5.png","elemek/pori/PoreszWaman6.png","elemek/pori/PoreszWaman7.png","elemek/pori/PoreszWaman8.png",};
+            "elemek/pori/PoreszWaman5.png","elemek/pori/PoreszWaman6.png","elemek/pori/PoreszWaman7.png","elemek/pori/PoreszWaman8.png"};
     public static final String CEN = "elemek/pori/censored.png";
 
     public static AssetList assetList = new AssetList();

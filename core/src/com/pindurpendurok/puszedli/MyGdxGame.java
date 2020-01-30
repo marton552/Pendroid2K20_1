@@ -38,6 +38,6 @@ public class MyGdxGame extends MyGame {
 	public void create() {
 		super.create();
 		setLoadingStage(new GameLoadingStage(this));
-		setScreen(new GuessScreen(this));
+		setScreen(new GameScreen(this));
 	}
 }
