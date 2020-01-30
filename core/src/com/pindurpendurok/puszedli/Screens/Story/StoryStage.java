@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.pindurpendurok.puszedli.Screens.Game.GameStage;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,7 @@ public class StoryStage extends MyStage {
 
         if(ittTart > imageHashes.length-1) {
             storyEnded(this);
+            GameStage.tutorial = true;
             return;
         }
 

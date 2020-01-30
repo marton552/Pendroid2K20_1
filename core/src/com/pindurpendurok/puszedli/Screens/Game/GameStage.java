@@ -85,12 +85,16 @@ public class GameStage extends SimpleWorldStage {
     public final static String NAPHOLD = "elemek/nap_hol_basszameg.png";
     public final static String OZ = "elemek/hattervazze.png";
     public final static String[] KEPEK = new String[]{"elemek/eletut/eletut1.png","elemek/eletut/eletut2.png","elemek/eletut/eletut3.png","elemek/eletut/eletut4.png","elemek/eletut/eletut5.png","elemek/eletut/eletut6.png",
-            "elemek/eletut/eletut8.png","elemek/eletut/eletut9.png","elemek/eletut/eletut10.png","elemek/eletut/eletut11.png","elemek/eletut/eletut12.png","elemek/eletut/eletut13.png","elemek/eletut/eletut14.png"};
+            "elemek/eletut/eletut9.png","elemek/eletut/eletut10.png","elemek/eletut/eletut11.png","elemek/eletut/eletut12.png","elemek/eletut/eletut13.png","elemek/eletut/eletut14.png"};
     public final static String[] HANGOK = new String[]{"hangok/fostory/2000_1.ogg","hangok/fostory/2000_2.ogg","hangok/fostory/2000_3.ogg",
             "hangok/fostory/2005_1.ogg","hangok/fostory/2005_2.ogg","hangok/fostory/2005_3.ogg",
             "hangok/fostory/2012_1.ogg","hangok/fostory/2012_2.ogg","hangok/fostory/2012_3.ogg",
             "hangok/fostory/2016_1.ogg","hangok/fostory/2016_2.ogg","hangok/fostory/2016_3.ogg",
             "hangok/fostory/2020_1.ogg","hangok/fostory/2020_2.ogg","hangok/fostory/seged.ogg",};
+
+    public final static String[] TUTORIALS = new String[]{"tutorial/Screenshot_1.png","tutorial/Screenshot_20.png","tutorial/Screenshot_2.png","tutorial/Screenshot_3.png","tutorial/Screenshot_4.png",
+            "tutorial/Screenshot_5.png","tutorial/Screenshot_6.png","tutorial/Screenshot_7.png","tutorial/Screenshot_8.png","tutorial/Screenshot_9.png","tutorial/Screenshot_15.png",
+            "tutorial/Screenshot_10.png","tutorial/Screenshot_11.png","tutorial/Screenshot_12.png","tutorial/Screenshot_13.png","tutorial/Screenshot_14.png"};
 
     public boolean timer_able_to_count = true;
     public int ticks = 0;
@@ -129,6 +133,9 @@ public class GameStage extends SimpleWorldStage {
     public static boolean kattinthatsz = true;
     boolean canchangescreen = true;
     float fok = 0;
+    public int melyikev = 0;
+    public static boolean tutorial = false;
+    public static boolean gomb = false;
 
     public static List<Border> gombok = new ArrayList<>();
 
@@ -163,6 +170,9 @@ public class GameStage extends SimpleWorldStage {
         for (int k = 0; k < HANGOK.length; k++) {
             assetList.addMusic(HANGOK[k]).protect = true;
         }
+        for (int k = 0; k < TUTORIALS.length; k++) {
+            assetList.addTexture(TUTORIALS[k]).protect = true;
+        }
     }
 
 
@@ -173,7 +183,7 @@ public class GameStage extends SimpleWorldStage {
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
         save = Gdx.app.getPreferences("gameSave");
-        save.clear();
+        //save.clear();
 
         if(save.contains("inditas")){
             save.putFloat("inditas",(save.getFloat("inditas")+1));
@@ -187,8 +197,8 @@ public class GameStage extends SimpleWorldStage {
             save.putInteger("hatter",0);
             save.putInteger("dave",0);
             save.putInteger("penz",200);
-            save.putString("munkak","11111");
-            save.putString("jatekok","111111111");
+            save.putString("munkak","00000");
+            save.putString("jatekok","110000000");
             save.putString("szobak","20000");
             save.putString("daveskin","200000000000000");
 
@@ -196,10 +206,15 @@ public class GameStage extends SimpleWorldStage {
             save.putInteger("szomjusag",100);
             save.putInteger("stressz",30);
             save.putInteger("veralkohol",30);
+
+            save.putInteger("story",0);
+            save.putInteger("tutorial",0);
+            save.putInteger("tutorial2",10);
         }
         save.flush();
         datum.leptetes();
 
+        melyikev = save.getInteger("tutorial");
 
         detect = new changeMenuActor(game,this);
         detect.setVisible(false);
@@ -432,24 +447,48 @@ public class GameStage extends SimpleWorldStage {
         OneSpriteStaticActor tut = new OneSpriteStaticActor(game, TUT);
         tut.setSize(getWidth()/4,getWidth()/4);
         tut.setPosition(tut.getWidth()*0.5f,tut.getHeight()/2);
-        addActor(tut);
+        addActor(tut,100000000);
         tut.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                //TUTORIALOK BEJÖNNEK
+                gomb = true;
+                tutorial=true;
             }
         });
 
         OneSpriteStaticActor next = new OneSpriteStaticActor(game, NEXT);
         next.setSize(getWidth()/4,getWidth()/4);
         next.setPosition(getWidth()-next.getWidth()*1.5f,next.getHeight()/2);
-        addActor(next);
+        addActor(next,1000000);
         next.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                //KÖVETKEZŐ ÉLETESEMÉNY
+                if(melyikev == 0){
+                    save.putInteger("ev",2005);
+                    save.putInteger("honap",7);
+                    save.putInteger("nap",22);
+                    save.flush();
+                }
+                if(melyikev == 1){
+                    save.putInteger("ev",2012);
+                    save.putInteger("honap",7);
+                    save.putInteger("nap",22);
+                    save.flush();
+                }
+                if(melyikev == 2){
+                    save.putInteger("ev",2016);
+                    save.putInteger("honap",7);
+                    save.putInteger("nap",22);
+                    save.flush();
+                }
+                if(melyikev == 3){
+                    save.putInteger("ev",2020);
+                    save.putInteger("honap",7);
+                    save.putInteger("nap",22);
+                    save.flush();
+                }
             }
         });
 
@@ -507,7 +546,8 @@ public class GameStage extends SimpleWorldStage {
         bar3 = new StatusBarActor(game,this,"blue",getWidth()/1.5f,getHeight()/30,100,save.getInteger("stressz"),6.5f,"Stressz");
         bar4 = new StatusBarActor(game,this,"gold",getWidth()/1.5f,getHeight()/30,100,save.getInteger("veralkohol"),8,"Véralkohol szint");
 
-        ((MyScreen)getGame().getScreen()).addStage(new StoryStage(getGame(), new String[]{KEPEK[0],KEPEK[1],KEPEK[2]},new String[]{HANGOK[0],HANGOK[1],HANGOK[2]}){
+        if(save.getInteger("ev")== 2001 && save.getInteger("honap")== 7 && save.getInteger("nap")< 24)
+        ((MyScreen)getGame().getScreen()).addStage(new StoryStage(getGame(), new String[]{KEPEK[0],KEPEK[1],KEPEK[1]},new String[]{HANGOK[0],HANGOK[1],HANGOK[2]}){
             @Override
             public void storyEnded(StoryStage sender) {
                 super.storyEnded(sender);
@@ -516,17 +556,9 @@ public class GameStage extends SimpleWorldStage {
             }
         }, 2, true);
 
-        /*
-        //TUTORIAL PÉLDA
-        ((MyScreen)getGame().getScreen()).addStage(new TutorialStage(game, new String[]{KEPEK[0],KEPEK[1],KEPEK[2]}) {
-            @Override
-            public void tutorialEnded(TutorialStage stage) {
-                super.tutorialEnded(stage);
-                ((MyScreen)getGame().getScreen()).removeStage(stage);
 
-            }
-        }, 10, true);
-        */
+        //TUTORIAL PÉLDA
+
 
         addTimer(new TickTimer(0, true, new TickTimerListener() {
 
@@ -545,6 +577,79 @@ public class GameStage extends SimpleWorldStage {
                     naptar.setText(datum.ev+"."+datum.getMonth(datum.honap)+"."+datum.nap+"  "+ora2+":"+perc2);
                 if(ticks%75==0){count++;
                     datum.leptetes();
+
+                    if(datum.ev == 2005 && datum.honap == 7 && datum.nap == 23 && melyikev == 0){
+                        melyikev++;
+                        ((MyScreen)getGame().getScreen()).addStage(new StoryStage(getGame(), new String[]{KEPEK[2],KEPEK[3],KEPEK[4]},new String[]{HANGOK[3],HANGOK[4],HANGOK[5]}){
+                            @Override
+                            public void storyEnded(StoryStage sender) {
+                                super.storyEnded(sender);
+
+                                ((MyScreen)getGame().getScreen()).removeStage(sender);
+                            }
+                        }, 2, true);
+                        melyikev++;
+                        save.putString("jatekok","111110000");
+                        save.getInteger("story",melyikev);
+                        save.flush();
+                    }
+
+                    if(datum.ev == 2012 && datum.honap == 7 && datum.nap == 23 && melyikev == 1){
+                        melyikev++;
+                        ((MyScreen)getGame().getScreen()).addStage(new StoryStage(getGame(), new String[]{KEPEK[5],KEPEK[6],KEPEK[7]},new String[]{HANGOK[6],HANGOK[7],HANGOK[8]}){
+                            @Override
+                            public void storyEnded(StoryStage sender) {
+                                super.storyEnded(sender);
+
+                                ((MyScreen)getGame().getScreen()).removeStage(sender);
+                            }
+                        }, 2, true);
+                        melyikev++;
+                        save.putString("jatekok","111111111");
+                        save.getInteger("story",melyikev);
+                        save.flush();
+                    }
+
+                    if(datum.ev == 2016 && datum.honap == 7 && datum.nap == 23 && melyikev == 2){
+                        melyikev++;
+                        ((MyScreen)getGame().getScreen()).addStage(new StoryStage(getGame(), new String[]{KEPEK[8],KEPEK[9],KEPEK[9]},new String[]{HANGOK[9],HANGOK[10],HANGOK[11]}){
+                            @Override
+                            public void storyEnded(StoryStage sender) {
+                                super.storyEnded(sender);
+
+                                ((MyScreen)getGame().getScreen()).removeStage(sender);
+                            }
+                        }, 2, true);
+                        melyikev++;
+                        save.getInteger("story",melyikev);
+                        save.flush();
+                    }
+
+                    if(datum.ev == 2020 && datum.honap == 7 && datum.nap == 23 && melyikev == 3){
+                        melyikev++;
+                        ((MyScreen)getGame().getScreen()).addStage(new StoryStage(getGame(), new String[]{KEPEK[10],KEPEK[11],KEPEK[12]},new String[]{HANGOK[12],HANGOK[13],HANGOK[14]}){
+                            @Override
+                            public void storyEnded(StoryStage sender) {
+                                super.storyEnded(sender);
+
+                                ((MyScreen)getGame().getScreen()).removeStage(sender);
+                            }
+                        }, 2, true);
+                        melyikev++;
+                        save.putString("munkak","11111");
+                        save.getInteger("story",melyikev);
+                        save.flush();
+                    }
+
+                    if(tutorial && gomb){
+                        tutorial(save.getInteger("tutorial2"));
+                        tutorial =false;
+                        gomb = false;
+                    }
+                    else if(tutorial){
+                        tutorial(save.getInteger("tutorial"));
+                        tutorial =false;
+                    }
 
                     bar.changeValue(-1);
                     save.putInteger("ehseg",bar.jelenlegi);
@@ -640,6 +745,111 @@ public class GameStage extends SimpleWorldStage {
         BackGround_radio2.setSize(getWidth(),getHeight());
         BackGround_radio2.setX(0-getWidth()*2);
         addActor(BackGround_radio2,1);
+    }
+
+    public void tutorial(int hany){
+        System.out.println("asdsad");
+        if(hany == 0){
+        ((MyScreen)getGame().getScreen()).addStage(new TutorialStage(game, new String[]{TUTORIALS[0],TUTORIALS[1],TUTORIALS[2],TUTORIALS[3]}) {
+            @Override
+            public void tutorialEnded(TutorialStage stage) {
+                super.tutorialEnded(stage);
+                ((MyScreen)getGame().getScreen()).removeStage(stage);
+
+            }
+        }, 10000000, true);
+            save.putInteger("tutorial2",10);
+            save.putInteger("tutorial",1);
+            save.flush();
+    }
+    else if(hany == 1){
+            ((MyScreen)getGame().getScreen()).addStage(new TutorialStage(game, new String[]{TUTORIALS[4],TUTORIALS[5],TUTORIALS[6]}) {
+                @Override
+                public void tutorialEnded(TutorialStage stage) {
+                    super.tutorialEnded(stage);
+                    ((MyScreen)getGame().getScreen()).removeStage(stage);
+
+                }
+            }, 10000000, true);
+            save.putInteger("tutorial",2);
+            save.putInteger("tutorial2",11);
+            save.flush();
+        }
+        else if(hany == 2){
+            ((MyScreen)getGame().getScreen()).addStage(new TutorialStage(game, new String[]{TUTORIALS[7],TUTORIALS[8],TUTORIALS[9],TUTORIALS[10]}) {
+                @Override
+                public void tutorialEnded(TutorialStage stage) {
+                    super.tutorialEnded(stage);
+                    ((MyScreen)getGame().getScreen()).removeStage(stage);
+
+                }
+            }, 10000000, true);
+            save.putInteger("tutorial2",12);
+            save.putInteger("tutorial",3);
+            save.flush();
+        }
+        else if(hany == 3){
+            ((MyScreen)getGame().getScreen()).addStage(new TutorialStage(game, new String[]{TUTORIALS[11],TUTORIALS[12],TUTORIALS[13],TUTORIALS[14],TUTORIALS[15]}) {
+                @Override
+                public void tutorialEnded(TutorialStage stage) {
+                    super.tutorialEnded(stage);
+                    ((MyScreen)getGame().getScreen()).removeStage(stage);
+
+                }
+            }, 10000000, true);
+            save.putInteger("tutorial2",13);
+            save.flush();
+        }
+        else if(hany == 10){
+            ((MyScreen)getGame().getScreen()).addStage(new TutorialStage(game, new String[]{TUTORIALS[0],TUTORIALS[1],TUTORIALS[2],TUTORIALS[3]}) {
+                @Override
+                public void tutorialEnded(TutorialStage stage) {
+                    super.tutorialEnded(stage);
+                    ((MyScreen)getGame().getScreen()).removeStage(stage);
+
+                }
+            }, 10000000, true);
+        }
+        else if(hany == 11){
+            ((MyScreen)getGame().getScreen()).addStage(new TutorialStage(game, new String[]{TUTORIALS[0],TUTORIALS[1],TUTORIALS[2],TUTORIALS[3],TUTORIALS[4],TUTORIALS[5],TUTORIALS[6]}) {
+                @Override
+                public void tutorialEnded(TutorialStage stage) {
+                    super.tutorialEnded(stage);
+                    ((MyScreen)getGame().getScreen()).removeStage(stage);
+
+                }
+            }, 10000000, true);
+        }
+        else if(hany == 12){
+            ((MyScreen)getGame().getScreen()).addStage(new TutorialStage(game, new String[]{TUTORIALS[0],TUTORIALS[1],TUTORIALS[2],TUTORIALS[3],TUTORIALS[5],TUTORIALS[6],TUTORIALS[7],TUTORIALS[8],TUTORIALS[9],TUTORIALS[10]}) {
+                @Override
+                public void tutorialEnded(TutorialStage stage) {
+                    super.tutorialEnded(stage);
+                    ((MyScreen)getGame().getScreen()).removeStage(stage);
+
+                }
+            }, 10000000, true);
+        }
+        else if(hany == 13){
+            ((MyScreen)getGame().getScreen()).addStage(new TutorialStage(game, new String[]{TUTORIALS[0],TUTORIALS[1],TUTORIALS[2],TUTORIALS[3],TUTORIALS[5],TUTORIALS[6],TUTORIALS[7],TUTORIALS[8],TUTORIALS[9],TUTORIALS[10],TUTORIALS[11],TUTORIALS[12],TUTORIALS[13],TUTORIALS[14],TUTORIALS[15]}) {
+                @Override
+                public void tutorialEnded(TutorialStage stage) {
+                    super.tutorialEnded(stage);
+                    ((MyScreen)getGame().getScreen()).removeStage(stage);
+
+                }
+            }, 10000000, true);
+        }
+        else if(hany == 14){
+            ((MyScreen)getGame().getScreen()).addStage(new TutorialStage(game, new String[]{TUTORIALS[0],TUTORIALS[1],TUTORIALS[2],TUTORIALS[3]}) {
+                @Override
+                public void tutorialEnded(TutorialStage stage) {
+                    super.tutorialEnded(stage);
+                    ((MyScreen)getGame().getScreen()).removeStage(stage);
+
+                }
+            }, 10000000, true);
+        }
     }
 
     public void etelclicked(){
