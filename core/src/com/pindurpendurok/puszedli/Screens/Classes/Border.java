@@ -284,7 +284,7 @@ public class Border {
         if(hanyadik == 0)game.setScreen(new TrashScreen(game));
         else if(hanyadik == 1) game.setScreen(new PornoScreen(game));
         else if(hanyadik == 2) game.setScreen(new PszichiaterScreen(game));
-        else if(hanyadik == 3) game.setScreen(new WowScreen(game));
+        else if(hanyadik == 3) game.setScreen(new WowScreen(game,true));
         else if(hanyadik == 4) game.setScreen(new PapWorldScreen(game));
     }
 
@@ -296,7 +296,7 @@ public class Border {
         else if(hanyadik == 4) System.out.printf("Ez a játék nincs kész és valószínűleg sose készül el");
         else if(hanyadik == 5) game.setScreen(new ShakeScreen(game));
         else if(hanyadik == 6) game.setScreen(new FociScreen(game));
-        else if(hanyadik == 7) game.setScreen(new WowScreen(game));
+        else if(hanyadik == 7) game.setScreen(new WowScreen(game,false));
         else if(hanyadik == 8) game.setScreen(new FavagoScreen(game));
     }
 
