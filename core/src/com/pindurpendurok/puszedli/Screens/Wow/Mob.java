@@ -19,7 +19,6 @@ public class Mob extends OneSpriteStaticActor {
         for (int i = 0; i < mobok.length ; i++) {
             list.addTexture(mobok[i]);
         }
-
     }
 
     float finalW = 0;
