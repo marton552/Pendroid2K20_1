@@ -8,15 +8,18 @@ import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
-public class Goblin extends OneSpriteStaticActor {
+public class Mob extends OneSpriteStaticActor {
 
-    static final String[] mobok = new String[]{"goblins/goblin1.png","goblins/goblin2.png","goblins/goblin3.png","goblins/goblin4.png"};
+    static final String[] mobok = new String[]{"mobs/murlock1.png","mobs/murlock2.png","mobs/dwarf1.png","mobs/draenei1.png"};
+    static final Integer[] meret  = new Integer[]{100,150,200,250}; //ez csak irány, +/- 50
+
 
     public static AssetList list = new AssetList();
     static {
         for (int i = 0; i < mobok.length ; i++) {
             list.addTexture(mobok[i]);
         }
+
     }
 
     float finalW = 0;
@@ -26,13 +29,14 @@ public class Goblin extends OneSpriteStaticActor {
 
     WowStage stage;
 
-    public Goblin(MyGame game, int type, WowStage stage) {
+    public Mob(MyGame game, int type, WowStage stage) {
         super(game, mobok[type]);
 
         this.stage = stage;
 
-        finalW = getWidth() / (2 * (type+1));
-        finalH = getHeight() / (2 * (type+1));
+        finalW = MathUtils.random(100)+meret[type];
+        finalH = finalW;
+        System.out.println("ASD:"+finalW);
 
         setSize(0, 0);
 
@@ -43,7 +47,7 @@ public class Goblin extends OneSpriteStaticActor {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                goblinDeath();
+                mobDeath();
             }
         });
 
@@ -56,12 +60,12 @@ public class Goblin extends OneSpriteStaticActor {
          */
     }
 
-    public void goblinDeath() {
-        ((WowStage)getStage()).onGoblinKill(this);
+    public void mobDeath() {
+        ((WowStage)getStage()).onMobKill(this);
         counter = 0;
     }
 
-    public static int getRandomGoblinType() {
+    public static int getRandomMobType() {
         return MathUtils.random(0, mobok.length-1);
     }
 
@@ -69,7 +73,6 @@ public class Goblin extends OneSpriteStaticActor {
     protected void positionChanged() {
         super.positionChanged();
         setOrigin(getWidth() / 2, getHeight() / 2);
-
     }
 
     int counter = 0;

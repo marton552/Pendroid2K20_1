@@ -27,6 +27,7 @@ public class WowStage extends MyStage {
     public static final String HP_BAR = "ui_textures/red.png";
     public static final String BLACK = "ui_textures/black.png";
 
+    static final String Background = "mobs/background.png";
 
     public static AssetList list = new AssetList();
     static {
@@ -35,15 +36,17 @@ public class WowStage extends MyStage {
         list.addTexture(HP_BAR);
         list.addTexture(BLACK);
 
+        list.addTexture(Background);
+
         AssetList.collectAssetDescriptor(ElementAssets.class, list);
-        AssetList.collectAssetDescriptor(Goblin.class, list);
+        AssetList.collectAssetDescriptor(Mob.class, list);
 
     }
 
-    ArrayList<Goblin> goblins = new ArrayList<>();
+    ArrayList<Mob> goblins = new ArrayList<>();
     int barW = 700;
-    int killedGoblins = 0;
-    int maxGoblinKill = 0; //MathUtils.random(10, 30);
+    int killedMob = 0;
+    int maxMobKill = 0; //MathUtils.random(10, 30);
     int playerHP = 100;
 
     boolean isGamePlaying = true;
@@ -66,15 +69,20 @@ public class WowStage extends MyStage {
 
     public WowStage(MyGame game) {
         super(new ResponseViewport(720), game);
+
+        OneSpriteStaticActor background = new OneSpriteStaticActor(game,Background);
+        background.setSize(getViewport().getWorldWidth(),getViewport().getWorldHeight());
+        addActor(background,1);
+
         difficulty = 30; //Math.round(game.save.getFloat("gatfal_hp"));
         if(difficulty <= 10) difficulty = 20;
         if(munkaE){
             //munka
-            maxGoblinKill = MathUtils.random(25, 30);
+            maxMobKill = MathUtils.random(25, 30);
         }
         else{
             //hobby
-            maxGoblinKill = MathUtils.random(15,20);
+            maxMobKill = MathUtils.random(15,20);
         }
         /*OneSpriteStaticActor bg = new OneSpriteStaticActor(Assets.manager.get(Assets.ERDO));
         bg.setSize(getViewport().getWorldWidth(), getViewport().getWorldHeight());
@@ -175,7 +183,7 @@ public class WowStage extends MyStage {
         addActor(victoryBtn);
 
 
-        info = new SimpleLabel(getGame(), maxGoblinKill+"/"+killedGoblins);
+        info = new SimpleLabel(getGame(), maxMobKill+"/"+killedMob);
         info.setAlignment(Align.center);
         info.setFontScale(0.9f);
         info.setPosition(getViewport().getWorldWidth() / 2 - (info.getWidth()*info.getFontScaleX()) / 2 - 10, getViewport().getWorldHeight() - 130);
@@ -184,7 +192,7 @@ public class WowStage extends MyStage {
 
     }
 
-    public void onGoblinKill(Goblin g) {
+    public void onMobKill(Mob g) {
         //game.save.putFloat("goblinok",game.save.getFloat("goblinok")+1);
 
         Blood blood = new Blood(getGame());
@@ -196,17 +204,17 @@ public class WowStage extends MyStage {
 
         //Assets.manager.get(Assets.GOBLIN_DEATH_SOUND).play(1);
 
-        killedGoblins++;
+        killedMob++;
 
-        if(killedGoblins >= maxGoblinKill) {
+        if(killedMob >= maxMobKill) {
             gameVictory();
         }
 
-        info.setText(maxGoblinKill+"/"+killedGoblins);
+        info.setText(maxMobKill+"/"+killedMob);
     }
 
     public void createRandomGoblin() {
-        Goblin g = new Goblin(getGame(), Goblin.getRandomGoblinType(), this);
+        Mob g = new Mob(getGame(), Mob.getRandomMobType(), this);
         g.setPosition(MathUtils.random(10, getViewport().getWorldWidth() - 100), MathUtils.random(10, getViewport().getWorldHeight() - 180));
         goblins.add(g);
         addActor(g);
@@ -236,7 +244,7 @@ public class WowStage extends MyStage {
         hpBar.setWidth((barW/100)*playerHP);
 
         for (int i = 0; i < goblins.size(); i++) {
-            Goblin g = goblins.get(i);
+            Mob g = goblins.get(i);
             getActors().removeValue(g, false);
         }
 
@@ -264,14 +272,14 @@ public class WowStage extends MyStage {
 
     public void restartGame() {
         playerHP = 100;
-        killedGoblins = 0;
+        killedMob = 0;
 
         overBg.setVisible(false);
         overLabel.setVisible(false);
         overBtn.setVisible(false);
 
         //difficulty += 5; // Ez elrontja az egészet, tehát nem fog könnyebb lenni a dolog
-        info.setText(maxGoblinKill+"/"+killedGoblins);
+        info.setText(maxMobKill+"/"+killedMob);
         hpBar.setWidth((barW/100)*playerHP);
 
         isGamePlaying = true;
@@ -294,7 +302,7 @@ public class WowStage extends MyStage {
             counter++;
 
             if(counter % difficulty == 0) {
-                if(killedGoblins+goblins.size()+1 <= maxGoblinKill) createRandomGoblin();
+                if(killedMob+goblins.size()+1 <= maxMobKill) createRandomGoblin();
             }
         }
     }
