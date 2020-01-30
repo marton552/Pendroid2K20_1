@@ -31,3 +31,53 @@ START#Kuglifej Santa#Részeg#Becukrozták a fejem#.;
 01#Akkor így járt#Seggfej#1;
 10#Tudok még cukrot adni#Tartsa meg magának..#5;
 11#Megehetem?#Feljelentem magát!#1;
+
+
+
+START#Matai Mumus#Férfi#Félnek tőlem az emberek#.;
+0#Én nem félek tőled.#De a gyerekek igen.#.;
+1#Csodálkozol? Tiszta szőr vagy és fogak lógnak ki a szádból.#Mert mumus vagyok?#.;
+00#Akkor hagyja békén a gyerekek molesztálását...#De én nem is molesztáltam őket!#2;
+01#Mi maga? Pedofil?#Maga a pedofil, nem én!#5;
+10#Akkor meg mit csodálkozik, hogy félnek öntől?#Áhh inkább megeszem magát is :3#10;
+11#Akkor műtesse át magát kevésbé mumussá.#Műtteti magát a halál..#5;
+
+
+
+START#Értetlen Zsuzsa#Nő#Tetszik egy srác, de van barátnője#.;
+0#Akkor hagyd békén a pasit, ne légy ribizli.#Nem vagyok ribizli.#.;
+1#Keress másikat.#De nekem ő kell.#.;
+00#Mégis olyan pasi tetszik, akinek van barátnője.#És? Én jobb vagyok mint a csaj.#6;
+01#Mégis kotnyeleskedsz.#Szeretem tönkretenni mások kapcsolatát.#7;
+10#Miért pon ő? Van másik 3 milliárd helyette..#Mégis csak izgalmasabb egy párkapcsolatban élő pasi.#7;
+11#Látom neked sincs sok agyad..#Több van mint magának...#1;
+
+
+
+START#Bibircsós Brülló#Férfi#Tele vagyok pattanásokkal#.;
+0#Nyomja ki őket.#De az fájdalmas és undorító.. Esetleg ön nem tudná érzéstelenítővel?#.;
+1#Én nem látok magán egyet sem.#Mert a fenekemen vannak meg a hónaljamon. Megmutassam?#.;
+00#Én aztán hozzá nem érek..#És még orvosnak nevezi magát..#4;
+01#Minek az érzéstelenítő? Ne legyen ennyire kényes.#Nem is vagyok kényes...#6;
+10#Jajj inkább ne, mert a végén még idehányok...#Mekkora egy bunkó...#1;
+11#Tudja mit? Felírok pár krémet és kenje azokkal...#Köszönöm! Életmentő!#10;
+
+
+
+START#Handcuff Jenő#Férfi#Bebörtönöznek#.;
+0#Mi a bűne?#Bérgyilkos vagyok..#.;
+1#Én is voltam már börtönben, adjak pár tippet?#Maga? Akkor mégis hogy lehet orvos?#.;
+00#Akkor hogy lehet még szabadlábon??#Úgy hogy megszöktem és maga az utolsó a listámon..#3;
+01#Hát ööö... Kér egy kávét? Hehe.. Átugrok a szomszédba, gyors leszek..#Jah nem szükséges gyors leszek.#5;
+10#Ki mondta hogy orvos vagyok?#És még hogy én vagyok a pszichopata..#6;
+11#Illegálba tesó.#Taníts master#;10
+
+
+
+START#Eve Miradess#Nő#Letörött a körmöm#.;
+0#Hát menjen és csináltasson újat.#De még csak pár napos volt és drága#.;
+1#Puszit adjak rá vagy mit vár?#Hát mondjuk visszavarázsolhatná..#.;
+00#Látja? Ezért nem kellenek ilyen szarságok.#Ez nem szarság, ez világi dolog.#7;
+01#A tanulság, hogy nem járkálunk 10 cm-es körmökkel#Csak 9,9 cm volt..#4;
+10#Hölgyem... Nem vagyok Hókuszpókusz..#Pedig lehetne.#6;
+11#Nem látezik varázslat csak szigetelőszalag.#Mi az a szigetelőszalag?#1;
