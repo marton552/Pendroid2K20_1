@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pindurpendurok.puszedli.Elements.SimpleLabel;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
+import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
@@ -34,9 +36,15 @@ public class BellStage extends MyStage {
 
     }
 
-    public BellStage(MyGame game) {
+    public BellStage(final MyGame game) {
         super(new ResponseViewport(720), game);
 
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
+            }
+        });
 
         bell = new OneSpriteStaticActor(game, CS);
         bell.setPosition(getViewport().getWorldWidth() / 2 - bell.getWidth() / 2, getViewport().getWorldHeight() / 2 - bell.getHeight() / 2);
@@ -72,7 +80,7 @@ public class BellStage extends MyStage {
                     System.out.println("diff: "+difference);
                     bell.setVisible(true);
                     volt = true;
-                    penz+=1;
+                    penz+=5;
                     if(MathUtils.random(1,2) == 2) stressz-=1f;
                     felirat.setText("Szerzett pénz: "+penz);
                     felirat2.setText("Levezetett stressz: "+stressz);

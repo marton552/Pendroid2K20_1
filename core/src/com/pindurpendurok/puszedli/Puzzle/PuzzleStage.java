@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Elements.SimpleLabel;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 
 import hu.csanyzeg.master.Demos.FlappyBird.PipeActor;
@@ -36,6 +37,7 @@ public class PuzzleStage extends MyStage {
     OneSpriteStaticActor endBg;
     SimpleLabel endLabel;
     SimpleButton endBtn;
+    public static boolean van = false;
 
     public PuzzleStage(MyGame game) {
         super(new ResponseViewport(720), game);
@@ -84,7 +86,8 @@ public class PuzzleStage extends MyStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                getGame().setScreen(new GameScreen(getGame()));
+                van = true;
+                getGame().setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(getGame()));
             }
         });
         addActor(endBtn);

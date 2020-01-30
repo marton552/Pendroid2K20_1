@@ -2,10 +2,14 @@ package com.pindurpendurok.puszedli.Screens.Porno;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Elements.SimpleLabel;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 import com.pindurpendurok.puszedli.Screens.Wow.WowScreen;
 
@@ -47,6 +51,7 @@ public class PornoStage extends SimpleWorldStage {
     public static boolean waitfor = false;
     public static int irany = 0;
     public static MyLabel text;
+    MyLabel vict;
     static boolean jo = false;
     static boolean rossz = false;
     TickTimer z;
@@ -59,12 +64,20 @@ public class PornoStage extends SimpleWorldStage {
     int holtart = 1;
     final NyilActor nyil;
     public static boolean missed = false;
+    public static boolean van = false;
 
-    public PornoStage(MyGame game) {
+    public PornoStage(final MyGame game) {
         super(new ResponseViewport(1080f), game);
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
+
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
+            }
+        });
 
         OneSpriteStaticActor back = new OneSpriteStaticActor(game,BACK);
         back.setSize(getWidth(),getHeight());
@@ -81,6 +94,18 @@ public class PornoStage extends SimpleWorldStage {
         text.setColor(Color.WHITE);
         text.setFontScale(1.5f);
         addActor(text);
+
+        vict = new MyLabel(game, "Sikeresen elkészült a film!", ls) {
+            @Override
+            public void init() {
+
+            }
+        };
+        vict.setPosition(0,getHeight()*0.3f);
+        vict.setColor(Color.WHITE);
+        vict.setFontScale(1.9f);
+        addActor(vict,1000);
+        vict.setVisible(false);
 
         f1 = MathUtils.random(0,FIU.length-1);
         l1 = MathUtils.random(0,LANY.length-1);
@@ -177,11 +202,13 @@ public class PornoStage extends SimpleWorldStage {
         cen.setSize(getWidth(),getHeight()/2);
         cen.setPosition(0,getViewport().getWorldHeight()/4);
         addActor(cen);
+        vict.setVisible(true);
         TickTimer r = new TickTimer(1, false, new TickTimerListener() {
             @Override
             public void onStop(Timer sender) {
                 super.onStop(sender);
-                game.setScreen(new GameScreen(game));
+                van = true;
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
             }
         });
         addTimer(r);

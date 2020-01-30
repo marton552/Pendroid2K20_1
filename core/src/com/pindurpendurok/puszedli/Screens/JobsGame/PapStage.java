@@ -9,9 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Actors.JelkepActor;
 import com.pindurpendurok.puszedli.Screens.Actors.badJelkepActor;
+import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameStage;
 
 import java.util.ArrayList;
@@ -85,6 +87,13 @@ public class PapStage extends SimpleWorldStage {
     OneSpriteStaticActor BackGround;
     public PapStage(final MyGame game, int jelekSzama) {
         super(new ResponseViewport(720f), game);
+
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                game.setScreenWithPreloadAssets(PapWorldScreen.class, new LoadingCsakJobbScreen(game));
+            }
+        });
 
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = game.getMyAssetManager().getFont(GameStage.FONT);
@@ -197,7 +206,7 @@ public class PapStage extends SimpleWorldStage {
 
             public void onStop(Timer sender) {
                 PapWorldStage.vanpenz = true;
-                PapWorldStage.penzm+=50;
+                PapWorldStage.penzm+=100;
                 game.setScreen(new PapWorldScreen(game));
             }
         });

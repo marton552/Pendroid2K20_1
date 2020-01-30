@@ -282,22 +282,22 @@ public class Border {
 
     public void setmunka(int hanyadik, MyGame game){
         if(hanyadik == 0)game.setScreen(new TrashScreen(game));
-        else if(hanyadik == 1) game.setScreen(new PornoScreen(game));
-        else if(hanyadik == 2) game.setScreen(new PszichiaterScreen(game));
-        else if(hanyadik == 3) game.setScreen(new WowScreen(game,true));
-        else if(hanyadik == 4) game.setScreen(new PapWorldScreen(game));
+        else if(hanyadik == 1) game.setScreenWithPreloadAssets(PornoScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 2) game.setScreenWithPreloadAssets(PszichiaterScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 3) game.setScreenWithPreloadAssets(WowScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 4) game.setScreenWithPreloadAssets(PapWorldScreen.class, new LoadingCsakJobbScreen(game));
     }
 
     public void setgame(int hanyadik, MyGame game){
-        if(hanyadik == 0)game.setScreen(new RockingScreen(game));
-        else if(hanyadik == 1) game.setScreen(new BellScreen(game));
-        else if(hanyadik == 2) game.setScreen(new PuzzleScreen(game));
-        else if(hanyadik == 3) game.setScreen(new MathGameScreen(game));
-        else if(hanyadik == 4) System.out.printf("Ez a játék nincs kész és valószínűleg sose készül el");
-        else if(hanyadik == 5) game.setScreen(new ShakeScreen(game));
-        else if(hanyadik == 6) game.setScreen(new FociScreen(game));
-        else if(hanyadik == 7) game.setScreen(new WowScreen(game,false));
-        else if(hanyadik == 8) game.setScreen(new FavagoScreen(game));
+        if(hanyadik == 0)game.setScreenWithPreloadAssets(RockingScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 1) game.setScreenWithPreloadAssets(BellScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 2) game.setScreenWithPreloadAssets(PuzzleScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 3) game.setScreenWithPreloadAssets(MathGameScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 4) game.setScreenWithPreloadAssets(GuessScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 5) game.setScreenWithPreloadAssets(ShakeScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 6) game.setScreenWithPreloadAssets(FociScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 7) game.setScreenWithPreloadAssets(WowScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 8) game.setScreenWithPreloadAssets(FavagoScreen.class, new LoadingCsakJobbScreen(game));
     }
 
     public void mozgat(float y){

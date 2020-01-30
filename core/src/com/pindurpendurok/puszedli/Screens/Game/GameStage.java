@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
+import com.pindurpendurok.puszedli.Puzzle.PuzzleStage;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Actors.StatusBarActor;
 import com.pindurpendurok.puszedli.Screens.Actors.changeMenuActor;
@@ -21,6 +22,7 @@ import com.pindurpendurok.puszedli.Screens.Favago.FavagoScreen;
 import com.pindurpendurok.puszedli.Screens.Favago.FavagoStage;
 import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
 import com.pindurpendurok.puszedli.Screens.Foci.FociStage;
+import com.pindurpendurok.puszedli.Screens.Guess.GuessStage;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldStage;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
@@ -28,6 +30,7 @@ import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterStage;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameScreen;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameStage;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathMenuStage;
+import com.pindurpendurok.puszedli.Screens.Porno.PornoStage;
 import com.pindurpendurok.puszedli.Screens.Rocking.RockingScreen;
 import com.pindurpendurok.puszedli.Screens.Rocking.RockingStage;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
@@ -38,6 +41,7 @@ import com.pindurpendurok.puszedli.Screens.Trash.TrashStage;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.csanyzeg.master.Demos.SimpleClock.PointerActor;
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
@@ -162,7 +166,7 @@ public class GameStage extends SimpleWorldStage {
             save.putInteger("dave",0);
             save.putInteger("penz",100);
             save.putString("munkak","11111");
-            save.putString("jatekok","111101111");
+            save.putString("jatekok","111111111");
             save.putString("szobak","21100");
             save.putString("daveskin","211000000000000");
 
@@ -210,15 +214,15 @@ public class GameStage extends SimpleWorldStage {
             save.flush();
         }
 
-        if(RockingStage.volt){asd.letrehoz(game,this,"Bendzsike aluszikál!",50,0,0,-10,0,0);
-            RockingStage.volt = false; save.putInteger("penz",save.getInteger("penz")+50);
+        if(RockingStage.volt){asd.letrehoz(game,this,"Bendzsike aluszikál!",100,0,0,-10,0,0);
+            RockingStage.volt = false; save.putInteger("penz",save.getInteger("penz")+100);
             bar3.changeValue(-10);
             save.putInteger("stressz",save.getInteger("stressz")-10);
             save.flush();
         }
 
-        if(ShakeStage.volt){asd.letrehoz(game,this,"Ohh ez jó volt!",35,0,0,-8,0,0);
-            ShakeStage.volt = false; save.putInteger("penz",save.getInteger("penz")+35);
+        if(ShakeStage.volt){asd.letrehoz(game,this,"Ohh ez jó volt!",50,0,0,-8,0,0);
+            ShakeStage.volt = false; save.putInteger("penz",save.getInteger("penz")+50);
             bar3.changeValue(-18);
             save.putInteger("stressz",save.getInteger("stressz")-8);
             save.flush();
@@ -242,14 +246,28 @@ public class GameStage extends SimpleWorldStage {
             save.flush();
         }
 
+        if(PornoStage.van){asd.letrehoz(game,this,"Jó film volt!",80,0,0,0,0,0);
+            PornoStage.van = false; save.putInteger("penz",save.getInteger("penz")+80);
+            save.flush();
+        }
+
+        if(PuzzleStage.van){asd.letrehoz(game,this,"Jó film volt!",100,0,0,0,0,0);
+            PuzzleStage.van = false; save.putInteger("penz",save.getInteger("penz")+100);
+            save.flush();
+        }
+        if(GuessStage.van){asd.letrehoz(game,this,"Jó film volt!",60,0,0,0,0,0);
+            GuessStage.van = false; save.putInteger("penz",save.getInteger("penz")+60);
+            save.flush();
+        }
+
         hatter = new OneSpriteStaticActor(game, OZ);
-        hatter.setSize(getWidth()/1.7f,getWidth()/1.7f);
+        hatter.setSize(getWidth()/1.6f,getWidth()/1.6f);
         hatter.setPosition(getWidth()/2-hatter.getWidth()/2,getHeight()/2-hatter.getHeight()/2.5f);
         addActor(hatter,-10);
 
         naphold = new OneSpriteStaticActor(game, NAPHOLD);
         naphold.setSize(getWidth()*2,getWidth()*2);
-        naphold.setPosition(getWidth()/2-naphold.getWidth()/2,getHeight()/2-naphold.getHeight()/2f);
+        naphold.setPosition(getWidth()/2-naphold.getWidth()/2,getHeight()/2-naphold.getHeight()/2.3f);
         naphold.setOrigintoCenter();
         addActor(naphold,-20);
         naphold.setRotation(180);

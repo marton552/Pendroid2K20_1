@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Align;
 import com.pindurpendurok.puszedli.Elements.ProgressBar;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Elements.SimpleLabel;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
@@ -56,6 +57,13 @@ public class ShakeStage extends MyStage {
     public ShakeStage(final MyGame game) {
         super(new ResponseViewport(720), game);
         setCameraResetToLeftBottomOfScreen();
+
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
+            }
+        });
 
         bottle = new OneSpriteAnimatedActor(game, BOTTLE) {
             @Override
@@ -127,7 +135,7 @@ public class ShakeStage extends MyStage {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 volt = true;
-                game.setScreen(new GameScreen(game));
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
             }
         });
         addActor(endBtn);

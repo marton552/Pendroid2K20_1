@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Elements.SimpleLabel;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 import com.sun.corba.se.impl.protocol.giopmsgheaders.TargetAddress;
 
@@ -120,6 +121,12 @@ public class TrashStage extends SimpleWorldStage {
         super(new ResponseViewport(720), game);
         setCameraResetToLeftBottomOfScreen();
 
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
+            }
+        });
 
         addActor(new OneSpriteStaticActor(game, BG) {
             @Override
@@ -184,8 +191,8 @@ public class TrashStage extends SimpleWorldStage {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 van = true;
-                penz = MathUtils.random(30,50);
-                game.setScreen(new GameScreen(game));
+                penz = MathUtils.random(60,150);
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
             }
         });
         addActor(endBtn);

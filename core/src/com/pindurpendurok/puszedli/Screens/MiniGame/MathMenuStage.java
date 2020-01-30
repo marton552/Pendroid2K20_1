@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pindurpendurok.puszedli.Elements.ElementAssets;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Actors.QuestionCircleActor;
 import com.pindurpendurok.puszedli.Screens.Actors.SzurkecuccBarhovaActor;
@@ -61,7 +62,7 @@ public class MathMenuStage extends SimpleWorldStage {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     if(sz[s-3]!="Vissza")((MathGameScreen) getScreen()).changeStage(0,s);
-                    else game.setScreen(new GameScreen(game));
+                    else game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
                 }
             });
             osszeadas.setPosition(x, y - (height*i));

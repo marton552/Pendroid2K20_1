@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Elements.SimpleLabel;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameStage;
 
@@ -41,6 +42,7 @@ public class GuessStage extends MyStage {
     int randomBtn;
 
     SimpleLabel scoreLabel;
+    public static boolean van = false;
 
 
     int SCORE = 0;
@@ -52,6 +54,13 @@ public class GuessStage extends MyStage {
 
         randomID = MathUtils.random(0, 29);
         randomBtn = MathUtils.random(0, 2);
+
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                getGame().setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(getGame()));
+            }
+        });
 
         word = new OneSpriteAnimatedActor(getGame(), SZAVAK);
         word.stop();
@@ -140,7 +149,8 @@ public class GuessStage extends MyStage {
         stopThat = true;
 
         if(SCORE == finalScore) {
-            game.setScreen(new GameScreen(game));
+            van = true;
+            game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
         }else {
 
             btns[btn].setColor(Color.GREEN);

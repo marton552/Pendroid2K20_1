@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameStage;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameScreen;
@@ -72,6 +73,13 @@ public class PszichiaterStage extends SimpleWorldStage {
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = game.getMyAssetManager().getFont(GameStage.FONT);
         ls.fontColor = Color.WHITE;
+
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
+            }
+        });
 
         eredmeny = new MyLabel(game, "10/9", ls) {
             @Override
@@ -204,15 +212,15 @@ public class PszichiaterStage extends SimpleWorldStage {
         eredmeny2.setVisible(true);
         eredmeny.setVisible(true);
         eredmeny.setText("10/"+(actuallyText[holtart][3].toString().replace("[","").replace("]","")));
-        penz = MathUtils.random(Integer.parseInt(actuallyText[holtart][3].toString().replace("[","").replace("]",""))*2,Integer.parseInt(actuallyText[holtart][3].toString().replace("[","").replace("]",""))*3)*2;
+        penz = MathUtils.random(Integer.parseInt(actuallyText[holtart][3].toString().replace("[","").replace("]",""))*10,Integer.parseInt(actuallyText[holtart][3].toString().replace("[","").replace("]",""))*14);
         eredmeny2.setText("+"+penz+" pénz");
-        TickTimer g = new TickTimer(0.7f, false, new TickTimerListener() {
+        TickTimer g = new TickTimer(1, false, new TickTimerListener() {
 
             @Override
             public void onStop(Timer sender) {
                 super.onStop(sender);
                 van = true;
-                game.setScreen(new GameScreen(game));
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
             }
         });
         addTimer(g);

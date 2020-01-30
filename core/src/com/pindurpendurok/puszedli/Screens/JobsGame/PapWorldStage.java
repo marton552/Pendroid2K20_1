@@ -7,8 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Actors.JelkepActor;
 import com.pindurpendurok.puszedli.Screens.Actors.PapJesusActor;
+import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameStage;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameScreen;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
@@ -51,6 +53,13 @@ public class PapWorldStage extends SimpleWorldStage {
         OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, BACKGROUND);
         BackGround.setSize(getWidth(),getHeight());
         addActor(BackGround);
+
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
+            }
+        });
 
         MyLabel felirat = new MyLabel(game, "m", ls) {
             @Override

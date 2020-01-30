@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Actors.SzurkecuccBarhovaActor;
 import com.pindurpendurok.puszedli.Screens.Actors.labdaActor;
@@ -63,6 +64,13 @@ public class FociStage extends SimpleWorldStage {
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
 
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
+            }
+        });
+
         OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, BACKGROUND);
         BackGround.setSize(getWidth(),getHeight());
         addActor(BackGround);
@@ -108,7 +116,7 @@ public class FociStage extends SimpleWorldStage {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 penzm = penzm*10;
-                game.setScreen(new GameScreen(game));
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
             }
         });
         addActor(back1,1002);
@@ -196,7 +204,7 @@ public class FociStage extends SimpleWorldStage {
         }
         else if(kapus.getX()+kapus.getWidth()/3<labda.getX()+labda.getWidth() && kapus.getX()+(kapus.getWidth()/1.5f)>labda.getX()){
              vege("Kivédve!");}
-        else{ vege("Goal!!!!!!"); van =true; penzm++;}
+        else{ vege("Goal!!!!!!"); van =true; penzm+=5;}
     }
 
     void vege(String s){

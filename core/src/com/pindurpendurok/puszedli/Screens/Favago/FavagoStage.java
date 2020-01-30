@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Actors.SzurkecuccBarhovaActor;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
@@ -70,6 +71,13 @@ public class FavagoStage extends SimpleWorldStage {
         OneSpriteStaticActor BackGround = new OneSpriteStaticActor(game, BACKGROUND);
         BackGround.setSize(getWidth(),getHeight());
         addActor(BackGround);
+
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
+            }
+        });
 
         tusko1 = new OneSpriteStaticActor(game, TUSKOK[MathUtils.random(0,5)]);
         tusko1.setSize(getWidth(),getWidth());
@@ -167,7 +175,7 @@ public class FavagoStage extends SimpleWorldStage {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 atad=true;
-                game.setScreen(new GameScreen(game));
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
             }
         });
         addActor(back1,1002);
@@ -221,7 +229,7 @@ public class FavagoStage extends SimpleWorldStage {
         else if(szazalek > 20 && szazalek < 80)csillag = 2;
         else if(szazalek > 10 && szazalek < 90)csillag = 1;
         else csillag = 0;
-        int penz = MathUtils.random(csillag,csillag*2);
+        int penz = MathUtils.random(csillag*7,csillag*10);
         gotmoney+=penz;
         felirat.setText(szazalek+"% - "+(100-szazalek)+"%");
         feliratasd.setText("10/"+csillag);

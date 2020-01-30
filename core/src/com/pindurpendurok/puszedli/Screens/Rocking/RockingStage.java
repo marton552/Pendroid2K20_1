@@ -10,6 +10,7 @@ import com.pindurpendurok.puszedli.Elements.ElementAssets;
 import com.pindurpendurok.puszedli.Elements.ProgressBar;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Elements.SimpleLabel;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
@@ -66,6 +67,13 @@ public class RockingStage extends MyStage {
         super(new ResponseViewport(720), game);
 
         setCameraResetToLeftBottomOfScreen();
+
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));
+            }
+        });
 
         bar = new ProgressBar(getViewport().getWorldWidth() - 100, 40, ProgressBar.BG, ProgressBar.BAR, game);
         bar.setPosition(getViewport().getWorldWidth() / 2 - bar.getWidth() / 2, getViewport().getWorldHeight() - bar.getHeight() - 20);
@@ -180,7 +188,7 @@ public class RockingStage extends MyStage {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 volt = true;
-                game.setScreen(new GameScreen(game));
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(game));;
             }
         });
         addActor(endBtn);
