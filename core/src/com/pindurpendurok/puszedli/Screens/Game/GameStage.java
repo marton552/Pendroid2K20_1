@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Puzzle.PuzzleStage;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Actors.StatusBarActor;
@@ -35,8 +36,10 @@ import com.pindurpendurok.puszedli.Screens.Rocking.RockingScreen;
 import com.pindurpendurok.puszedli.Screens.Rocking.RockingStage;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeStage;
+import com.pindurpendurok.puszedli.Screens.Story.StoryStage;
 import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
 import com.pindurpendurok.puszedli.Screens.Trash.TrashStage;
+import com.pindurpendurok.puszedli.Screens.Wow.WowStage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +82,13 @@ public class GameStage extends SimpleWorldStage {
     public final static String COIN = "penz.png";
     public final static String NAPHOLD = "elemek/nap_hol_basszameg.png";
     public final static String OZ = "elemek/hattervazze.png";
+    public final static String[] KEPEK = new String[]{"elemek/eletut/eletut1.png","elemek/eletut/eletut2.png","elemek/eletut/eletut3.png","elemek/eletut/eletut4.png","elemek/eletut/eletut5.png","elemek/eletut/eletut6.png",
+            "elemek/eletut/eletut8.png","elemek/eletut/eletut9.png","elemek/eletut/eletut10.png","elemek/eletut/eletut11.png","elemek/eletut/eletut12.png","elemek/eletut/eletut13.png","elemek/eletut/eletut14.png"};
+    public final static String[] HANGOK = new String[]{"hangok/fostory/2000_1.ogg","hangok/fostory/2000_2.ogg","hangok/fostory/2000_3.ogg",
+            "hangok/fostory/2005_1.ogg","hangok/fostory/2005_2.ogg","hangok/fostory/2005_3.ogg",
+            "hangok/fostory/2012_1.ogg","hangok/fostory/2012_2.ogg","hangok/fostory/2012_3.ogg",
+            "hangok/fostory/2016_1.ogg","hangok/fostory/2016_2.ogg","hangok/fostory/2016_3.ogg",
+            "hangok/fostory/2020_1.ogg","hangok/fostory/2020_2.ogg","hangok/fostory/seged.ogg",};
 
     public boolean timer_able_to_count = true;
     public int ticks = 0;
@@ -145,6 +155,12 @@ public class GameStage extends SimpleWorldStage {
         for (int i = 0; i < BENDZSIK.length; i++) {
             assetList.addTexture(BENDZSIK[i]).protect = true;
         }
+        for (int k = 0; k < KEPEK.length; k++) {
+            assetList.addTexture(KEPEK[k]).protect = true;
+        }
+        for (int k = 0; k < HANGOK.length; k++) {
+            assetList.addMusic(HANGOK[k]).protect = true;
+        }
     }
 
 
@@ -181,6 +197,8 @@ public class GameStage extends SimpleWorldStage {
         }
         save.flush();
         datum.leptetes();
+
+        new StoryStage(game,new String[]{KEPEK[0],KEPEK[1],KEPEK[2]},new String[]{HANGOK[0],HANGOK[1],HANGOK[2]});
 
         detect = new changeMenuActor(game,this);
         detect.setVisible(false);
@@ -261,6 +279,10 @@ public class GameStage extends SimpleWorldStage {
         }
         if(GuessStage.van){asd.letrehoz(game,this,"Jó film volt!",60,0,0,0,0,0);
             GuessStage.van = false; save.putInteger("penz",save.getInteger("penz")+60);
+            save.flush();
+        }
+        if(WowStage.van){asd.letrehoz(game,this,"Jó játék volt!",50,0,0,0,0,0);
+            WowStage.van = false; save.putInteger("penz",save.getInteger("penz")+50);
             save.flush();
         }
 
