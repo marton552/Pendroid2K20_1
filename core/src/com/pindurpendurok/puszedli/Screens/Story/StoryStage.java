@@ -37,15 +37,16 @@ public class StoryStage extends MyStage {
 
     }
 
-    public void storyEnded() {
+    public void storyEnded(StoryStage sender) {
 
     }
 
     public void nextStory() {
         ittTart++;
+        System.out.printf("NEXT STORY LINE");
 
-        if(ittTart > imageHashes.length) {
-            storyEnded();
+        if(ittTart > imageHashes.length-1) {
+            storyEnded(this);
             return;
         }
 

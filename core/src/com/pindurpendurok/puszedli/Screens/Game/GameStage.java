@@ -47,6 +47,7 @@ import java.util.List;
 import hu.csanyzeg.master.Demos.SimpleClock.PointerActor;
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
+import hu.csanyzeg.master.MyBaseClasses.Scene2D.MyScreen;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
 import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleWorldStage;
@@ -198,7 +199,6 @@ public class GameStage extends SimpleWorldStage {
         save.flush();
         datum.leptetes();
 
-        new StoryStage(game,new String[]{KEPEK[0],KEPEK[1],KEPEK[2]},new String[]{HANGOK[0],HANGOK[1],HANGOK[2]});
 
         detect = new changeMenuActor(game,this);
         detect.setVisible(false);
@@ -506,6 +506,14 @@ public class GameStage extends SimpleWorldStage {
         bar3 = new StatusBarActor(game,this,"blue",getWidth()/1.5f,getHeight()/30,100,save.getInteger("stressz"),6.5f,"Stressz");
         bar4 = new StatusBarActor(game,this,"gold",getWidth()/1.5f,getHeight()/30,100,save.getInteger("veralkohol"),8,"Véralkohol szint");
 
+        ((MyScreen)getGame().getScreen()).addStage(new StoryStage(getGame(), new String[]{KEPEK[0],KEPEK[1],KEPEK[2]},new String[]{HANGOK[0],HANGOK[1],HANGOK[2]}){
+            @Override
+            public void storyEnded(StoryStage sender) {
+                super.storyEnded(sender);
+
+                ((MyScreen)getGame().getScreen()).removeStage(sender);
+            }
+        }, 2, true);
 
         addTimer(new TickTimer(0, true, new TickTimerListener() {
 
