@@ -172,7 +172,7 @@ public class GameStage extends SimpleWorldStage {
             save.putString("munkak","11111");
             save.putString("jatekok","111111111");
             save.putString("szobak","20000");
-            save.putString("daveskin","210000000000000");
+            save.putString("daveskin","200000000000000");
 
             save.putInteger("ehseg",100);
             save.putInteger("szomjusag",100);
