@@ -27,7 +27,7 @@ public class WowStage extends MyStage {
     public static final String HP_BAR = "ui_textures/red.png";
     public static final String BLACK = "ui_textures/black.png";
 
-    static final String Background = "mobs/background.png";
+    static final String Background = "mobs/background.jpg";
 
     public static AssetList list = new AssetList();
     static {
@@ -63,6 +63,8 @@ public class WowStage extends MyStage {
 
     public int difficulty;
     public static boolean munkaE;
+
+    public static boolean van = false;
 
 
     SimpleLabel info;
@@ -157,7 +159,7 @@ public class WowStage extends MyStage {
 
         addActor(victoryBg);
 
-        victoryLabel = new SimpleLabel(getGame(), "Sikeresen kiírtottad\naz összes mobot!"+"\nJutalmad ");
+        victoryLabel = new SimpleLabel(getGame(), "Sikeresen kiírtottad\naz összes mobot!");
         victoryLabel.setFontScale(0.7f);
         victoryLabel.setAlignment(Align.center);
         victoryLabel.setColor(Color.WHITE);
@@ -176,7 +178,8 @@ public class WowStage extends MyStage {
                 super.clicked(event, x, y);
                 //game.save.putFloat("minigamek",game.save.getFloat("minigamek")+1);
                 //game.save.flush();
-                getGame().setScreen(new GameScreen(getGame()));
+                van = true;
+                getGame().setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(getGame()));
             }
         });
 
