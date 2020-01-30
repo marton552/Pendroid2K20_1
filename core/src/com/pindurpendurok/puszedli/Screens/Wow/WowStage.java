@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Align;
 import com.pindurpendurok.puszedli.Elements.ElementAssets;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Elements.SimpleLabel;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 
 import java.util.ArrayList;
@@ -79,6 +80,13 @@ public class WowStage extends MyStage {
         bg.setSize(getViewport().getWorldWidth(), getViewport().getWorldHeight());
         addActor(bg);
         */
+
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                getGame().setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(getGame()));
+            }
+        });
 
         OneSpriteStaticActor hpBarBG = new OneSpriteStaticActor(getGame(), FULLWHITE);
         hpBarBG.setSize(barW, 30);

@@ -8,7 +8,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Elements.SimpleLabel;
 import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
+import com.pindurpendurok.puszedli.Screens.Classes.Date;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
+import com.pindurpendurok.puszedli.Screens.Game.GameStage;
 
 import hu.csanyzeg.master.Demos.FlappyBird.PipeActor;
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
@@ -16,6 +18,9 @@ import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.MyStage;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
+import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimer;
+import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
+import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
 
 public class PuzzleStage extends MyStage {
     //public static final String PUZZLE1 = "puzzle/1.atlas";
@@ -41,6 +46,14 @@ public class PuzzleStage extends MyStage {
 
     public PuzzleStage(MyGame game) {
         super(new ResponseViewport(720), game);
+
+        addBackButtonListener(new BackButtonListener() {
+            @Override
+            public void backKeyDown() {
+                getGame().setScreenWithPreloadAssets(GameScreen.class, new LoadingCsakJobbScreen(getGame()));
+            }
+        });
+
         int id = MathUtils.random(1, 29);
         PuzzleBoard b = new PuzzleBoard(game,"puzzle/"+ id +".atlas" ) {
             @Override

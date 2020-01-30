@@ -39,22 +39,22 @@ public class Border {
     public final static String SEL = "elemek/SELECTED.png";
     public static final String[] KAJA = new String[]{"elemek/etel/alma.png","elemek/etel/alma2.png","elemek/etel/barack.png","elemek/etel/chips.png","elemek/etel/csike.png",
             "elemek/etel/hamburger.png","elemek/etel/hamburger2.png","elemek/etel/popcorn.png","elemek/etel/spaggeti.png","elemek/etel/steak.png"};
-           static final int[] penz = new int[]{20,25,30,150,300,250,270,120,300,400};
+           static final int[] penz = new int[]{20,25,30,100,200,200,190,100,230,250};
 
     public static final int[] etel = new int[]{10,12,13,20,25,25,26,15,30,35};
     public static final int[] stressz = new int[]{0,0,0,-10,-5,-3,-4,-2,0,0};
 
     public static final String[] ITAL = new String[]{"elemek/ital/cola.png","elemek/ital/cola2.png","elemek/ital/gyumile.png","elemek/ital/gyumile2.png","elemek/ital/kv2.png",
             "elemek/ital/sorike.png","elemek/ital/sorike_2l_javitott.png","elemek/ital/viz.png","elemek/ital/viz2.png",};
-    public static final int[] penz2 = new int[]{100,60,200,190,120,250,450,100,50};
+    public static final int[] penz2 = new int[]{30,20,45,40,20,120,160,20,30};
     public static final int[] ital =     new int[]{15,10,20,19,5,-10,-5,20,10};
     public static final int[] stressz2 = new int[]{-2,0,0,0,-10,-20,-30,0,0};
     public static final int[] alkohol =  new int[]{0,0,0,0,0,20,30,0,0};
 
 
-    public static final int[] penz3 = new int[]{0,2000,1500,1800,1900,1500,3000,2800,1000,1000,1400,1700,3100,2000,5000};
+    public static final int[] penz3 = new int[]{0,300,150,350,400,100,600,220,270,120,210,330,400,130,1000};
 
-    public static final int[] penz4 = new int[]{0,1000,1200,2000,2200};
+    public static final int[] penz4 = new int[]{0,500,600,400,450};
 
 
     public static final String[] MINIGAME = new String[]{"elemek/icon/minigame1.png","elemek/icon/minigame2.png","elemek/icon/minigame3.png","elemek/icon/minigame4.png","elemek/icon/minigame5.png",
@@ -99,11 +99,13 @@ public class Border {
     boolean ondrag = true;
     boolean blocked = false;
     boolean selected = false;
+    public int hanyadik1;
 
     public Border(final MyGame game, final SimpleWorldStage gs, final int hanyadik, final int type, float screen,boolean tiltva,boolean selected1){
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
+        hanyadik1 = hanyadik;
 
         blocked = tiltva;
         selected = selected1;
@@ -121,7 +123,8 @@ public class Border {
         else if(type == 3) kep = new OneSpriteStaticActor(game, GameStage.HATTEREK[0][hanyadik]);
         else if(type == 4) kep = new OneSpriteStaticActor(game, LABDA);
         else if(type == 5) kep = new OneSpriteStaticActor(game, LABDA);
-        kep.setSize(back.getWidth()/1.5f,back.getWidth()/1.5f);
+        if(type == 2 || type == 3)kep.setSize(back.getWidth()/3f,back.getWidth()/1.65f);
+        else kep.setSize(back.getWidth()/1.65f,back.getWidth()/1.65f);
         kep.setPosition(back.getX()+back.getWidth()/2-kep.getWidth()/2,back.getY()+back.getHeight()/3.2f);
         gs.addActor(kep,19999);
 
@@ -210,7 +213,7 @@ public class Border {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
                 if(ondrag){
-                //System.out.printf("asd");
+                System.out.printf(type+" ++ "+GameStage.save.getString("daveskin").charAt(hanyadik) +"  és "+GameStage.save.getInteger("penz")+" ja és "+penz3[hanyadik]);
                 if (type==0 && GameStage.save.getInteger("penz") >= penz[hanyadik]){ize.letrehoz(game,gs,"Jó étvágyat!",penz[hanyadik]*-1,etel[hanyadik],0,stressz[hanyadik],0,gs.getViewport().getWorldWidth());
                     GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz[hanyadik]);
                     GameStage.bar.changeValue(etel[hanyadik]);
@@ -222,10 +225,14 @@ public class Border {
                     GameStage.bar3.changeValue(stressz2[hanyadik]);
                     GameStage.bar4.changeValue(alkohol[hanyadik]);
                 }
-                else if (type==2 && GameStage.save.getString("daveskin").charAt(hanyadik) ==0 && GameStage.save.getInteger("penz") >= penz3[hanyadik]){ize.letrehoz(game,gs,"Új ruhák huhú!!",penz3[hanyadik]*-1,0,0,0,0,gs.getViewport().getWorldWidth()*2);
-                    GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz3[hanyadik]);}
-                else if (type==3 && GameStage.save.getString("szobak").charAt(hanyadik) ==0 && GameStage.save.getInteger("penz") >= penz4[hanyadik]){ize.letrehoz(game,gs,"Új szoba huhú!!",penz4[hanyadik]*-1,0,0,0,0,gs.getViewport().getWorldWidth()*2);
-                    GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz4[hanyadik]);}
+                else if (type==2 && GameStage.save.getString("daveskin").charAt(hanyadik) =='0' && GameStage.save.getInteger("penz") >= penz3[hanyadik]){ize.letrehoz(game,gs,"Új ruhák huhú!!",penz3[hanyadik]*-1,0,0,0,0,gs.getViewport().getWorldWidth()*2);
+                    GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz3[hanyadik]);
+                    vasarol2();
+                    GameStage.save.flush();}
+                else if (type==3 && GameStage.save.getString("szobak").charAt(hanyadik) =='0' && GameStage.save.getInteger("penz") >= penz4[hanyadik]){ize.letrehoz(game,gs,"Új szoba huhú!!",penz4[hanyadik]*-1,0,0,0,0,gs.getViewport().getWorldWidth()*2);
+                    GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz4[hanyadik]);
+                    vasarol();
+                    GameStage.save.flush();}
                 else if(type==2 && GameStage.save.getString("daveskin").charAt(hanyadik) == '1'){
                     GameStage.gombok.get(GameStage.daveSelected).putSelect(false);
                     StringBuilder s = new StringBuilder(GameStage.save.getString("daveskin"));
@@ -240,7 +247,6 @@ public class Border {
                     GameStage.save.putString("daveskin", s.toString());
                     GameStage.daveSelected = hanyadik;
                     selected = true;
-                    System.out.println(s);
                     GameStage.save.flush();
                 }
                 else if(type==3 && GameStage.save.getString("szobak").charAt(hanyadik) == '1'){
@@ -259,10 +265,11 @@ public class Border {
                     selected = true;
                     GameStage.save.flush();
                 }
-                else if(type<2) {ize.letrehoz(game,gs,"Sajnos kevés a pénz :(",0,0,0,0,0,gs.getViewport().getWorldWidth());
-                    }
+                else if(type<2) {//ize.letrehoz(game,gs,"Sajnos kevés a pénz :(",0,0,0,0,0,gs.getViewport().getWorldWidth());
+                    System.out.println("asd222");}
                 else if(type<4){
-                    ize.letrehoz(game,gs,"Sajnos kevés a pénz :(",0,0,0,0,0,gs.getViewport().getWorldWidth()*2);
+                    //ize.letrehoz(game,gs,"Sajnos kevés a pénz :(",0,0,0,0,0,gs.getViewport().getWorldWidth()*2);
+                    System.out.println("asd");
                 }
                 else if(type == 4){
                     setgame(hanyadik,game);
@@ -281,6 +288,48 @@ public class Border {
                 ondrag = false;
             }
         });
+    }
+
+    void vasarol(){
+        coin.setVisible(false);
+        text.setText("Megvéve");
+
+        GameStage.gombok.get(GameStage.szobaSelected).putSelect(false);
+        char[] s = (GameStage.save.getString("szobak").toCharArray());
+        s[GameStage.szobaSelected] = '1';
+        GameStage.save.putString("szobak", String.valueOf(s));
+
+        GameStage.save.flush();
+
+        putSelect(true);
+        s = (GameStage.save.getString("szobak").toCharArray());
+        s[hanyadik1] = '2';
+        GameStage.save.putString("szobak", String.valueOf(s));
+        GameStage.szobaSelected = hanyadik1;
+        selected = true;
+        GameStage.save.flush();
+
+    }
+
+    void vasarol2(){
+        coin.setVisible(false);
+        text.setText("Megvéve");
+
+        GameStage.gombok.get(GameStage.daveSelected).putSelect(false);
+        StringBuilder s = new StringBuilder(GameStage.save.getString("daveskin"));
+        s.setCharAt(GameStage.daveSelected,'1');
+        GameStage.save.putString("daveskin", s.toString());
+
+        GameStage.save.flush();
+
+        putSelect(true);
+        s = new StringBuilder(GameStage.save.getString("daveskin"));
+        s.setCharAt(hanyadik1,'2');
+        GameStage.save.putString("daveskin", s.toString());
+        GameStage.daveSelected = hanyadik1;
+        selected = true;
+        GameStage.save.flush();
+
     }
 
     public void setmunka(int hanyadik, MyGame game){

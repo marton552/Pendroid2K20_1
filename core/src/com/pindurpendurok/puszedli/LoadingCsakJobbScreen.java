@@ -15,8 +15,8 @@ import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
 public class LoadingCsakJobbScreen extends LoadingStage {
 
     public final static String BACKGROUND = "ui_textures/loading1.png";
-    public final static String BACKGROUND1 = "ui_textures/loading1.png";
-    public final static String BACKGROUND2 = "ui_textures/loading1.png";
+    public final static String BACKGROUND1 = "ui_textures/loading2.png";
+    public final static String BACKGROUND2 = "ui_textures/loading3.png";
 
     public static AssetList list = new AssetList();
     static {

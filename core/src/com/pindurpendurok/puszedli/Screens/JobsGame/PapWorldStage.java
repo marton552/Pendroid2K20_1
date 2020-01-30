@@ -44,6 +44,7 @@ public class PapWorldStage extends SimpleWorldStage {
     int r;
     public static boolean vanpenz;
     public static int penzm = 0;
+    boolean onbendzsi = true;
 
     public PapWorldStage(final MyGame game) {
         super(new ResponseViewport(720f), game);
@@ -111,6 +112,8 @@ public class PapWorldStage extends SimpleWorldStage {
     }
 
     void clk(){
+        if(onbendzsi){
+            onbendzsi = false;
         PapJesusActor j = new PapJesusActor(game,world,this);
         addActor(j);
         TickTimer t = new TickTimer(1.4f, false, new TickTimerListener() {
@@ -121,7 +124,7 @@ public class PapWorldStage extends SimpleWorldStage {
                 game.setScreen(new PapScreen(game,r));
             }
         });
-        addTimer(t);
+        addTimer(t);}
     }
 
     void addpointer(){

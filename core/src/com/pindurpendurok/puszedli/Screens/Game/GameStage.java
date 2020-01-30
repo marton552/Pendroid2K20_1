@@ -64,8 +64,8 @@ public class GameStage extends SimpleWorldStage {
 
 
     public static final String[] BENDZSIK = new String[]{"elemek/dave/Davey.png","elemek/dave/DaveyAlaMexican.png","elemek/dave/DaveyIgen.png","elemek/dave/DaveyVaják.png","elemek/dave/gangsterDavey.png",
-            "elemek/dave/jasonDavey.png","elemek/dave/kawaiiDavey.png","elemek/dave/MarioDavey.png","elemek/dave/NudiDavey.png","elemek/dave/papDavey.png",
-            "elemek/dave/rendőrDavey.png","elemek/dave/tündérDavey.png","elemek/dave/zacseszDavey.png","elemek/dave/ZoldDavey.png","elemek/dave/matrixDavey.png"};
+            "elemek/dave/jasonDavey.png","elemek/dave/kawaiiDavey.png","elemek/dave/MarioDavey.png","elemek/dave/matrixDavey.png","elemek/dave/NudiDavey.png","elemek/dave/papDavey.png",
+            "elemek/dave/rendőrDavey.png","elemek/dave/tündérDavey.png","elemek/dave/zacseszDavey.png","elemek/dave/ZoldDavey.png"};
     public final static String ETELEK = "elemek/etelek.png";
     public final static String ITALOK = "elemek/italok.png";
     public final static String SZOBAK = "elemek/szobak.png";
@@ -87,7 +87,7 @@ public class GameStage extends SimpleWorldStage {
     public String perc2 ="";
     MyLabel naptar;
     MyLabel penz0;
-    Date datum = new Date(this);
+    public Date datum = new Date(this);
     public static Preferences save;
     changeMenuActor detect;
     int melyik_hatter = 0;
@@ -157,18 +157,18 @@ public class GameStage extends SimpleWorldStage {
             save.putFloat("inditas",(save.getFloat("inditas")+1));
         }else{
             save.putFloat("inditas",1);
-            save.putInteger("ev",2030);
-            save.putInteger("honap",7);
-            save.putInteger("nap",22); //23.-án született csak egyből léptet
+            save.putInteger("ev",2020);
+            save.putInteger("honap",12);
+            save.putInteger("nap",30); //23.-án született csak egyből léptet
 
             //Pap minigame
             save.putInteger("hatter",0);
             save.putInteger("dave",0);
-            save.putInteger("penz",100);
+            save.putInteger("penz",200);
             save.putString("munkak","11111");
             save.putString("jatekok","111111111");
-            save.putString("szobak","21100");
-            save.putString("daveskin","211000000000000");
+            save.putString("szobak","20000");
+            save.putString("daveskin","210000000000000");
 
             save.putInteger("ehseg",100);
             save.putInteger("szomjusag",100);
@@ -376,7 +376,7 @@ public class GameStage extends SimpleWorldStage {
 
         OneSpriteStaticActor szobak1 = new OneSpriteStaticActor(game, SZOBAK);
         szobak1.setSize(getWidth()/4,getWidth()/4);
-        szobak1.setPosition(getWidth()*-2+ getWidth()/2-etelek.getWidth()*1.5f,etelek.getHeight()/2);
+        szobak1.setPosition(getWidth()*-2+ getWidth()/2-etelek.getWidth()*1.5f,etelek.getHeight()/2f);
         addActor(szobak1);
         szobak1.addListener(new ClickListener() {
             @Override
@@ -403,7 +403,7 @@ public class GameStage extends SimpleWorldStage {
         });
 
         vissza = new OneSpriteStaticActor(game, VISSZA);
-        vissza.setSize(getWidth()/5,getWidth()/10);
+        vissza.setSize(getWidth()/4,getWidth()/8);
         vissza.setPosition(getWidth()-vissza.getWidth(),0);
         addActor(vissza,10001);
         vissza.setVisible(false);

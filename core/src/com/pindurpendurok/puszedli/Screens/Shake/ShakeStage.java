@@ -48,7 +48,6 @@ public class ShakeStage extends MyStage {
 
     public static boolean volt =false;
 
-    SimpleLabel debugLabel;
     OneSpriteAnimatedActor bottle;
 
     boolean ideKellEgyValtozo = false;
@@ -99,7 +98,6 @@ public class ShakeStage extends MyStage {
                 // gForce will be close to 1 when there is no movement.
                 float gForce = (float)Math.sqrt((xGrav * xGrav) + (yGrav * yGrav) + (zGrav * zGrav));
 
-                debugLabel.setText("DEBUG: "+gForce);
 
                 if(gForce > 1.7) {
                     percent += shakeStep;
@@ -139,14 +137,6 @@ public class ShakeStage extends MyStage {
             }
         });
         addActor(endBtn);
-
-        debugLabel = new SimpleLabel(game, "DEBUG: ");
-        debugLabel.setColor(Color.RED);
-        addActor(debugLabel);
-
-
-        //endMiniGame();
-
     }
 
     private void endMiniGame() {

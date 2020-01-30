@@ -105,7 +105,7 @@ public class TrashStage extends SimpleWorldStage {
     boolean gameEnded = false;
 
     public int score = 0;
-    public int finalScore = MathUtils.random(3, 8);
+    public int finalScore = MathUtils.random(3, 5);
     public int collectingTrashID = MathUtils.random(0, 3);
 
 
