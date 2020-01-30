@@ -4,12 +4,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Puzzle.PuzzleScreen;
 import com.pindurpendurok.puszedli.Screens.Actors.CircleAtBackgroundActor;
 import com.pindurpendurok.puszedli.Screens.Bell.BellScreen;
 import com.pindurpendurok.puszedli.Screens.Favago.FavagoScreen;
 import com.pindurpendurok.puszedli.Screens.Foci.FociScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameStage;
+import com.pindurpendurok.puszedli.Screens.Guess.GuessScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PapWorldScreen;
 import com.pindurpendurok.puszedli.Screens.JobsGame.PszichiaterScreen;
 import com.pindurpendurok.puszedli.Screens.MiniGame.MathGameScreen;
@@ -19,6 +21,7 @@ import com.pindurpendurok.puszedli.Screens.Rocking.RockingScreen;
 import com.pindurpendurok.puszedli.Screens.Shake.ShakeScreen;
 import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
 import com.pindurpendurok.puszedli.Screens.Wow.WowScreen;
+import com.pindurpendurok.puszedli.Screens.Wow.WowStage;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
@@ -284,7 +287,9 @@ public class Border {
         if(hanyadik == 0)game.setScreen(new TrashScreen(game));
         else if(hanyadik == 1) game.setScreenWithPreloadAssets(PornoScreen.class, new LoadingCsakJobbScreen(game));
         else if(hanyadik == 2) game.setScreenWithPreloadAssets(PszichiaterScreen.class, new LoadingCsakJobbScreen(game));
-        else if(hanyadik == 3) game.setScreenWithPreloadAssets(WowScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 3){ game.setScreenWithPreloadAssets(WowScreen.class, new LoadingCsakJobbScreen(game));
+            WowStage.munkaE = true;
+        }
         else if(hanyadik == 4) game.setScreenWithPreloadAssets(PapWorldScreen.class, new LoadingCsakJobbScreen(game));
     }
 
@@ -296,7 +301,8 @@ public class Border {
         else if(hanyadik == 4) game.setScreenWithPreloadAssets(GuessScreen.class, new LoadingCsakJobbScreen(game));
         else if(hanyadik == 5) game.setScreenWithPreloadAssets(ShakeScreen.class, new LoadingCsakJobbScreen(game));
         else if(hanyadik == 6) game.setScreenWithPreloadAssets(FociScreen.class, new LoadingCsakJobbScreen(game));
-        else if(hanyadik == 7) game.setScreenWithPreloadAssets(WowScreen.class, new LoadingCsakJobbScreen(game));
+        else if(hanyadik == 7){
+            WowStage.munkaE = false; game.setScreenWithPreloadAssets(WowScreen.class, new LoadingCsakJobbScreen(game));}
         else if(hanyadik == 8) game.setScreenWithPreloadAssets(FavagoScreen.class, new LoadingCsakJobbScreen(game));
     }
 

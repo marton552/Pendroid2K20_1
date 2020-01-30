@@ -15,7 +15,6 @@ import com.pindurpendurok.puszedli.Screens.Actors.labdaActor;
 import com.pindurpendurok.puszedli.Screens.Classes.Date;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
 import com.pindurpendurok.puszedli.Screens.Trash.TrashScreen;
-import com.sun.org.apache.bcel.internal.generic.FADD;
 
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;

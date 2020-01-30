@@ -42,7 +42,7 @@ public class WowStage extends MyStage {
     ArrayList<Goblin> goblins = new ArrayList<>();
     int barW = 700;
     int killedGoblins = 0;
-    int maxGoblinKill = MathUtils.random(10, 30);
+    int maxGoblinKill = 0; //MathUtils.random(10, 30);
     int playerHP = 100;
 
     boolean isGamePlaying = true;
@@ -58,15 +58,23 @@ public class WowStage extends MyStage {
     SimpleButton victoryBtn;
 
     public int difficulty;
+    public static boolean munkaE;
 
 
     SimpleLabel info;
 
-    public WowStage(final MyGame game) {
+    public WowStage(MyGame game) {
         super(new ResponseViewport(720), game);
         difficulty = 30; //Math.round(game.save.getFloat("gatfal_hp"));
         if(difficulty <= 10) difficulty = 20;
-
+        if(munkaE){
+            //munka
+            maxGoblinKill = MathUtils.random(25, 30);
+        }
+        else{
+            //hobby
+            maxGoblinKill = MathUtils.random(15,20);
+        }
         /*OneSpriteStaticActor bg = new OneSpriteStaticActor(Assets.manager.get(Assets.ERDO));
         bg.setSize(getViewport().getWorldWidth(), getViewport().getWorldHeight());
         addActor(bg);
@@ -133,7 +141,7 @@ public class WowStage extends MyStage {
 
         addActor(victoryBg);
 
-        victoryLabel = new SimpleLabel(getGame(), "Sikeresen kiírtottad\naz összes goblint!"+"\nJutalmad ");
+        victoryLabel = new SimpleLabel(getGame(), "Sikeresen kiírtottad\naz összes mobot!"+"\nJutalmad ");
         victoryLabel.setFontScale(0.7f);
         victoryLabel.setAlignment(Align.center);
         victoryLabel.setColor(Color.WHITE);

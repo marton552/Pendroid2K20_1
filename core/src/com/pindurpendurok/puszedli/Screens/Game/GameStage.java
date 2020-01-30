@@ -151,7 +151,7 @@ public class GameStage extends SimpleWorldStage {
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
         save = Gdx.app.getPreferences("gameSave");
-        //save.clear();
+        save.clear();
 
         if(save.contains("inditas")){
             save.putFloat("inditas",(save.getFloat("inditas")+1));

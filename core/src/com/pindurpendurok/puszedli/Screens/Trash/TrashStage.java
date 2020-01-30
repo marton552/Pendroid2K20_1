@@ -10,7 +10,6 @@ import com.pindurpendurok.puszedli.Elements.SimpleButton;
 import com.pindurpendurok.puszedli.Elements.SimpleLabel;
 import com.pindurpendurok.puszedli.LoadingCsakJobbScreen;
 import com.pindurpendurok.puszedli.Screens.Game.GameScreen;
-import com.sun.corba.se.impl.protocol.giopmsgheaders.TargetAddress;
 
 import java.util.ArrayList;
 import java.util.Arrays;

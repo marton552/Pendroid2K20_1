@@ -12,14 +12,13 @@ public class WowScreen extends MyScreen {
     static {
         AssetList.collectAssetDescriptor(WowStage.class, list);
     }
-    public WowScreen(MyGame game, boolean munka) {
+    public WowScreen(MyGame game) {
         super(game);
-        munkaE = munka;
     }
 
     @Override
     protected void afterAssetsLoaded() {
-        WowStage stage = new WowStage(game, munkaE);
+        WowStage stage = new WowStage(game);
         addStage(stage, 1, true);
     }
 
