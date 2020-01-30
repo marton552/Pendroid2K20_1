@@ -10,18 +10,14 @@ import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class Goblin extends OneSpriteStaticActor {
 
-    public static final String GOBLIN_1 = "goblins/goblin.png";
-    public static final String GOBLIN_2 = "goblins/goblin2.png";
-    public static final String GOBLIN_3 = "goblins/goblin3.png";
+    static final String[] mobok = new String[]{"goblins/goblin1.png","goblins/goblin2.png","goblins/goblin3.png","goblins/goblin4.png"};
 
     public static AssetList list = new AssetList();
     static {
-        list.addTexture(GOBLIN_1);
-        list.addTexture(GOBLIN_2);
-        list.addTexture(GOBLIN_3);
+        for (int i = 0; i < mobok.length ; i++) {
+            list.addTexture(mobok[i]);
+        }
     }
-
-    int goblinType;
 
     float finalW = 0;
     float finalH = 0;
@@ -31,14 +27,12 @@ public class Goblin extends OneSpriteStaticActor {
     WowStage stage;
 
     public Goblin(MyGame game, int type, WowStage stage) {
-        super(game, getGoblinTexture(type));
-        this.goblinType = type;
+        super(game, mobok[type]);
 
         this.stage = stage;
 
-        finalW = getWidth() / (2 * (goblinType+1));
-        finalH = getHeight() / (2 * (goblinType+1));
-
+        finalW = getWidth() / (2 * (type+1));
+        finalH = getHeight() / (2 * (type+1));
 
         setSize(0, 0);
 
@@ -49,17 +43,13 @@ public class Goblin extends OneSpriteStaticActor {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-
                 goblinDeath();
-
             }
         });
 
-        int randSound = MathUtils.random(0, 2);
-
-
         //Hangokat nem tudom hogy akarjuk úgyhogy kivettem de utt a régi.
         /*
+        int randSound = MathUtils.random(0, 2);
         if(randSound == 0) Assets.manager.get(Assets.GOBLIN_SOUND1).play(1);
         else if(randSound == 1) Assets.manager.get(Assets.GOBLIN_SOUND2).play(1);
         else Assets.manager.get(Assets.GOBLIN_SOUND3).play(1);
@@ -71,15 +61,8 @@ public class Goblin extends OneSpriteStaticActor {
         counter = 0;
     }
 
-
-    private static String getGoblinTexture(int type) {
-        if(type == 0) return GOBLIN_1;
-        if(type == 1) return GOBLIN_2;
-        else return GOBLIN_3;
-    }
-
     public static int getRandomGoblinType() {
-        return MathUtils.random(0, 2);
+        return MathUtils.random(0, mobok.length-1);
     }
 
     @Override
