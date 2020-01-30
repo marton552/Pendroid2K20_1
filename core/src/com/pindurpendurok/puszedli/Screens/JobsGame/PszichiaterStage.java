@@ -211,6 +211,7 @@ public class PszichiaterStage extends SimpleWorldStage {
             @Override
             public void onStop(Timer sender) {
                 super.onStop(sender);
+                van = true;
                 game.setScreen(new GameScreen(game));
             }
         });
