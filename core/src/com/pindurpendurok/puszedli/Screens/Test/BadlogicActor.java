@@ -1,8 +1,11 @@
 package com.pindurpendurok.puszedli.Screens.Test;
 
+import java.util.Map;
+
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
+import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.MyShape;
 import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.PositionRule;
 import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.ShapeType;
 import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleBodyContactListener;
@@ -52,6 +55,7 @@ public class BadlogicActor extends OneSpriteStaticActor {
 
                 if(otherHelper.actor instanceof RosszActor) {
                     otherHelper.remove();
+
                 }
            }
 
