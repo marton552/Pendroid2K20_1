@@ -483,26 +483,26 @@ public class GameStage extends SimpleWorldStage {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 melyikev = save.getInteger("story");
-                System.out.printf(melyikev+"");
-                if(melyikev == 1){
+                System.out.printf(melyikev+"sadsad");
+                if(melyikev == 0){
                     save.putInteger("ev",2005);
                     save.putInteger("honap",7);
                     save.putInteger("nap",22);
                     save.flush();
                 }
-                if(melyikev == 2){
+                if(melyikev == 1){
                     save.putInteger("ev",2012);
                     save.putInteger("honap",7);
                     save.putInteger("nap",22);
                     save.flush();
                 }
-                if(melyikev == 3){
+                if(melyikev == 2){
                     save.putInteger("ev",2016);
                     save.putInteger("honap",7);
                     save.putInteger("nap",22);
                     save.flush();
                 }
-                if(melyikev == 4){
+                if(melyikev == 3){
                     save.putInteger("ev",2020);
                     save.putInteger("honap",7);
                     save.putInteger("nap",22);
@@ -569,13 +569,7 @@ public class GameStage extends SimpleWorldStage {
         bar3 = new StatusBarActor(game,this,"blue",getWidth()/1.5f,getHeight()/30,100,save.getInteger("stressz"),6.5f,"Stressz");
         bar4 = new StatusBarActor(game,this,"gold",getWidth()/1.5f,getHeight()/30,100,save.getInteger("veralkohol"),8,"Véralkohol szint");
 
-        melyikev = save.getInteger("story");
-        System.out.println(melyikev);
-        melyikev++;
-        System.out.println(melyikev);
-        //save.putString("jatekok","111111111");
-        save.putInteger("story",melyikev);
-        save.flush();
+
         if(save.getInteger("ev")== 2001 && save.getInteger("honap")== 7 && save.getInteger("nap")< 24){
         ((MyScreen)getGame().getScreen()).addStage(new StoryStage(getGame(), new String[]{KEPEK[0],KEPEK[1],KEPEK[1]},new String[]{HANGOK[0],HANGOK[1],HANGOK[2]}){
             @Override
@@ -610,11 +604,11 @@ public class GameStage extends SimpleWorldStage {
                 if(ticks%75==0){count++;
                     datum.leptetes();
                     melyikev = save.getInteger("story");
-                    if(datum.ev == 2005 && datum.honap == 7 && datum.nap == 23 && melyikev == 1){
+                    if(datum.ev == 2005 && datum.honap == 7 && datum.nap == 23 && melyikev == 0){
                         melyikev++;
                         datum.nap++;
                         save.putString("jatekok","111110000");
-                        save.getInteger("story",melyikev);
+                        save.putInteger("story",melyikev);
                         save.flush();
                         ((MyScreen)getGame().getScreen()).addStage(new StoryStage(getGame(), new String[]{KEPEK[2],KEPEK[3],KEPEK[4]},new String[]{HANGOK[3],HANGOK[4],HANGOK[5]}){
                             @Override
@@ -627,7 +621,7 @@ public class GameStage extends SimpleWorldStage {
 
                     }
 
-                    if(datum.ev == 2012 && datum.honap == 7 && datum.nap == 23 && melyikev == 2){
+                    if(datum.ev == 2012 && datum.honap == 7 && datum.nap == 23 && melyikev == 1){
                         melyikev++;
                         datum.nap++;
                         save.putString("jatekok","111111111");
@@ -644,7 +638,7 @@ public class GameStage extends SimpleWorldStage {
 
                     }
 
-                    if(datum.ev == 2016 && datum.honap == 7 && datum.nap == 23 && melyikev == 3){
+                    if(datum.ev == 2016 && datum.honap == 7 && datum.nap == 23 && melyikev == 2){
                         melyikev++;
                         datum.nap++;
                         save.putInteger("story",melyikev);
@@ -659,7 +653,7 @@ public class GameStage extends SimpleWorldStage {
                         }, 2, true);
                     }
 
-                    if(datum.ev == 2020 && datum.honap == 7 && datum.nap == 23 && melyikev == 4){
+                    if(datum.ev == 2020 && datum.honap == 7 && datum.nap == 23 && melyikev == 3){
                         melyikev++;
                         datum.nap++;
                         save.putString("munkak","11111");
@@ -667,7 +661,7 @@ public class GameStage extends SimpleWorldStage {
                         save.putInteger("seged",0);
                         save.flush();
                         next.setVisible(false);
-                        ((MyScreen)getGame().getScreen()).addStage(new StoryStage(getGame(), new String[]{KEPEK[10],KEPEK[11],KEPEK[12]},new String[]{HANGOK[12],HANGOK[13],HANGOK[14]}){
+                        ((MyScreen)getGame().getScreen()).addStage(new StoryStage(getGame(), new String[]{KEPEK[10],KEPEK[11],KEPEK[11]},new String[]{HANGOK[12],HANGOK[13],HANGOK[14]}){
                             @Override
                             public void storyEnded(StoryStage sender) {
                                 super.storyEnded(sender);
