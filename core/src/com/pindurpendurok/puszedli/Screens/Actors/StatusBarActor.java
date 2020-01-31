@@ -66,11 +66,11 @@ public class StatusBarActor {
     }
 
     public void changeValue(int value){
-        if(jelenlegi <= max-value && value > 0){
+        if(jelenlegi <= max-value && value > 1){
             jelenlegi+=value;
             szin.setWidth(ertek*jelenlegi);
         }
-        else if(jelenlegi <= max && value > 0){
+        else if(jelenlegi <= max && value > 1){
             jelenlegi=max;
             szin.setWidth(ertek*jelenlegi);
         }

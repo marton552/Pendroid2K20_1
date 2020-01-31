@@ -44,11 +44,13 @@ public class StoryStage extends MyStage {
 
     public void nextStory() {
         ittTart++;
+        if(ittTart == 0)GameStage.timer_able_to_count = false;
         System.out.printf("NEXT STORY LINE");
 
         if(ittTart > imageHashes.length-1) {
             storyEnded(this);
             GameStage.tutorial = true;
+            GameStage.timer_able_to_count = true;
             return;
         }
 
