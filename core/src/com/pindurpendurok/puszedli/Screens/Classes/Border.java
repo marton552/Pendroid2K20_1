@@ -212,8 +212,9 @@ public class Border {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
+                System.out.println("asdasdasdasd:: "+ondrag);
                 if(ondrag){
-                System.out.printf(type+" ++ "+GameStage.save.getString("daveskin").charAt(hanyadik) +"  és "+GameStage.save.getInteger("penz")+" ja és "+penz3[hanyadik]);
+                    System.out.printf(type+" ++ "+GameStage.save.getString("daveskin").charAt(hanyadik) +"  és "+GameStage.save.getInteger("penz")+" ja és "+penz3[hanyadik]);
                 if (type==0 && GameStage.save.getInteger("penz") >= penz[hanyadik]){ize.letrehoz(game,gs,"Jó étvágyat!",penz[hanyadik]*-1,etel[hanyadik],0,stressz[hanyadik],0,gs.getViewport().getWorldWidth());
                     GameStage.save.putInteger("penz",GameStage.save.getInteger("penz")-penz[hanyadik]);
                     GameStage.bar.changeValue(etel[hanyadik]);
@@ -285,7 +286,7 @@ public class Border {
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 super.touchDragged(event, x, y, pointer);
-                ondrag = false;
+                //ondrag = false;
             }
         });
     }
