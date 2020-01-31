@@ -188,7 +188,7 @@ public class GameStage extends SimpleWorldStage {
         ls.font = game.getMyAssetManager().getFont(FONT);
         ls.fontColor = Color.WHITE;
         save = Gdx.app.getPreferences("gameSave");
-        //save.clear();
+        save.clear();
 
         if(save.contains("inditas")){
             save.putFloat("inditas",(save.getFloat("inditas")+1));
@@ -196,7 +196,7 @@ public class GameStage extends SimpleWorldStage {
             save.putFloat("inditas",1);
             save.putInteger("ev",2001);
             save.putInteger("honap",07);
-            save.putInteger("nap",22); //23.-án született csak egyből léptet
+            save.putInteger("nap",23); //23.-án született csak egyből léptet
 
             //Pap minigame
             save.putInteger("hatter",0);
@@ -484,25 +484,26 @@ public class GameStage extends SimpleWorldStage {
                 super.clicked(event, x, y);
                 melyikev = save.getInteger("story");
                 System.out.printf(melyikev+"sadsad");
-                if(melyikev == 0){
+                melyikev++;
+                if(melyikev == 1){
                     save.putInteger("ev",2005);
                     save.putInteger("honap",7);
                     save.putInteger("nap",22);
                     save.flush();
                 }
-                if(melyikev == 1){
+                if(melyikev == 2){
                     save.putInteger("ev",2012);
                     save.putInteger("honap",7);
                     save.putInteger("nap",22);
                     save.flush();
                 }
-                if(melyikev == 2){
+                if(melyikev == 3){
                     save.putInteger("ev",2016);
                     save.putInteger("honap",7);
                     save.putInteger("nap",22);
                     save.flush();
                 }
-                if(melyikev == 3){
+                if(melyikev == 4){
                     save.putInteger("ev",2020);
                     save.putInteger("honap",7);
                     save.putInteger("nap",22);
@@ -604,7 +605,7 @@ public class GameStage extends SimpleWorldStage {
                 if(ticks%75==0){count++;
                     datum.leptetes();
                     melyikev = save.getInteger("story");
-                    if(datum.ev == 2005 && datum.honap == 7 && datum.nap == 23 && melyikev == 0){
+                    if(datum.ev == 2005 && datum.honap == 7 && datum.nap == 23){
                         melyikev++;
                         datum.nap++;
                         save.putString("jatekok","111110000");
@@ -621,7 +622,7 @@ public class GameStage extends SimpleWorldStage {
 
                     }
 
-                    if(datum.ev == 2012 && datum.honap == 7 && datum.nap == 23 && melyikev == 1){
+                    if(datum.ev == 2012 && datum.honap == 7 && datum.nap == 23){
                         melyikev++;
                         datum.nap++;
                         save.putString("jatekok","111111111");
@@ -638,7 +639,7 @@ public class GameStage extends SimpleWorldStage {
 
                     }
 
-                    if(datum.ev == 2016 && datum.honap == 7 && datum.nap == 23 && melyikev == 2){
+                    if(datum.ev == 2016 && datum.honap == 7 && datum.nap == 23){
                         melyikev++;
                         datum.nap++;
                         save.putInteger("story",melyikev);
@@ -653,7 +654,7 @@ public class GameStage extends SimpleWorldStage {
                         }, 2, true);
                     }
 
-                    if(datum.ev == 2020 && datum.honap == 7 && datum.nap == 23 && melyikev == 3){
+                    if(datum.ev == 2020 && datum.honap == 7 && datum.nap == 23){
                         melyikev++;
                         datum.nap++;
                         save.putString("munkak","11111");

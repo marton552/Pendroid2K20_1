@@ -30,7 +30,6 @@ public class MyGdxGame extends MyGame {
 	public MyGdxGame(boolean debug) { super(debug); }
 
 	public MyGdxGame() {
-
 	}
 
 

@@ -179,31 +179,31 @@ public class Border {
         else text.setPosition(back.getX()+back.getWidth()/2-((back.getWidth()/55)*text.getText().length),back.getY()+back.getHeight()/30);
         text.setColor(Color.BLACK);
         text.setFontScale(0.8f);
-        gs.addActor(text,19999);
+        gs.addActor(text,119999);
 
         coin = new OneSpriteStaticActor(game, COIN);
         coin.setSize(gs.getWidth()/23,gs.getWidth()/23);
         coin.setPosition(back.getX()+back.getWidth()/2+((back.getWidth()/25)*text.getText().length),back.getY()+back.getHeight()/12);
-        gs.addActor(coin,19999);
+        gs.addActor(coin,119999);
 
         if(type == 4 || type == 5)coin.setVisible(false);
 
         click = new OneSpriteStaticActor(game, LABDA);
         click.setSize(gs.getWidth()/3,gs.getWidth()/3);
         click.setPosition(back.getX(),back.getY());
-        gs.addActor(click,19999);
+        gs.addActor(click,119999);
 
         block = new OneSpriteStaticActor(game, BLOCK);
         block.setSize(gs.getWidth()/3,gs.getWidth()/3);
         block.setPosition(back.getX(),back.getY());
-        gs.addActor(block,21000);
+        gs.addActor(block,121000);
         block.setVisible(false);
         if(blocked) block.setVisible(true);
 
         valasztott = new OneSpriteStaticActor(game, SEL);
         valasztott.setSize(gs.getWidth()/3,gs.getWidth()/3);
         valasztott.setPosition(back.getX(),back.getY());
-        gs.addActor(valasztott,21000);
+        gs.addActor(valasztott,121000);
         valasztott.setVisible(false);
         if(selected) valasztott.setVisible(true);
 
